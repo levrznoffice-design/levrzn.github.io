@@ -501,13 +501,64 @@
         }
 
         .hw-delete {
-            margin-left: auto;
             background: transparent;
             border: none;
             color: #ff6b6b;
             cursor: pointer;
             font-weight: bold;
             font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .hw-actions {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .hw-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: .8rem;
+            transition: all .2s;
+            opacity: .5;
+        }
+        .hw-btn:hover { opacity: 1; }
+        .hw-copy { color: #4a9eff; }
+        .hw-link-btn { color: #c9a96e; font-size: .75rem; }
+        .hw-link-btn.has-link { opacity: 1; }
+
+        .hw-link-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+            padding-left: 24px;
+        }
+        .hw-link-row a {
+            color: #4a9eff;
+            font-size: .7rem;
+            word-break: break-all;
+            text-decoration: none;
+            opacity: .7;
+            transition: opacity .2s;
+        }
+        .hw-link-row a:hover { opacity: 1; }
+        .hw-link-input {
+            flex: 1;
+            padding: 4px 8px;
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 6px;
+            color: #fff;
+            font-family: Inter, sans-serif;
+            font-size: .7rem;
+            outline: none;
         }
 
         /* Appointments Section */
@@ -1060,9 +1111,12 @@
                     <!-- Card 4: Hausaufgaben -->
                     <div class="deutsch-card">
                         <h3>Hausaufgaben</h3>
-                        <div class="form-row" style="margin-bottom: 12px;">
-                            <input type="text" id="hwInput" placeholder="Add homework..." style="flex: 1;">
+                        <div class="form-row" style="margin-bottom: 8px;">
+                            <input type="text" id="hwInput" placeholder="Homework text..." style="flex: 1;">
                             <button class="btn" onclick="addHomework()">Add</button>
+                        </div>
+                        <div class="form-row" style="margin-bottom: 12px;">
+                            <input type="text" id="hwLinkInput" placeholder="Link (optional)" style="flex: 1; font-size:.8rem; opacity:.7;">
                         </div>
                         <div id="hwList" class="hw-list"></div>
                     </div>
@@ -1506,27 +1560,51 @@
             const list = document.getElementById('hwList');
             list.innerHTML = '';
             hw.forEach((item, idx) => {
+                const wrapper = document.createElement('div');
+                wrapper.style.marginBottom = '6px';
+
                 const hwDiv = document.createElement('div');
                 hwDiv.className = 'hw-item' + (item.done ? ' completed' : '');
+                hwDiv.style.marginBottom = '0';
+
+                const linkIcon = item.link ? '🔗' : '＋';
+                const linkClass = item.link ? 'hw-link-btn has-link' : 'hw-link-btn';
+
                 hwDiv.innerHTML = `
                     <input type="checkbox" ${item.done ? 'checked' : ''}
                            onchange="toggleHomework(${idx})">
-                    <span>${item.text}</span>
-                    <button class="hw-delete" onclick="deleteHomework(${idx})">×</button>
+                    <span style="flex:1;word-break:break-word;">${item.text}</span>
+                    <div class="hw-actions">
+                        <button class="hw-btn hw-copy" onclick="copyHW(${idx})" title="Copy">📋</button>
+                        <button class="hw-btn ${linkClass}" onclick="toggleHWLink(${idx})" title="Link">${linkIcon}</button>
+                        <button class="hw-delete" onclick="deleteHomework(${idx})">×</button>
+                    </div>
                 `;
-                list.appendChild(hwDiv);
+                wrapper.appendChild(hwDiv);
+
+                // Link row
+                if (item.link) {
+                    const linkRow = document.createElement('div');
+                    linkRow.className = 'hw-link-row';
+                    linkRow.innerHTML = `<a href="${item.link}" target="_blank">🔗 ${item.link.length > 40 ? item.link.substring(0,40)+'...' : item.link}</a>`;
+                    wrapper.appendChild(linkRow);
+                }
+
+                list.appendChild(wrapper);
             });
         }
 
         function addHomework() {
             const text = document.getElementById('hwInput').value.trim();
             if (!text) return;
+            const link = document.getElementById('hwLinkInput').value.trim();
 
             const hw = JSON.parse(localStorage.getItem('levhub_hw') || '[]');
-            hw.push({ text, done: false });
+            hw.push({ text, done: false, link: link || '' });
             localStorage.setItem('levhub_hw', JSON.stringify(hw));
 
             document.getElementById('hwInput').value = '';
+            document.getElementById('hwLinkInput').value = '';
             loadHomework();
         }
 
@@ -1540,6 +1618,25 @@
         function deleteHomework(idx) {
             const hw = JSON.parse(localStorage.getItem('levhub_hw') || '[]');
             hw.splice(idx, 1);
+            localStorage.setItem('levhub_hw', JSON.stringify(hw));
+            loadHomework();
+        }
+
+        function copyHW(idx) {
+            const hw = JSON.parse(localStorage.getItem('levhub_hw') || '[]');
+            let text = hw[idx].text;
+            if (hw[idx].link) text += '\n' + hw[idx].link;
+            navigator.clipboard.writeText(text).then(() => {
+                const btns = document.querySelectorAll('.hw-copy');
+                if (btns[idx]) { btns[idx].textContent = '✓'; setTimeout(() => { btns[idx].textContent = '📋'; }, 1000); }
+            });
+        }
+
+        function toggleHWLink(idx) {
+            const hw = JSON.parse(localStorage.getItem('levhub_hw') || '[]');
+            const newLink = prompt('Enter link (or empty to remove):', hw[idx].link || '');
+            if (newLink === null) return;
+            hw[idx].link = newLink.trim();
             localStorage.setItem('levhub_hw', JSON.stringify(hw));
             loadHomework();
         }
