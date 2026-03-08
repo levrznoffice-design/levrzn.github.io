@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEV'S HUB</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23e8d5a8'/%3E%3Cstop offset='100%25' stop-color='%23c9a96e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Crect x='2' y='2' width='60' height='60' rx='12' fill='none' stroke='url(%23g)' stroke-width='2'/%3E%3Ctext x='32' y='44' font-family='Inter,Arial,sans-serif' font-size='32' font-weight='700' fill='url(%23g)' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== LOGIN SCREEN ===== */
+        .login-overlay {
+            position: fixed; inset: 0; z-index: 99999;
+            display: flex; align-items: center; justify-content: center;
+            background: #0a0a0a;
+            transition: opacity .5s, visibility .5s;
+        }
+        .login-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .login-box {
+            background: rgba(17,17,17,.95);
+            border: 1px solid rgba(201,169,110,.2);
+            border-radius: 20px;
+            padding: 48px 36px 36px;
+            max-width: 380px; width: 90%;
+            text-align: center;
+            box-shadow: 0 24px 80px rgba(0,0,0,.6), 0 0 60px rgba(201,169,110,.04);
+        }
+        .login-logo {
+            width: 56px; height: 56px;
+            margin: 0 auto 20px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(201,169,110,.15), rgba(201,169,110,.05));
+            border: 1px solid rgba(201,169,110,.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; font-weight: 700;
+            background-clip: padding-box;
+            color: #c9a96e;
+        }
+        .login-title {
+            font-size: .7rem; font-weight: 500; letter-spacing: 4px;
+            text-transform: uppercase; color: rgba(200,170,110,.5);
+            margin-bottom: 28px;
+        }
+        .login-input {
+            width: 100%; padding: 14px 18px;
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 12px; color: #fff;
+            font-family: Inter, sans-serif; font-size: .95rem;
+            text-align: center; outline: none;
+            margin-bottom: 12px;
+            transition: border-color .3s;
+        }
+        .login-input:focus { border-color: rgba(201,169,110,.35); }
+        .login-input::placeholder { color: rgba(255,255,255,.2); }
+        .login-btn {
+            width: 100%; padding: 14px; margin-top: 8px;
+            border-radius: 12px; border: 1px solid rgba(201,169,110,.3);
+            background: linear-gradient(135deg, rgba(201,169,110,.2), rgba(201,169,110,.08));
+            color: #c9a96e; font-family: Inter, sans-serif;
+            font-weight: 600; font-size: .9rem; cursor: pointer;
+            letter-spacing: 1px; transition: all .3s;
+        }
+        .login-btn:hover { background: linear-gradient(135deg, rgba(201,169,110,.3), rgba(201,169,110,.15)); }
+        .login-error {
+            color: #e74c3c; font-size: .75rem; margin-top: 12px;
+            opacity: 0; transition: opacity .3s;
+        }
+        .login-error.show { opacity: 1; }
+
+        /* Background Slideshow */
+        .background-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            filter: blur(2px) saturate(1.2);
+        }
+
+        .bg-img.active {
+            opacity: 0.13;
+        }
+
+        .bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(200,170,110,.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 80%, rgba(80,130,200,.06) 0%, transparent 60%),
+                linear-gradient(180deg, rgba(10,10,10,.3) 0%, rgba(10,10,10,.65) 100%);
+            z-index: 1;
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px 80px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 600;
+            letter-spacing: 8px;
+            background: linear-gradient(135deg, #e8d5a8 0%, #fff 40%, #c9a96e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .header .subtitle {
+            font-size: 0.85rem;
+            color: #c9a96e;
+            letter-spacing: 3px;
+            font-weight: 300;
+            margin-bottom: 24px;
+        }
+
+        .header-divider {
+            height: 2px;
+            width: 80px;
+            background: linear-gradient(90deg, transparent, #c9a96e, transparent);
+            margin: 0 auto;
+        }
+
+        /* Fast Access Section */
+        .fast-access {
+            display: flex;
+            gap: 24px;
+            margin: 40px 0 50px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .fast-access-card {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.06);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 280px;
+            transition: all 0.3s ease;
+        }
+
+        .fast-access-card:hover {
+            background: rgba(255,255,255,.06);
+            border-color: rgba(201,169,110,.3);
+        }
+
+        .fa-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            object-fit: cover;
+        }
+
+        .fast-access-card:hover .fa-avatar {
+            border-color: #c9a96e;
+            transform: scale(1.05);
+        }
+
+        .fa-content {
+            flex: 1;
+        }
+
+        .fa-label {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .fa-sublabel {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+        .copy-btn, .unlock-btn {
+            padding: 8px 12px;
+            background: rgba(201,169,110,.2);
+            border: 1px solid rgba(201,169,110,.4);
+            border-radius: 8px;
+            color: #c9a96e;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover, .unlock-btn:hover {
+            background: rgba(201,169,110,.3);
+            border-color: #c9a96e;
+        }
+
+        .copy-feedback {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #c9a96e;
+            color: #0a0a0a;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-bottom: 60px;
+            grid-auto-rows: 100px;
+        }
+
+        .gallery-item {
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+            filter: brightness(0.9) saturate(1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+            filter: brightness(1.1) saturate(1.3);
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #c9a96e;
+            margin-bottom: 20px;
+            margin-top: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Accordion */
+        .accordion {
+            margin-bottom: 30px;
+        }
+
+        .accordion-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.06);
+            padding: 16px 20px;
+            border-radius: 14px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .accordion-toggle:hover {
+            background: rgba(255,255,255,.06);
+            border-color: rgba(201,169,110,.3);
+        }
+
+        .accordion-toggle img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .accordion-toggle .chevron {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .accordion-toggle.active .chevron {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            display: none;
+            padding-top: 20px;
+        }
+
+        .accordion-content.active {
+            display: block;
+        }
+
+        /* Deutsch Section */
+        .deutsch-inner {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .deutsch-card {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.06);
+            backdrop-filter: blur(12px);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .deutsch-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #c9a96e;
+        }
+
+        .zoom-link {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .zoom-link a {
+            color: #4a9eff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            word-break: break-all;
+        }
+
+        .zoom-link a:hover {
+            color: #7ab8ff;
+        }
+
+        .zoom-details {
+            font-size: 0.85rem;
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        .lesson-counter {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(201,169,110,.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: space-between;
+        }
+
+        .lesson-counter-value {
+            font-weight: 600;
+            color: #c9a96e;
+            font-size: 1.3rem;
+        }
+
+        .lesson-counter-label {
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        /* Schedule Grid */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .schedule-day {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .schedule-day-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #c9a96e;
+            text-transform: uppercase;
+        }
+
+        .schedule-day input {
+            width: 100%;
+            padding: 8px;
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .schedule-day input::placeholder {
+            color: #666;
+        }
+
+        /* Homework List */
+        .hw-list {
+            margin-top: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .hw-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: rgba(201,169,110,.05);
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        .hw-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .hw-item.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .hw-delete {
+            margin-left: auto;
+            background: transparent;
+            border: none;
+            color: #ff6b6b;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        /* Appointments Section */
+        .appointment-list {
+            margin-top: 16px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .appointment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(201,169,110,.05);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .appointment-details {
+            flex: 1;
+        }
+
+        .appointment-date {
+            font-weight: 600;
+            color: #c9a96e;
+        }
+
+        .appointment-time {
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        .appointment-desc {
+            font-size: 0.85rem;
+            color: #ddd;
+            margin-top: 4px;
+        }
+
+        .appointment-delete {
+            background: transparent;
+            border: none;
+            color: #ff6b6b;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 0 8px;
+        }
+
+        /* Notes Section */
+        .notes-list {
+            margin-top: 16px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .note-item {
+            display: block;
+            padding: 12px;
+            background: rgba(201,169,110,.05);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .note-title {
+            font-weight: 600;
+            color: #c9a96e;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .note-desc {
+            color: #ddd;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .note-delete {
+            background: transparent;
+            border: none;
+            color: #ff6b6b;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        /* Form Elements */
+        input, textarea, select {
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 10px;
+            padding: 10px 12px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            background: rgba(255,255,255,.12);
+            border-color: rgba(201,169,110,.4);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #666;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .form-row input, .form-row textarea, .form-row select {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: rgba(201,169,110,.3);
+            border: 1px solid rgba(201,169,110,.5);
+            border-radius: 10px;
+            color: #c9a96e;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            background: rgba(201,169,110,.4);
+            border-color: #c9a96e;
+        }
+
+        /* Link Cards Grid */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .link-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 24px 16px;
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.06);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .link-card:hover {
+            background: rgba(255,255,255,.06);
+            border-color: rgba(201,169,110,.3);
+            transform: translateY(-4px);
+        }
+
+        .icon-wrap {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(201,169,110,.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .link-card:hover .icon-wrap {
+            background: rgba(201,169,110,.2);
+        }
+
+        .icon-wrap img {
+            width: 34px;
+            height: 34px;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+
+        .label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        /* Financial Charts */
+        .financial-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .chart-card {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.06);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .chart-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #c9a96e;
+        }
+
+        .chart-canvas {
+            width: 100%;
+            height: 280px;
+            margin-bottom: 20px;
+            background: #111;
+            border-radius: 10px;
+        }
+
+        .chart-toggle {
+            display: flex;
+            gap: 4px;
+            background: rgba(255,255,255,.06);
+            border-radius: 8px;
+            padding: 3px;
+        }
+
+        .chart-toggle-btn {
+            padding: 5px 10px;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,.3);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .chart-toggle-btn:hover {
+            color: rgba(255,255,255,.6);
+        }
+
+        .chart-toggle-btn.active {
+            background: rgba(201,169,110,.2);
+            color: #c9a96e;
+        }
+
+        .chart-input-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .chart-input-row input {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .chart-data-list {
+            margin-top: 16px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 0.85rem;
+        }
+
+        .chart-data-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            background: rgba(201,169,110,.05);
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+
+        .chart-data-delete {
+            background: transparent;
+            border: none;
+            color: #ff6b6b;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            font-size: 0.8rem;
+            color: #666;
+            letter-spacing: 3px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 640px) {
+            .container {
+                padding: 40px 16px 60px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+                letter-spacing: 4px;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(3, 1fr);
+                grid-auto-rows: 80px;
+                gap: 6px;
+            }
+
+            .links-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .link-card {
+                padding: 22px 10px;
+            }
+
+            .deutsch-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .fast-access {
+                flex-direction: column;
+            }
+
+            .fast-access-card {
+                min-width: unset;
+            }
+
+            .chart-canvas {
+                height: 200px;
+            }
+
+            .financial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,.02);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(201,169,110,.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(201,169,110,.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <div class="login-logo">L</div>
+            <div class="login-title">LEV'S HUB</div>
+            <input class="login-input" id="loginUser" type="text" placeholder="Username" autocomplete="off">
+            <input class="login-input" id="loginPass" type="password" placeholder="Password">
+            <button class="login-btn" id="loginBtn">ENTER</button>
+            <div class="login-error" id="loginError">Invalid credentials</div>
+        </div>
+    </div>
+
+    <!-- Background Slideshow -->
+    <div class="background-slideshow">
+        <img class="bg-img active" id="bg1" src="background1.jpg" alt="">
+        <img class="bg-img" id="bg2" src="background2.jpg" alt="">
+        <div class="bg-overlay"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>LEV'S HUB</h1>
+            <div class="subtitle">Лев = Богат, Красив, Счастлив, Здоров</div>
+            <div class="header-divider"></div>
+        </div>
+
+        <!-- Gallery -->
+        <div class="gallery">
+            <div class="gallery-item tall"><img src="photo1.jpg" alt=""></div>
+            <div class="gallery-item wide"><img src="photo2.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo3.jpg" alt=""></div>
+            <div class="gallery-item tall"><img src="photo4.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo5.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo6.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo7.jpg" alt=""></div>
+            <div class="gallery-item tall"><img src="photo8.jpg" alt=""></div>
+            <div class="gallery-item wide"><img src="photo9.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo10.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo11.jpg" alt=""></div>
+            <div class="gallery-item tall"><img src="photo12.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo13.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo14.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo15.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo16.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo17.jpg" alt=""></div>
+            <div class="gallery-item wide"><img src="photo18.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo19.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo20.jpg" alt=""></div>
+            <div class="gallery-item tall"><img src="photo21.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo23.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo24.jpg" alt=""></div>
+            <div class="gallery-item tall"><img src="photo25.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo26.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo27.jpg" alt=""></div>
+            <div class="gallery-item wide"><img src="photo28.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo29.jpg" alt=""></div>
+            <div class="gallery-item wide"><img src="photo30.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo31.jpg" alt=""></div>
+            <div class="gallery-item"><img src="photo32.jpg" alt=""></div>
+        </div>
+
+        <!-- Fast Access Section -->
+        <div class="fast-access">
+            <!-- Revolut -->
+            <div class="fast-access-card">
+                <a href="https://revolut.me/levrazn" target="_blank" style="display:flex;align-items:center;">
+                    <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#0075EB,#00D4AA);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#fff;font-family:Inter,sans-serif;">R</div>
+                </a>
+                <div class="fa-content">
+                    <div class="fa-label">Revolut</div>
+                    <div class="fa-sublabel">revolut.me/levrazn</div>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard('https://revolut.me/levrazn')">Copy</button>
+            </div>
+
+            <!-- Training Hub -->
+            <div class="fast-access-card">
+                <div style="display: flex; gap: 12px; align-items: center; width: 100%;">
+                    <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#4ade80,#059669);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#fff;font-family:Inter,sans-serif;">S</div>
+                    <div class="fa-content">
+                        <div class="fa-label">Training Hub</div>
+                        <div class="fa-sublabel">Workout + Timer</div>
+                    </div>
+                </div>
+                <button class="copy-btn" onclick="window.open('training.html', '_self')">Open</button>
+            </div>
+
+            <!-- Recharge -->
+            <div class="fast-access-card">
+                <div style="display: flex; gap: 12px; align-items: center; width: 100%;">
+                    <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#fff;font-family:Inter,sans-serif;">R</div>
+                    <div class="fa-content">
+                        <div class="fa-label">Recharge</div>
+                        <div class="fa-sublabel">AI Limit Tracker</div>
+                    </div>
+                </div>
+                <button class="copy-btn" onclick="window.open('recharge.html', '_self')">Open</button>
+            </div>
+
+        </div>
+
+        <!-- Notes Module -->
+        <div class="accordion">
+            <button class="accordion-toggle" onclick="toggleAccordion(this)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><rect x="4" y="2" width="14" height="20" rx="2" fill="#c0392b"/><rect x="4" y="2" width="4" height="20" rx="0" fill="#a93226"/><line x1="9" y1="7" x2="16" y2="7" stroke="#f5b7b1" stroke-width="1.2" stroke-linecap="round"/><line x1="9" y1="10" x2="14" y2="10" stroke="#f5b7b1" stroke-width="1.2" stroke-linecap="round"/><line x1="9" y1="13" x2="15" y2="13" stroke="#f5b7b1" stroke-width="1.2" stroke-linecap="round"/></svg>
+                <span>Notes</span>
+                <div class="chevron">▼</div>
+            </button>
+            <div class="accordion-content">
+                <div class="form-row" style="margin-bottom: 12px;">
+                    <input type="text" id="noteTitle" placeholder="Note title" style="flex: 1;">
+                    <textarea id="noteDesc" placeholder="Note description" style="flex: 1; min-height: 60px;"></textarea>
+                    <button class="btn" onclick="addNote()">Add</button>
+                </div>
+                <div id="notesList" class="notes-list"></div>
+            </div>
+        </div>
+
+        <!-- Deutsch Section -->
+        <div class="accordion">
+            <button class="accordion-toggle" onclick="toggleAccordion(this)">
+                <img src="german.icon.png" alt="Deutsch">
+                <span>Deutsch — Marharyta</span>
+                <div class="chevron">▼</div>
+            </button>
+            <div class="accordion-content">
+                <div class="deutsch-inner">
+                    <!-- Card 1: Unterricht -->
+                    <div class="deutsch-card">
+                        <h3>Unterricht</h3>
+                        <div id="zoomData" class="zoom-link" style="display:flex;align-items:center;gap:12px;">
+                            <div style="font-size:.75rem;color:rgba(255,255,255,.2);font-style:italic;">Login to see Zoom</div>
+                        </div>
+                        <div class="lesson-counter">
+                            <div>
+                                <div class="lesson-counter-label">Lessons</div>
+                                <div class="lesson-counter-value" id="lessonCounter">0</div>
+                            </div>
+                            <div style="display:flex;gap:6px;">
+                                <button class="btn" onclick="decrementLessons()" style="padding:8px 14px;font-size:1.1rem;font-weight:600;border-radius:10px;background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.25);color:#ff6b6b;cursor:pointer;">−</button>
+                                <button class="btn" onclick="incrementLessons()" style="padding:8px 14px;font-size:1.1rem;font-weight:600;border-radius:10px;background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.25);color:#4ade80;cursor:pointer;">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Stundenplan -->
+                    <div class="deutsch-card">
+                        <h3>Stundenplan</h3>
+                        <div class="schedule-grid" id="scheduleGrid"></div>
+                    </div>
+
+                    <!-- Card 3: Materialien -->
+                    <div class="deutsch-card">
+                        <h3>Materialien</h3>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <a href="file:///C:/Users/levra/OneDrive/%D0%A0%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9%20%D1%81%D1%82%D0%BE%D0%BB/PC/Deutsch%20Marharyta/Hausaufgaben/Pr%C3%A4teritum%20%C3%9Cben/scripts/index.html" target="_blank" style="display:flex;align-items:center;gap:10px;color:#4a9eff;text-decoration:none;font-weight:500;padding:8px 12px;border-radius:10px;background:rgba(74,158,255,.08);border:1px solid rgba(74,158,255,.15);transition:all .25s;">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="1" width="18" height="22" rx="3" fill="#3498db"/><path d="M7 7h10M7 11h10M7 15h6" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg>
+                                Präteritum Üben
+                            </a>
+                            <a href="grammatik_20_tabellen.pdf" target="_blank" style="display:flex;align-items:center;gap:10px;color:#4a9eff;text-decoration:none;font-weight:500;padding:8px 12px;border-radius:10px;background:rgba(74,158,255,.08);border:1px solid rgba(74,158,255,.15);transition:all .25s;">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="1" width="18" height="22" rx="3" fill="#e74c3c"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/><text x="12" y="20" font-size="5" fill="#fff" text-anchor="middle" font-weight="700">PDF</text></svg>
+                                Grammatik in 20 Tabellen
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Hausaufgaben -->
+                    <div class="deutsch-card">
+                        <h3>Hausaufgaben</h3>
+                        <div class="form-row" style="margin-bottom: 12px;">
+                            <input type="text" id="hwInput" placeholder="Add homework..." style="flex: 1;">
+                            <button class="btn" onclick="addHomework()">Add</button>
+                        </div>
+                        <div id="hwList" class="hw-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Appointments -->
+        <div class="accordion">
+            <button class="accordion-toggle" onclick="toggleAccordion(this)">
+                <img src="appointment.icon.png" alt="Appointments">
+                <span>Appointments</span>
+                <div class="chevron">▼</div>
+            </button>
+            <div class="accordion-content">
+                <div class="form-row">
+                    <input type="date" id="apptDate">
+                    <input type="time" id="apptTime">
+                    <input type="text" id="apptDesc" placeholder="Description" style="flex: 1;">
+                    <button class="btn" onclick="addAppointment()">Add</button>
+                </div>
+                <div id="appointmentList" class="appointment-list"></div>
+            </div>
+        </div>
+
+        <!-- Financial Trackers -->
+        <div class="financial-grid">
+            <!-- Chart 1: Total Net Worth -->
+            <div class="chart-card">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                    <h3 style="margin-bottom:0;">Total Net Worth <span id="nwTotal" style="font-size:.85rem;color:#4ade80;font-weight:400;margin-left:8px;">CHF 0.00</span></h3>
+                    <div class="chart-toggle">
+                        <button class="chart-toggle-btn active" onclick="setChartMode('netWorthChart','candles',this)">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="3" height="12" rx="1"/><rect x="10" y="5" width="3" height="8" rx="1"/><line x1="4.5" y1="0" x2="4.5" y2="2" stroke="currentColor" stroke-width="1.2"/><line x1="11.5" y1="3" x2="11.5" y2="5" stroke="currentColor" stroke-width="1.2"/></svg>
+                        </button>
+                        <button class="chart-toggle-btn" onclick="setChartMode('netWorthChart','wave',this)">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12 L4 6 L8 9 L12 3 L15 5"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <canvas id="netWorthChart" class="chart-canvas"></canvas>
+                <div class="chart-input-row">
+                    <input type="text" id="nwDate" placeholder="DD.MM.YYYY" style="width:110px;">
+                    <input type="number" id="nwAmount" placeholder="Amount (CHF)" step="0.01">
+                    <button class="btn" onclick="addNetWorth()">Add</button>
+                </div>
+                <div id="nwList" class="chart-data-list"></div>
+            </div>
+
+            <!-- Chart 2: Investment Seed -->
+            <div class="chart-card">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                    <h3 style="margin-bottom:0;">Investment Seed <span id="seedTotal" style="font-size:.85rem;color:#4ade80;font-weight:400;margin-left:8px;">CHF 0.00</span></h3>
+                    <div class="chart-toggle">
+                        <button class="chart-toggle-btn active" onclick="setChartMode('seedChart','candles',this)">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="3" height="12" rx="1"/><rect x="10" y="5" width="3" height="8" rx="1"/><line x1="4.5" y1="0" x2="4.5" y2="2" stroke="currentColor" stroke-width="1.2"/><line x1="11.5" y1="3" x2="11.5" y2="5" stroke="currentColor" stroke-width="1.2"/></svg>
+                        </button>
+                        <button class="chart-toggle-btn" onclick="setChartMode('seedChart','wave',this)">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12 L4 6 L8 9 L12 3 L15 5"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <canvas id="seedChart" class="chart-canvas"></canvas>
+                <div class="chart-input-row">
+                    <input type="text" id="seedDate" placeholder="DD.MM.YYYY" style="width:110px;">
+                    <input type="number" id="seedAmount" placeholder="Amount (CHF)" step="0.01">
+                    <button class="btn" onclick="addSeed()">Add</button>
+                </div>
+                <div id="seedList" class="chart-data-list"></div>
+            </div>
+        </div>
+
+        <!-- Links Sections -->
+        <!-- Social & Media -->
+        <div class="section-title">Social & Media</div>
+        <div class="links-grid">
+            <a class="link-card" href="https://youtube.com/" target="_blank">
+                <div class="icon-wrap"><img src="youtube.icon.png" alt=""></div>
+                <span class="label">YouTube</span>
+            </a>
+            <a class="link-card" href="https://www.facebook.com/" target="_blank">
+                <div class="icon-wrap"><img src="facebook.icon.png" alt=""></div>
+                <span class="label">Facebook</span>
+            </a>
+            <a class="link-card" href="https://pinterest.com/" target="_blank">
+                <div class="icon-wrap"><img src="pinterest.icon.png" alt=""></div>
+                <span class="label">Pinterest</span>
+            </a>
+            <a class="link-card" href="https://open.spotify.com/" target="_blank">
+                <div class="icon-wrap"><img src="Spotify.icon.png" alt=""></div>
+                <span class="label">Spotify</span>
+            </a>
+            <a class="link-card" href="https://soundcloud.com/" target="_blank">
+                <div class="icon-wrap"><img src="soundcloud.icon.png" alt=""></div>
+                <span class="label">SoundCloud</span>
+            </a>
+        </div>
+
+        <!-- AI -->
+        <div class="section-title">AI</div>
+        <div class="links-grid">
+            <a class="link-card" href="https://chatgpt.com/" target="_blank">
+                <div class="icon-wrap"><img src="chatgpt.icon.png" alt=""></div>
+                <span class="label">ChatGPT</span>
+            </a>
+            <a class="link-card" href="https://claude.ai/" target="_blank">
+                <div class="icon-wrap"><img src="claude.icon.svg" alt=""></div>
+                <span class="label">Claude AI</span>
+            </a>
+            <a class="link-card" href="https://gemini.google.com/" target="_blank">
+                <div class="icon-wrap"><img src="gemini-color.icon.png" alt=""></div>
+                <span class="label">Gemini</span>
+            </a>
+            <a class="link-card" href="https://arena.ai/leaderboard" target="_blank">
+                <div class="icon-wrap"><img src="lmarena-ai.icon.webp" alt=""></div>
+                <span class="label">Arena AI</span>
+            </a>
+        </div>
+
+        <!-- Translators -->
+        <div class="section-title">Translators</div>
+        <div class="links-grid">
+            <a class="link-card" href="https://www.deepl.com/ru/translator" target="_blank">
+                <div class="icon-wrap"><img src="deepl-color.icon.png" alt=""></div>
+                <span class="label">DeepL</span>
+            </a>
+            <a class="link-card" href="https://de.pons.com/%C3%BCbersetzung" target="_blank">
+                <div class="icon-wrap"><img src="pons.icon.png" alt=""></div>
+                <span class="label">PONS</span>
+            </a>
+        </div>
+
+        <!-- Trading & Crypto -->
+        <div class="section-title">Trading & Crypto</div>
+        <div class="links-grid">
+            <a class="link-card" href="https://www.binance.com/ru" target="_blank">
+                <div class="icon-wrap"><img src="binance.icon.png" alt=""></div>
+                <span class="label">Binance</span>
+            </a>
+            <a class="link-card" href="https://www.bybit.com/" target="_blank">
+                <div class="icon-wrap"><img src="bybit.icon.png" alt=""></div>
+                <span class="label">Bybit</span>
+            </a>
+            <a class="link-card" href="https://ru.tradingview.com/" target="_blank">
+                <div class="icon-wrap"><img src="tradingview_logo.icon.png" alt=""></div>
+                <span class="label">TradingView</span>
+            </a>
+        </div>
+
+        <!-- Tools & Productivity -->
+        <div class="section-title">Tools & Productivity</div>
+        <div class="links-grid">
+            <a class="link-card" href="https://mail.google.com/" target="_blank">
+                <div class="icon-wrap"><img src="gmail.icon.webp" alt=""></div>
+                <span class="label">Gmail</span>
+            </a>
+            <a class="link-card" href="https://docs.google.com/spreadsheets/d/1anPRJzyXqCGHT4pTCRE2bn8SyZuoxhmW9rWsEOywrP8/edit?gid=0#gid=0" target="_blank">
+                <div class="icon-wrap"><img src="Google_Sheets_2020_Logo.svg.icon.png" alt=""></div>
+                <span class="label">Google Sheets</span>
+            </a>
+            <a class="link-card" href="https://www.google.com/maps" target="_blank">
+                <div class="icon-wrap"><img src="Google_Maps_icon_(2020).icon.png" alt=""></div>
+                <span class="label">Google Maps</span>
+            </a>
+            <a class="link-card" href="https://word.cloud.microsoft/" target="_blank">
+                <div class="icon-wrap"><img src="Microsoft_Office_Word_(2019–2025).icon.png" alt=""></div>
+                <span class="label">Word</span>
+            </a>
+            <a class="link-card" href="https://canva.com/" target="_blank">
+                <div class="icon-wrap"><img src="canva.icon.png" alt=""></div>
+                <span class="label">Canva</span>
+            </a>
+            <a class="link-card" href="https://multicheckk.neocities.org/" target="_blank">
+                <div class="icon-wrap"><img src="Multicheck.icon.webp" alt=""></div>
+                <span class="label">MultiCheck</span>
+            </a>
+            <a class="link-card" href="https://5sim.net/" target="_blank">
+                <div class="icon-wrap"><img src="5sim.icon.png" alt=""></div>
+                <span class="label">5sim</span>
+            </a>
+        </div>
+
+        <!-- Websites & Dev -->
+        <div class="section-title">Websites & Dev</div>
+        <div class="links-grid">
+            <a class="link-card" href="https://codepen.io/" target="_blank">
+                <div class="icon-wrap"><img src="codepen.icon.webp" alt=""></div>
+                <span class="label">CodePen</span>
+            </a>
+            <a class="link-card" href="https://neocities.org/" target="_blank">
+                <div class="icon-wrap"><img src="Neocities_Logo.icon.png" alt=""></div>
+                <span class="label">Neocities</span>
+            </a>
+            <a class="link-card" href="https://www.infomaniak.com/en" target="_blank">
+                <div class="icon-wrap"><img src="infomaniak.icon.png" alt=""></div>
+                <span class="label">Infomaniak</span>
+            </a>
+            <a class="link-card" href="https://lashesswiss.ch/" target="_blank">
+                <div class="icon-wrap"><img src="lashesswiss.icon.png" alt=""></div>
+                <span class="label">Lashes Swiss</span>
+            </a>
+            <a class="link-card" href="https://petsitting24.ch/" target="_blank">
+                <div class="icon-wrap"><img src="petsitting24.icon.png" alt=""></div>
+                <span class="label">PetSitting24</span>
+            </a>
+            <a class="link-card" href="https://supabase.com/" target="_blank">
+                <div class="icon-wrap"><img src="supabase.icon.svg" alt=""></div>
+                <span class="label">Supabase</span>
+            </a>
+            <a class="link-card" href="https://vercel.com/" target="_blank">
+                <div class="icon-wrap"><img src="vercel.icon.png" alt=""></div>
+                <span class="label">Vercel</span>
+            </a>
+            <a class="link-card" href="https://host-my-page.com/" target="_blank">
+                <div class="icon-wrap" style="background:linear-gradient(135deg,#00b4d8,#0077b6);"><span style="font-weight:700;font-size:16px;color:#fff;">H</span></div>
+                <span class="label">Host My Page</span>
+            </a>
+            <a class="link-card" href="https://tilda.cc/" target="_blank">
+                <div class="icon-wrap"><img src="Tilda_Logo.icon.jpg" alt=""></div>
+                <span class="label">Tilda</span>
+            </a>
+        </div>
+
+        <!-- Shopping & Marketplace -->
+        <div class="section-title">Shopping & Marketplace</div>
+        <div class="links-grid">
+            <a class="link-card" href="https://www.tutti.ch/de" target="_blank">
+                <div class="icon-wrap"><img src="tutti.icon.png" alt=""></div>
+                <span class="label">Tutti.ch</span>
+            </a>
+            <a class="link-card" href="https://www.kakobuy.com/" target="_blank">
+                <div class="icon-wrap"><img src="kakobuy.icon.png" alt=""></div>
+                <span class="label">KakoBuy</span>
+            </a>
+            <a class="link-card" href="https://www.notino.ch/" target="_blank">
+                <div class="icon-wrap" style="background:linear-gradient(135deg,#e74c3c,#8e44ad);"><span style="font-weight:700;font-size:18px;color:#fff;">N</span></div>
+                <span class="label">Notino</span>
+            </a>
+            <a class="link-card" href="https://www.galaxus.ch/" target="_blank">
+                <div class="icon-wrap"><img src="galaxus.icon.png" alt=""></div>
+                <span class="label">Galaxus</span>
+            </a>
+        </div>
+
+        <!-- Jobs & Education -->
+        <div class="section-title">Jobs & Education</div>
+        <div class="links-grid">
+            <a class="link-card" href="https://buki.com.ua/" target="_blank">
+                <div class="icon-wrap"><img src="BUKI_logo_black_ua.icon.png" alt=""></div>
+                <span class="label">Buki</span>
+            </a>
+            <a class="link-card" href="https://www.yousty.ch/de-CH" target="_blank">
+                <div class="icon-wrap"><img src="Yousty-Logo.icon.png" alt=""></div>
+                <span class="label">Yousty</span>
+            </a>
+            <a class="link-card" href="https://www.informatikschuleolten.ch/" target="_blank">
+                <div class="icon-wrap" style="background:#1a5fb4;">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                </div>
+                <span class="label">Informatikschule Olten</span>
+            </a>
+        </div>
+
+        <!-- Finance & Services -->
+        <div class="section-title">Finance & Services</div>
+        <div class="links-grid">
+            <a class="link-card" href="https://www.raiffeisen.ch/" target="_blank">
+                <div class="icon-wrap"><img src="raiffaisen.icon.jpg" alt=""></div>
+                <span class="label">Raiffeisen</span>
+            </a>
+            <a class="link-card" href="https://www.visana.ch/" target="_blank">
+                <div class="icon-wrap" style="overflow:hidden;"><img src="visana.icon.png" alt="" style="width:56px;height:56px;object-fit:cover;border-radius:0;"></div>
+                <span class="label">Visana</span>
+            </a>
+            <a class="link-card" href="https://www.puregym.swiss/" target="_blank">
+                <div class="icon-wrap" style="overflow:hidden;"><img src="puregym.icon.png" alt="" style="width:52px;height:52px;object-fit:cover;border-radius:0;"></div>
+                <span class="label">Pure Gym</span>
+            </a>
+        </div>
+        <!-- Footer -->
+        <div class="footer">LEV'S HUB</div>
+    </div>
+
+    <script>
+        // Background Slideshow
+        const backgroundImages = [
+            'background1.jpg', 'background2.jpg', 'background3.jpg', 'background4.jpg',
+            'background5.jpg', 'background6.jpg', 'background7.jpg', 'background8.jpg',
+            'background9.jpg', 'background10.jpg', 'background11.jpg'
+        ];
+
+        let currentBgIndex = 0;
+        let nextBgIndex = 1;
+        let bgImages = document.querySelectorAll('.bg-img');
+
+        function shuffleBackgrounds() {
+            const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+            nextBgIndex = randomIndex;
+        }
+
+        function rotateBackground() {
+            const currentImg = bgImages[0];
+            const nextImg = bgImages[1];
+
+            nextImg.src = backgroundImages[nextBgIndex];
+            nextImg.classList.add('active');
+            setTimeout(() => {
+                currentImg.src = backgroundImages[nextBgIndex];
+                currentImg.classList.add('active');
+                nextImg.classList.remove('active');
+                shuffleBackgrounds();
+            }, 2000);
+
+            shuffleBackgrounds();
+        }
+
+        setInterval(rotateBackground, 15000);
+        rotateBackground();
+
+        // Accordion Toggle
+        function toggleAccordion(button) {
+            const content = button.nextElementSibling;
+            const isActive = button.classList.contains('active');
+
+            document.querySelectorAll('.accordion-toggle').forEach(b => {
+                b.classList.remove('active');
+                b.nextElementSibling.classList.remove('active');
+            });
+
+            if (!isActive) {
+                button.classList.add('active');
+                content.classList.add('active');
+            }
+        }
+
+        // Copy to Clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const feedback = document.createElement('div');
+                feedback.className = 'copy-feedback';
+                feedback.textContent = 'Copied!';
+                document.body.appendChild(feedback);
+                setTimeout(() => feedback.remove(), 2000);
+            });
+        }
+
+
+        // Notes
+        function loadNotes() {
+            const notes = JSON.parse(localStorage.getItem('levhub_notes') || '[]');
+            const list = document.getElementById('notesList');
+            list.innerHTML = '';
+            notes.forEach((note, idx) => {
+                const item = document.createElement('div');
+                item.className = 'note-item';
+                item.innerHTML = `
+                    <div class="note-title">
+                        <span>${note.title}</span>
+                        <button class="note-delete" onclick="deleteNote(${idx})">×</button>
+                    </div>
+                    <div class="note-desc">${note.desc}</div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function addNote() {
+            const title = document.getElementById('noteTitle').value.trim();
+            const desc = document.getElementById('noteDesc').value.trim();
+            if (!title || !desc) return alert('Fill all fields');
+
+            const notes = JSON.parse(localStorage.getItem('levhub_notes') || '[]');
+            notes.push({ title, desc });
+            localStorage.setItem('levhub_notes', JSON.stringify(notes));
+
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteDesc').value = '';
+            loadNotes();
+        }
+
+        function deleteNote(idx) {
+            const notes = JSON.parse(localStorage.getItem('levhub_notes') || '[]');
+            notes.splice(idx, 1);
+            localStorage.setItem('levhub_notes', JSON.stringify(notes));
+            loadNotes();
+        }
+
+        // Deutsch - Lessons
+        function loadLessons() {
+            const count = parseInt(localStorage.getItem('levhub_lessons') || '0');
+            document.getElementById('lessonCounter').textContent = count;
+        }
+
+        function incrementLessons() {
+            let count = parseInt(localStorage.getItem('levhub_lessons') || '0');
+            count++;
+            localStorage.setItem('levhub_lessons', count);
+            loadLessons();
+        }
+
+        function decrementLessons() {
+            let count = parseInt(localStorage.getItem('levhub_lessons') || '0');
+            if (count > 0) count--;
+            localStorage.setItem('levhub_lessons', count);
+            loadLessons();
+        }
+
+        // Deutsch - Schedule
+        function loadSchedule() {
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const grid = document.getElementById('scheduleGrid');
+            grid.innerHTML = '';
+
+            const schedule = JSON.parse(localStorage.getItem('levhub_schedule') || '{}');
+
+            days.forEach(day => {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'schedule-day';
+                const value = schedule[day] || '';
+                dayDiv.innerHTML = `
+                    <div class="schedule-day-label">${day}</div>
+                    <input type="text" value="${value}" placeholder="--:--"
+                           onchange="saveScheduleDay('${day}', this.value)">
+                `;
+                grid.appendChild(dayDiv);
+            });
+        }
+
+        function saveScheduleDay(day, value) {
+            const schedule = JSON.parse(localStorage.getItem('levhub_schedule') || '{}');
+            schedule[day] = value;
+            localStorage.setItem('levhub_schedule', JSON.stringify(schedule));
+        }
+
+        // Deutsch - Homework
+        function loadHomework() {
+            const hw = JSON.parse(localStorage.getItem('levhub_hw') || '[]');
+            const list = document.getElementById('hwList');
+            list.innerHTML = '';
+            hw.forEach((item, idx) => {
+                const hwDiv = document.createElement('div');
+                hwDiv.className = 'hw-item' + (item.done ? ' completed' : '');
+                hwDiv.innerHTML = `
+                    <input type="checkbox" ${item.done ? 'checked' : ''}
+                           onchange="toggleHomework(${idx})">
+                    <span>${item.text}</span>
+                    <button class="hw-delete" onclick="deleteHomework(${idx})">×</button>
+                `;
+                list.appendChild(hwDiv);
+            });
+        }
+
+        function addHomework() {
+            const text = document.getElementById('hwInput').value.trim();
+            if (!text) return;
+
+            const hw = JSON.parse(localStorage.getItem('levhub_hw') || '[]');
+            hw.push({ text, done: false });
+            localStorage.setItem('levhub_hw', JSON.stringify(hw));
+
+            document.getElementById('hwInput').value = '';
+            loadHomework();
+        }
+
+        function toggleHomework(idx) {
+            const hw = JSON.parse(localStorage.getItem('levhub_hw') || '[]');
+            hw[idx].done = !hw[idx].done;
+            localStorage.setItem('levhub_hw', JSON.stringify(hw));
+            loadHomework();
+        }
+
+        function deleteHomework(idx) {
+            const hw = JSON.parse(localStorage.getItem('levhub_hw') || '[]');
+            hw.splice(idx, 1);
+            localStorage.setItem('levhub_hw', JSON.stringify(hw));
+            loadHomework();
+        }
+
+        // Appointments
+        function loadAppointments() {
+            const appts = JSON.parse(localStorage.getItem('levhub_appt') || '[]');
+            const list = document.getElementById('appointmentList');
+            list.innerHTML = '';
+
+            appts.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            appts.forEach((appt, idx) => {
+                const item = document.createElement('div');
+                item.className = 'appointment-item';
+                item.innerHTML = `
+                    <div class="appointment-details">
+                        <div class="appointment-date">${appt.date}</div>
+                        <div class="appointment-time">${appt.time}</div>
+                        <div class="appointment-desc">${appt.desc}</div>
+                    </div>
+                    <button class="appointment-delete" onclick="deleteAppointment(${idx})">×</button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function addAppointment() {
+            const date = document.getElementById('apptDate').value;
+            const time = document.getElementById('apptTime').value;
+            const desc = document.getElementById('apptDesc').value.trim();
+            if (!date || !time || !desc) return alert('Fill all fields');
+
+            const appts = JSON.parse(localStorage.getItem('levhub_appt') || '[]');
+            appts.push({ date, time, desc });
+            localStorage.setItem('levhub_appt', JSON.stringify(appts));
+
+            document.getElementById('apptDate').value = '';
+            document.getElementById('apptTime').value = '';
+            document.getElementById('apptDesc').value = '';
+            loadAppointments();
+        }
+
+        function deleteAppointment(idx) {
+            const appts = JSON.parse(localStorage.getItem('levhub_appt') || '[]');
+            appts.splice(idx, 1);
+            localStorage.setItem('levhub_appt', JSON.stringify(appts));
+            loadAppointments();
+        }
+
+        // Financial Charts
+        // Chart modes storage
+        const chartModes = { netWorthChart: 'candles', seedChart: 'candles' };
+
+        function setChartMode(canvasId, mode, btn) {
+            chartModes[canvasId] = mode;
+            // Update toggle buttons
+            btn.parentElement.querySelectorAll('.chart-toggle-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            // Redraw
+            const key = canvasId === 'netWorthChart' ? 'levhub_networth' : 'levhub_seed';
+            const data = JSON.parse(localStorage.getItem(key) || '[]');
+            drawChart(canvasId, data);
+        }
+
+        function drawChart(canvasId, data) {
+            const mode = chartModes[canvasId] || 'candles';
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const width = canvas.offsetWidth;
+            const height = canvas.offsetHeight;
+            canvas.width = width;
+            canvas.height = height;
+
+            if (data.length === 0) {
+                ctx.fillStyle = '#aaa';
+                ctx.font = '14px Inter';
+                ctx.textAlign = 'center';
+                ctx.fillText('No data', width / 2, height / 2);
+                return;
+            }
+
+            const padding = { top: 20, right: 15, bottom: 30, left: 55 };
+            const chartWidth = width - padding.left - padding.right;
+            const chartHeight = height - padding.top - padding.bottom;
+
+            const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
+            const amounts = sortedData.map(d => parseFloat(d.amount));
+
+            // Build cumulative totals (running balance)
+            let running = 0;
+            const levels = [0];
+            amounts.forEach(a => { running += a; levels.push(running); });
+            // levels[0]=0, levels[1]=after first entry, etc.
+
+            const allLevels = levels;
+            const minLevel = Math.min(...allLevels);
+            const maxLevel = Math.max(...allLevels);
+            const range = maxLevel - minLevel || 1;
+
+            // Draw background
+            ctx.fillStyle = '#111';
+            ctx.fillRect(0, 0, width, height);
+
+            // Draw grid
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 4; i++) {
+                const y = padding.top + (chartHeight / 4) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding.left, y);
+                ctx.lineTo(width - padding.right, y);
+                ctx.stroke();
+            }
+
+            function yPos(val) {
+                return padding.top + chartHeight - ((val - minLevel) / range) * chartHeight;
+            }
+
+            const n = sortedData.length;
+            const candleGap = 3;
+            const maxCandleW = 18;
+            const totalCandleWidth = Math.min(chartWidth / n, maxCandleW + candleGap);
+            const candleWidth = Math.min(Math.max(totalCandleWidth - candleGap, 4), maxCandleW);
+            const chartStartX = padding.left + (chartWidth - totalCandleWidth * n) / 2;
+
+            if (mode === 'candles') {
+                // BINANCE-STYLE CANDLES
+                sortedData.forEach((point, idx) => {
+                    const amount = amounts[idx];
+                    const open = levels[idx];
+                    const close = levels[idx + 1];
+                    const isPositive = amount >= 0;
+                    const color = isPositive ? '#4ade80' : '#ff6b6b';
+
+                    const xCenter = chartStartX + (idx + 0.5) * totalCandleWidth;
+                    const yOpen = yPos(open);
+                    const yClose = yPos(close);
+                    const top = Math.min(yOpen, yClose);
+                    const bodyH = Math.abs(yOpen - yClose) || 2;
+
+                    // Wick
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(xCenter, top - 3);
+                    ctx.lineTo(xCenter, top + bodyH + 3);
+                    ctx.stroke();
+
+                    // Body
+                    ctx.fillStyle = color;
+                    ctx.fillRect(xCenter - candleWidth / 2, top, candleWidth, bodyH);
+                });
+            } else {
+                // WAVE / LINE MODE
+                const points = sortedData.map((p, idx) => ({
+                    x: chartStartX + (idx + 0.5) * totalCandleWidth,
+                    y: yPos(levels[idx + 1])
+                }));
+
+                const lastTotal = levels[levels.length - 1];
+                const lineColor = lastTotal >= 0 ? '#4ade80' : '#ff6b6b';
+                const grad = ctx.createLinearGradient(0, padding.top, 0, height - padding.bottom);
+                grad.addColorStop(0, lastTotal >= 0 ? 'rgba(74,222,128,.2)' : 'rgba(255,107,107,.2)');
+                grad.addColorStop(1, 'rgba(0,0,0,0)');
+
+                ctx.beginPath();
+                ctx.moveTo(points[0].x, yPos(0));
+                points.forEach(p => ctx.lineTo(p.x, p.y));
+                ctx.lineTo(points[points.length - 1].x, yPos(0));
+                ctx.closePath();
+                ctx.fillStyle = grad;
+                ctx.fill();
+
+                ctx.strokeStyle = lineColor;
+                ctx.lineWidth = 2.5;
+                ctx.lineJoin = 'round';
+                ctx.lineCap = 'round';
+                ctx.beginPath();
+                points.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
+                ctx.stroke();
+
+                ctx.fillStyle = lineColor;
+                points.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            }
+
+            // Date labels DD.MM
+            ctx.fillStyle = '#666';
+            ctx.font = '10px Inter';
+            ctx.textAlign = 'center';
+            const maxLabels = Math.floor(chartWidth / 45);
+            const labelStep = Math.max(1, Math.ceil(n / maxLabels));
+            sortedData.forEach((point, idx) => {
+                if (idx % labelStep !== 0 && idx !== n - 1) return;
+                const xPos = chartStartX + (idx + 0.5) * totalCandleWidth;
+                const parts = point.date.split('-');
+                const label = parts.length === 3 ? parts[2] + '.' + parts[1] : point.date.slice(5);
+                ctx.fillText(label, xPos, height - 6);
+            });
+
+            // Y-axis labels
+            ctx.fillStyle = '#c9a96e';
+            ctx.font = '11px Inter';
+            ctx.textAlign = 'right';
+            for (let i = 0; i <= 4; i++) {
+                const val = minLevel + (range / 4) * (4 - i);
+                const y = padding.top + (chartHeight / 4) * i;
+                ctx.fillText(val.toFixed(0), padding.left - 8, y + 4);
+            }
+        }
+
+        function loadNetWorth() {
+            const data = JSON.parse(localStorage.getItem('levhub_networth') || '[]');
+            drawChart('netWorthChart', data);
+            const total = data.reduce((sum, item) => sum + parseFloat(item.amount), 0);
+            const totalEl = document.getElementById('nwTotal');
+            if (totalEl) {
+                totalEl.textContent = 'CHF ' + total.toFixed(2);
+                totalEl.style.color = total >= 0 ? '#4ade80' : '#ff6b6b';
+            }
+            const list = document.getElementById('nwList');
+            list.innerHTML = '';
+            data.forEach((item, idx) => {
+                const amt = parseFloat(item.amount);
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'chart-data-item';
+                itemDiv.innerHTML = `
+                    <span style="color:${amt >= 0 ? '#4ade80' : '#ff6b6b'}">${item.date.split('-').reverse().join('.')}: ${amt >= 0 ? '+' : ''}${amt.toFixed(2)} CHF</span>
+                    <button class="chart-data-delete" onclick="deleteNetWorth(${idx})">×</button>
+                `;
+                list.appendChild(itemDiv);
+            });
+        }
+
+        function addNetWorth() {
+            const dateRaw = document.getElementById('nwDate').value.trim();
+            const amount = document.getElementById('nwAmount').value;
+            if (!dateRaw || !amount) return alert('Fill all fields');
+            // Parse DD.MM.YYYY to YYYY-MM-DD for sorting
+            const parts = dateRaw.split('.');
+            const date = parts.length === 3 ? parts[2] + '-' + parts[1].padStart(2,'0') + '-' + parts[0].padStart(2,'0') : dateRaw;
+
+            const data = JSON.parse(localStorage.getItem('levhub_networth') || '[]');
+            data.push({ date, amount });
+            localStorage.setItem('levhub_networth', JSON.stringify(data));
+
+            document.getElementById('nwDate').value = '';
+            document.getElementById('nwAmount').value = '';
+            loadNetWorth();
+        }
+
+        function deleteNetWorth(idx) {
+            const data = JSON.parse(localStorage.getItem('levhub_networth') || '[]');
+            data.splice(idx, 1);
+            localStorage.setItem('levhub_networth', JSON.stringify(data));
+            loadNetWorth();
+        }
+
+        function loadSeed() {
+            const data = JSON.parse(localStorage.getItem('levhub_seed') || '[]');
+            drawChart('seedChart', data);
+            const total = data.reduce((sum, item) => sum + parseFloat(item.amount), 0);
+            const totalEl = document.getElementById('seedTotal');
+            if (totalEl) {
+                totalEl.textContent = 'CHF ' + total.toFixed(2);
+                totalEl.style.color = total >= 0 ? '#4ade80' : '#ff6b6b';
+            }
+            const list = document.getElementById('seedList');
+            list.innerHTML = '';
+            data.forEach((item, idx) => {
+                const amt = parseFloat(item.amount);
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'chart-data-item';
+                itemDiv.innerHTML = `
+                    <span style="color:${amt >= 0 ? '#4ade80' : '#ff6b6b'}">${item.date.split('-').reverse().join('.')}: ${amt >= 0 ? '+' : ''}${amt.toFixed(2)} CHF</span>
+                    <button class="chart-data-delete" onclick="deleteSeed(${idx})">×</button>
+                `;
+                list.appendChild(itemDiv);
+            });
+        }
+
+        function addSeed() {
+            const dateRaw = document.getElementById('seedDate').value.trim();
+            const amount = document.getElementById('seedAmount').value;
+            if (!dateRaw || !amount) return alert('Fill all fields');
+            const parts = dateRaw.split('.');
+            const date = parts.length === 3 ? parts[2] + '-' + parts[1].padStart(2,'0') + '-' + parts[0].padStart(2,'0') : dateRaw;
+
+            const data = JSON.parse(localStorage.getItem('levhub_seed') || '[]');
+            data.push({ date, amount });
+            localStorage.setItem('levhub_seed', JSON.stringify(data));
+
+            document.getElementById('seedDate').value = '';
+            document.getElementById('seedAmount').value = '';
+            loadSeed();
+        }
+
+        function deleteSeed(idx) {
+            const data = JSON.parse(localStorage.getItem('levhub_seed') || '[]');
+            data.splice(idx, 1);
+            localStorage.setItem('levhub_seed', JSON.stringify(data));
+            loadSeed();
+        }
+
+        /* ===== SUPABASE AUTH + PROFILE SYNC ===== */
+        const SUPABASE_URL = 'https://pvmdetoukuybxtfehgbx.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2bWRldG91a3V5Ynh0ZmVoZ2J4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5NTU3NzQsImV4cCI6MjA4ODUzMTc3NH0.9J4AadFYX4PnVMJS5nGSZfaYGX1s1E5yZvQPgpUsb08';
+        const EMAIL_MAP = { 'Lev': 'lev.rzn.office@gmail.com' };
+
+        const SYNC_KEYS = [
+            'levhub_networth', 'levhub_seed', 'levhub_notes',
+            'levhub_lessons', 'levhub_schedule', 'levhub_hw', 'levhub_appt'
+        ];
+
+        let currentProfile = 'Lev';
+
+        /* --- Token management --- */
+        function getToken() { return localStorage.getItem('levhub_token'); }
+
+        async function supaAuth(email, password) {
+            const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=password', {
+                method: 'POST',
+                headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            if (!res.ok) return null;
+            return await res.json();
+        }
+
+        async function refreshToken() {
+            const rt = localStorage.getItem('levhub_refresh');
+            if (!rt) return false;
+            const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=refresh_token', {
+                method: 'POST',
+                headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ refresh_token: rt })
+            });
+            if (!res.ok) {
+                localStorage.removeItem('levhub_token');
+                localStorage.removeItem('levhub_refresh');
+                return false;
+            }
+            const d = await res.json();
+            localStorage.setItem('levhub_token', d.access_token);
+            localStorage.setItem('levhub_refresh', d.refresh_token);
+            return true;
+        }
+
+        /* --- Authenticated Supabase requests --- */
+        async function supaFetch(path, method, body, retry) {
+            const token = getToken();
+            if (!token) return null;
+            const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, {
+                method,
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                    'Prefer': method === 'POST' ? 'resolution=merge-duplicates' : 'return=representation'
+                },
+                body: body ? JSON.stringify(body) : undefined
+            });
+            if (res.status === 401 && !retry) {
+                const ok = await refreshToken();
+                if (ok) return supaFetch(path, method, body, true);
+                return null;
+            }
+            if (!res.ok) return null;
+            const text = await res.text();
+            return text ? JSON.parse(text) : null;
+        }
+
+        /* --- Profile load / save --- */
+        async function loadProfile(name) {
+            const data = await supaFetch('profiles?name=eq.' + encodeURIComponent(name), 'GET');
+            if (data && data.length > 0 && data[0].data) {
+                Object.keys(data[0].data).forEach(key => {
+                    localStorage.setItem(key, typeof data[0].data[key] === 'string' ? data[0].data[key] : JSON.stringify(data[0].data[key]));
+                });
+            }
+        }
+
+        async function saveProfile() {
+            if (!getToken()) return;
+            const data = {};
+            SYNC_KEYS.forEach(key => {
+                const val = localStorage.getItem(key);
+                if (val) { try { data[key] = JSON.parse(val); } catch(e) { data[key] = val; } }
+            });
+            await supaFetch('profiles', 'POST', { name: currentProfile, data, updated_at: new Date().toISOString() });
+        }
+
+        setInterval(() => { if (getToken()) saveProfile(); }, 30000);
+        window.addEventListener('beforeunload', () => { if (getToken()) saveProfile(); });
+
+        function reloadAll() {
+            loadNotes(); loadLessons(); loadSchedule();
+            loadHomework(); loadAppointments();
+            loadNetWorth(); loadSeed();
+        }
+
+        /* ===== LOGIN AUTH (Supabase Auth) ===== */
+        async function doLogin() {
+            const u = document.getElementById('loginUser').value.trim();
+            const p = document.getElementById('loginPass').value;
+            const email = EMAIL_MAP[u];
+            if (!email) { showLoginError(); return; }
+            document.getElementById('loginBtn').textContent = '...';
+            const result = await supaAuth(email, p);
+            document.getElementById('loginBtn').textContent = 'ENTER';
+            if (!result || !result.access_token) { showLoginError(); return; }
+            localStorage.setItem('levhub_token', result.access_token);
+            localStorage.setItem('levhub_refresh', result.refresh_token);
+            localStorage.setItem('levhub_profile', 'Lev');
+            document.getElementById('loginOverlay').classList.add('hidden');
+            await initAfterLogin();
+        }
+
+        function showLoginError() {
+            document.getElementById('loginError').classList.add('show');
+            setTimeout(() => document.getElementById('loginError').classList.remove('show'), 2000);
+        }
+
+        async function checkAuth() {
+            const token = getToken();
+            if (!token) return false;
+            return await refreshToken();
+        }
+
+        async function initAfterLogin() {
+            await loadProfile('Lev');
+            reloadAll();
+            loadZoomFromProfile();
+        }
+
+        /* --- Zoom from Supabase --- */
+        function loadZoomFromProfile() {
+            const z = localStorage.getItem('levhub_zoom');
+            if (z) {
+                try {
+                    const zoom = JSON.parse(z);
+                    const el = document.getElementById('zoomData');
+                    if (el && zoom.url) {
+                        el.innerHTML = '<a href="' + zoom.url + '" target="_blank" style="display:flex;align-items:center;gap:8px;text-decoration:none;"><svg width="32" height="32" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="12" fill="#2D8CFF"/><path d="M13 17.5a2.5 2.5 0 012.5-2.5h11a2.5 2.5 0 012.5 2.5v9a2.5 2.5 0 01-2.5 2.5h-11a2.5 2.5 0 01-2.5-2.5v-9z" fill="#fff"/><path d="M31 19.5l4-2.5v10l-4-2.5v-5z" fill="#fff"/></svg></a>'
+                            + '<div style="font-size:.75rem;color:rgba(255,255,255,.35);">Join Zoom<br><span style="font-size:.65rem;">ID: ' + (zoom.id||'') + ' &middot; Code: ' + (zoom.code||'') + '</span></div>';
+                    }
+                } catch(e) {}
+            }
+        }
+
+        // Initial Load
+        window.addEventListener('DOMContentLoaded', async () => {
+            reloadAll();
+            const authed = await checkAuth();
+            if (authed) {
+                document.getElementById('loginOverlay').classList.add('hidden');
+                await loadProfile('Lev');
+                reloadAll();
+                loadZoomFromProfile();
+            }
+            document.getElementById('loginBtn').addEventListener('click', doLogin);
+            document.getElementById('loginPass').addEventListener('keypress', e => { if(e.key==='Enter') doLogin(); });
+            document.getElementById('loginUser').addEventListener('keypress', e => { if(e.key==='Enter') document.getElementById('loginPass').focus(); });
+        });
+
+        // Redraw charts on window resize
+        window.addEventListener('resize', () => {
+            const nwData = JSON.parse(localStorage.getItem('levhub_networth') || '[]');
+            const seedData = JSON.parse(localStorage.getItem('levhub_seed') || '[]');
+            if (nwData.length > 0) drawChart('netWorthChart', nwData);
+            if (seedData.length > 0) drawChart('seedChart', seedData);
+        });
+    </script>
+</body>
+</html>
