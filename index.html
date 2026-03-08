@@ -1346,7 +1346,7 @@
             </a>
         </div>
         <!-- Footer -->
-        <div class="footer">LEV'S HUB <span style="font-size:.6rem;opacity:.3;margin-left:8px;">v2 · GitHub</span></div>
+        <div class="footer">LEV'S HUB</div>
     </div>
 
     <script>
@@ -1855,7 +1855,7 @@
 
         const SYNC_KEYS = [
             'levhub_networth', 'levhub_seed', 'levhub_notes',
-            'levhub_lessons', 'levhub_schedule', 'levhub_hw', 'levhub_appt'
+            'levhub_lessons', 'levhub_schedule', 'levhub_hw', 'levhub_appt', 'levhub_zoom'
         ];
 
         let currentProfile = 'Lev';
@@ -1928,12 +1928,15 @@
 
         async function saveProfile() {
             if (!getToken()) return;
-            const data = {};
+            // Load existing data first to merge (preserve keys not in SYNC_KEYS)
+            const existing = await supaFetch('profiles?name=eq.' + encodeURIComponent(currentProfile), 'GET');
+            let merged = {};
+            if (existing && existing.length > 0 && existing[0].data) merged = existing[0].data;
             SYNC_KEYS.forEach(key => {
                 const val = localStorage.getItem(key);
-                if (val) { try { data[key] = JSON.parse(val); } catch(e) { data[key] = val; } }
+                if (val) { try { merged[key] = JSON.parse(val); } catch(e) { merged[key] = val; } }
             });
-            await supaFetch('profiles', 'POST', { name: currentProfile, data, updated_at: new Date().toISOString() });
+            await supaFetch('profiles', 'POST', { name: currentProfile, data: merged, updated_at: new Date().toISOString() });
         }
 
         setInterval(() => { if (getToken()) saveProfile(); }, 30000);
