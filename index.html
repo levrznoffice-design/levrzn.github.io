@@ -604,6 +604,77 @@
             .schnupper-schedule { grid-template-columns: 1fr; }
         }
 
+        /* Typing Training Section */
+        .typing-plan {
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .typing-stage {
+            background: rgba(255,255,255,.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,.06);
+            padding: 16px;
+            display: flex; gap: 14px; align-items: flex-start;
+            transition: border-color .3s;
+        }
+        .typing-stage:hover { border-color: rgba(201,169,110,.2); }
+        .typing-stage-icon {
+            width: 42px; height: 42px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.15rem; font-weight: 700; flex-shrink: 0;
+            color: #fff;
+        }
+        .typing-stage-body { flex: 1; min-width: 0; }
+        .typing-stage-days {
+            font-size: .65rem; font-weight: 600; letter-spacing: 1px;
+            text-transform: uppercase; margin-bottom: 2px;
+        }
+        .typing-stage-title {
+            font-size: .9rem; font-weight: 600; color: #fff; margin-bottom: 4px;
+        }
+        .typing-stage-desc {
+            font-size: .75rem; color: rgba(255,255,255,.45); line-height: 1.45;
+        }
+        .typing-tips {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px; margin-top: 14px;
+        }
+        .typing-tip {
+            background: rgba(255,255,255,.03);
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,.05);
+            display: flex; gap: 10px; align-items: flex-start;
+        }
+        .typing-tip-icon {
+            font-size: 1.1rem; flex-shrink: 0; margin-top: 1px;
+        }
+        .typing-tip-text {
+            font-size: .75rem; color: rgba(255,255,255,.55); line-height: 1.45;
+        }
+        .typing-tip-text strong {
+            color: #fff; display: block; margin-bottom: 2px; font-size: .8rem;
+        }
+        .typing-cta {
+            display: flex; align-items: center; justify-content: center;
+            gap: 10px; margin-top: 16px; padding: 16px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(74,158,255,.15), rgba(74,158,255,.05));
+            border: 1px solid rgba(74,158,255,.25);
+            color: #4a9eff; font-weight: 600; font-size: .95rem;
+            text-decoration: none;
+            transition: all .3s;
+            letter-spacing: .5px;
+        }
+        .typing-cta:hover {
+            background: linear-gradient(135deg, rgba(74,158,255,.25), rgba(74,158,255,.1));
+            transform: translateY(-1px);
+            box-shadow: 0 8px 30px rgba(74,158,255,.15);
+        }
+        @media (max-width: 600px) {
+            .typing-tips { grid-template-columns: 1fr; }
+        }
+
         /* Appointments Section */
         .appointment-list {
             margin-top: 16px;
@@ -1296,6 +1367,97 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Typing Training -->
+        <div class="accordion">
+            <button class="accordion-toggle" onclick="toggleAccordion(this)">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+                    <rect x="1" y="7" width="22" height="14" rx="3" fill="rgba(74,158,255,.15)" stroke="#4a9eff" stroke-width="1"/>
+                    <rect x="4" y="10" width="3" height="2" rx=".5" fill="rgba(74,158,255,.5)"/>
+                    <rect x="8.5" y="10" width="3" height="2" rx=".5" fill="rgba(74,158,255,.5)"/>
+                    <rect x="13" y="10" width="3" height="2" rx=".5" fill="rgba(74,158,255,.5)"/>
+                    <rect x="17.5" y="10" width="3" height="2" rx=".5" fill="rgba(74,158,255,.5)"/>
+                    <rect x="5.5" y="13.5" width="3" height="2" rx=".5" fill="rgba(74,158,255,.5)"/>
+                    <rect x="10" y="13.5" width="3" height="2" rx=".5" fill="rgba(74,158,255,.5)"/>
+                    <rect x="14.5" y="13.5" width="3" height="2" rx=".5" fill="rgba(74,158,255,.5)"/>
+                    <rect x="7" y="17" width="10" height="2" rx=".5" fill="rgba(74,158,255,.7)"/>
+                </svg>
+                <span>Тренировка Печати</span>
+                <div class="chevron">▼</div>
+            </button>
+            <div class="accordion-content">
+                <div style="margin-bottom:16px;">
+                    <div style="font-size:1rem;font-weight:600;color:#c9a96e;margin-bottom:6px;">Твой План: Быстрый Переход на Слепую Печать</div>
+                    <div style="font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.55;">Ты уже печатаешь быстро, но этот план поможет тебе перейти на слепой десятипальцевый набор, чтобы печатать ещё быстрее, без усталости и ошибок. Главное — регулярность и не смотреть на клавиатуру!</div>
+                </div>
+
+                <div class="typing-plan">
+                    <!-- Stage 1 -->
+                    <div class="typing-stage">
+                        <div class="typing-stage-icon" style="background:linear-gradient(135deg,rgba(74,222,128,.2),rgba(74,222,128,.08));border:1px solid rgba(74,222,128,.25);">1</div>
+                        <div class="typing-stage-body">
+                            <div class="typing-stage-days" style="color:#4ade80;">Дни 1–4 · Уроки 1–100</div>
+                            <div class="typing-stage-title">Основы</div>
+                            <div class="typing-stage-desc">Фокус на основном ряду (ФЫВА ОЛДЖ). Изучаем «дом» для пальцев — позиция, с которой всё начинается.</div>
+                        </div>
+                    </div>
+                    <!-- Stage 2 -->
+                    <div class="typing-stage">
+                        <div class="typing-stage-icon" style="background:linear-gradient(135deg,rgba(74,158,255,.2),rgba(74,158,255,.08));border:1px solid rgba(74,158,255,.25);">2</div>
+                        <div class="typing-stage-body">
+                            <div class="typing-stage-days" style="color:#4a9eff;">Дни 5–10 · Уроки 101–250</div>
+                            <div class="typing-stage-title">Расширение</div>
+                            <div class="typing-stage-desc">Верхний и нижний ряды клавиатуры. Осваиваем все буквы без подглядывания.</div>
+                        </div>
+                    </div>
+                    <!-- Stage 3 -->
+                    <div class="typing-stage">
+                        <div class="typing-stage-icon" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(245,158,11,.08));border:1px solid rgba(245,158,11,.25);">3</div>
+                        <div class="typing-stage-body">
+                            <div class="typing-stage-days" style="color:#f59e0b;">Дни 11–15 · Уроки 251–400</div>
+                            <div class="typing-stage-title">Символы</div>
+                            <div class="typing-stage-desc">Заглавные буквы и знаки препинания. Учимся уверенно использовать Shift.</div>
+                        </div>
+                    </div>
+                    <!-- Stage 4 -->
+                    <div class="typing-stage">
+                        <div class="typing-stage-icon" style="background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(168,85,247,.08));border:1px solid rgba(168,85,247,.25);">4</div>
+                        <div class="typing-stage-body">
+                            <div class="typing-stage-days" style="color:#a855f7;">Дни 16–20 · Уроки 401–489</div>
+                            <div class="typing-stage-title">Закрепление</div>
+                            <div class="typing-stage-desc">Цифры и длинные тексты. Доводим навык до полного автоматизма.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips -->
+                <div style="font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(201,169,110,.5);margin-top:20px;margin-bottom:10px;">Важные Советы</div>
+                <div class="typing-tips">
+                    <div class="typing-tip">
+                        <div class="typing-tip-icon">🙈</div>
+                        <div class="typing-tip-text"><strong>Не смотри на клавиатуру!</strong>Самое главное правило. Заклей клавиши если нужно.</div>
+                    </div>
+                    <div class="typing-tip">
+                        <div class="typing-tip-icon">🎯</div>
+                        <div class="typing-tip-text"><strong>Точность важнее скорости</strong>Цель: 95%+ точности. Скорость придёт сама.</div>
+                    </div>
+                    <div class="typing-tip">
+                        <div class="typing-tip-icon">⏱️</div>
+                        <div class="typing-tip-text"><strong>Дроби сессии</strong>2-3 раза по 15-20 минут в день эффективнее одной долгой сессии.</div>
+                    </div>
+                    <div class="typing-tip">
+                        <div class="typing-tip-icon">💪</div>
+                        <div class="typing-tip-text"><strong>Терпи первую неделю</strong>Скорость упадёт — это нормально и временно.</div>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <a href="https://www.typingclub.com/" target="_blank" rel="noopener noreferrer" class="typing-cta">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" fill="currentColor" opacity=".85"/></svg>
+                    Начать Тренировку на TypingClub
+                </a>
             </div>
         </div>
 
