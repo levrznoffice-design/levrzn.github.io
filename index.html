@@ -561,6 +561,49 @@
             outline: none;
         }
 
+        /* Schnupperwoche Schedule */
+        .schnupper-schedule {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        .schnupper-day {
+            background: rgba(255,255,255,.02);
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,.06);
+            padding: 14px 12px;
+        }
+        .schnupper-day-header {
+            font-weight: 600; font-size: .85rem;
+            color: #c9a96e; margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(201,169,110,.15);
+        }
+        .schnupper-slot {
+            background: rgba(255,255,255,.03);
+            border-left: 3px solid var(--slot-color, #c9a96e);
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin-bottom: 8px;
+        }
+        .schnupper-slot:last-child { margin-bottom: 0; }
+        .schnupper-time {
+            font-size: .65rem; color: rgba(255,255,255,.4);
+            font-weight: 500; letter-spacing: .5px;
+            margin-bottom: 2px;
+        }
+        .schnupper-subject {
+            font-size: .85rem; font-weight: 600;
+            color: #fff;
+        }
+        .schnupper-info {
+            font-size: .65rem; color: rgba(255,255,255,.35);
+            margin-top: 2px;
+        }
+        @media (max-width: 768px) {
+            .schnupper-schedule { grid-template-columns: 1fr; }
+        }
+
         /* Appointments Section */
         .appointment-list {
             margin-top: 16px;
@@ -1114,11 +1157,143 @@
                         <div class="form-row" style="margin-bottom: 8px;">
                             <input type="text" id="hwInput" placeholder="Homework text..." style="flex: 1;">
                             <button class="btn" onclick="addHomework()">Add</button>
+                            <button class="btn" onclick="addAndCopyHW()" style="background:rgba(74,222,128,.12);border-color:rgba(74,222,128,.25);color:#4ade80;" title="Add & Copy">Add+📋</button>
                         </div>
                         <div class="form-row" style="margin-bottom: 12px;">
                             <input type="text" id="hwLinkInput" placeholder="Link (optional)" style="flex: 1; font-size:.8rem; opacity:.7;">
                         </div>
                         <div id="hwList" class="hw-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Schnupperwoche -->
+        <div class="accordion">
+            <button class="accordion-toggle" onclick="toggleAccordion(this)">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+                    <rect x="2" y="3" width="20" height="18" rx="3" fill="rgba(201,169,110,.15)" stroke="#c9a96e" stroke-width="1.2"/>
+                    <rect x="2" y="3" width="20" height="5" rx="3" fill="rgba(201,169,110,.25)"/>
+                    <line x1="7" y1="1" x2="7" y2="5" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="17" y1="1" x2="17" y2="5" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/>
+                    <circle cx="8" cy="12" r="1.2" fill="#4ade80"/><circle cx="12" cy="12" r="1.2" fill="#4a9eff"/><circle cx="16" cy="12" r="1.2" fill="#f59e0b"/>
+                    <circle cx="8" cy="16" r="1.2" fill="#a78bfa"/><circle cx="12" cy="16" r="1.2" fill="#f472b6"/><circle cx="16" cy="16" r="1.2" fill="#4ade80"/>
+                </svg>
+                <span>Schnupperwoche — 20-24 April 2026</span>
+                <div class="chevron">▼</div>
+            </button>
+            <div class="accordion-content">
+                <div style="font-size:.7rem;color:rgba(255,255,255,.35);margin-bottom:10px;letter-spacing:1px;text-transform:uppercase;">Informatikschule Olten</div>
+                <div class="schnupper-schedule">
+                    <!-- Monday -->
+                    <div class="schnupper-day">
+                        <div class="schnupper-day-header">Montag <span style="opacity:.5;font-weight:400;">20.04</span></div>
+                        <div class="schnupper-slot" style="--slot-color:#4a9eff;">
+                            <div class="schnupper-time">08:15–09:45</div>
+                            <div class="schnupper-subject">Modul 114</div>
+                            <div class="schnupper-info">J. Schnider · Raum 10 · ISO 25</div>
+                        </div>
+                        <div class="schnupper-slot" style="--slot-color:#a78bfa;">
+                            <div class="schnupper-time">10:15–11:45</div>
+                            <div class="schnupper-subject">Modul 305 / Modul 187</div>
+                            <div class="schnupper-info">R. Oklé · Raum 8 · ICT 25 / ISO 25</div>
+                        </div>
+                        <div class="schnupper-slot" style="--slot-color:#f59e0b;">
+                            <div class="schnupper-time">13:15–14:45</div>
+                            <div class="schnupper-subject">Modul 106</div>
+                            <div class="schnupper-info">M. Styczynski · Raum 11 · ISO 25</div>
+                        </div>
+                        <div class="schnupper-slot" style="--slot-color:#4ade80;">
+                            <div class="schnupper-time">15:15–16:45</div>
+                            <div class="schnupper-subject">Modul 231</div>
+                            <div class="schnupper-info">L. Marty · Raum 10 · ISO 25</div>
+                        </div>
+                    </div>
+                    <!-- Tuesday -->
+                    <div class="schnupper-day">
+                        <div class="schnupper-day-header">Dienstag <span style="opacity:.5;font-weight:400;">21.04</span></div>
+                        <div class="schnupper-slot" style="--slot-color:#4a9eff;">
+                            <div class="schnupper-time">08:15–09:45</div>
+                            <div class="schnupper-subject">Modul 123</div>
+                            <div class="schnupper-info">R. Oklé · Raum 8 · ISO 25 / ICT 25</div>
+                        </div>
+                        <div class="schnupper-slot" style="--slot-color:#f472b6;">
+                            <div class="schnupper-time">10:15–11:45</div>
+                            <div class="schnupper-subject">Englisch</div>
+                            <div class="schnupper-info">P. Stähli · Raum 11 · ISO 25 / ICT 25</div>
+                        </div>
+                        <div class="schnupper-slot" style="--slot-color:#f59e0b;">
+                            <div class="schnupper-time">13:15–14:45</div>
+                            <div class="schnupper-subject">Modul 293</div>
+                            <div class="schnupper-info">L. Meier · Raum 10 · ISO 25</div>
+                        </div>
+                        <div class="schnupper-slot" style="--slot-color:#4ade80;">
+                            <div class="schnupper-time">15:15–16:45</div>
+                            <div class="schnupper-subject">Modul 122</div>
+                            <div class="schnupper-info">C. Kiss · Raum 11 · ISO 25 / ICT 25</div>
+                        </div>
+                    </div>
+                    <!-- Wednesday -->
+                    <div class="schnupper-day">
+                        <div class="schnupper-day-header">Mittwoch <span style="opacity:.5;font-weight:400;">22.04</span></div>
+                        <div class="schnupper-slot" style="--slot-color:#4a9eff;">
+                            <div class="schnupper-time">08:15–09:45</div>
+                            <div class="schnupper-subject">Modul 190</div>
+                            <div class="schnupper-info">R. Oklé · Raum 8 · ISO 25</div>
+                        </div>
+                        <div class="schnupper-slot" style="--slot-color:#ef4444;">
+                            <div class="schnupper-time">10:15–11:45</div>
+                            <div class="schnupper-subject">Sport</div>
+                            <div class="schnupper-info">J. Schnider · Stadthalle · ISO 25</div>
+                        </div>
+                        <div class="schnupper-slot" style="--slot-color:#ec4899;">
+                            <div class="schnupper-time">13:15–14:45</div>
+                            <div class="schnupper-subject">ABU: Gesellschaft</div>
+                            <div class="schnupper-info">C. Prinz · Raum 12 · ISO 25</div>
+                        </div>
+                        <div class="schnupper-slot" style="--slot-color:#06b6d4;">
+                            <div class="schnupper-time">15:15–16:45</div>
+                            <div class="schnupper-subject">Mathematik M2.1</div>
+                            <div class="schnupper-info">X. Kong · Raum 9 · ISO 25</div>
+                        </div>
+                    </div>
+                    <!-- Thursday -->
+                    <div class="schnupper-day">
+                        <div class="schnupper-day-header">Donnerstag <span style="opacity:.5;font-weight:400;">23.04</span></div>
+                        <div class="schnupper-slot" style="--slot-color:#4a9eff;">
+                            <div class="schnupper-time">08:15–09:45</div>
+                            <div class="schnupper-subject">Modul 129</div>
+                            <div class="schnupper-info">J. Krattiger · Raum 11 · ISO 25 / ICT 25</div>
+                        </div>
+                        <div class="schnupper-slot" style="--slot-color:#a78bfa;">
+                            <div class="schnupper-time">10:15–11:45</div>
+                            <div class="schnupper-subject">Modul 262</div>
+                            <div class="schnupper-info">R. Oklé · Raum 8 · ICT 25</div>
+                        </div>
+                        <div class="schnupper-slot" style="--slot-color:#ec4899;">
+                            <div class="schnupper-time">13:15–14:45</div>
+                            <div class="schnupper-subject">ABU: Gesellschaft</div>
+                            <div class="schnupper-info">C. Prinz · Raum 12 · ISO 25</div>
+                        </div>
+                    </div>
+                    <!-- Friday -->
+                    <div class="schnupper-day">
+                        <div class="schnupper-day-header">Freitag <span style="opacity:.5;font-weight:400;">24.04</span></div>
+                        <div class="schnupper-slot" style="--slot-color:#4a9eff;">
+                            <div class="schnupper-time">08:15–09:45</div>
+                            <div class="schnupper-subject">Modul 123</div>
+                            <div class="schnupper-info">R. Oklé · Raum 8 · ISO 25 / ICT 25</div>
+                        </div>
+                        <div class="schnupper-slot" style="--slot-color:#4ade80;">
+                            <div class="schnupper-time">10:15–11:45</div>
+                            <div class="schnupper-subject">Modul 320</div>
+                            <div class="schnupper-info">C. Gurtner · Raum 9 · ISO 25</div>
+                        </div>
+                        <div class="schnupper-slot" style="--slot-color:#f59e0b;border-left-color:#f59e0b;">
+                            <div class="schnupper-time">12:00–12:45</div>
+                            <div class="schnupper-subject">Abschlussgespräch</div>
+                            <div class="schnupper-info">J. Schnider / P. Stähli</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1586,7 +1761,9 @@
                 if (item.link) {
                     const linkRow = document.createElement('div');
                     linkRow.className = 'hw-link-row';
-                    linkRow.innerHTML = `<a href="${item.link}" target="_blank">🔗 ${item.link.length > 40 ? item.link.substring(0,40)+'...' : item.link}</a>`;
+                    let href = item.link;
+                    if (href && !/^https?:\/\//i.test(href) && !/^file:/i.test(href)) href = 'https://' + href;
+                    linkRow.innerHTML = `<a href="${href}" target="_blank" rel="noopener noreferrer">🔗 ${item.link.length > 40 ? item.link.substring(0,40)+'...' : item.link}</a>`;
                     wrapper.appendChild(linkRow);
                 }
 
@@ -1638,6 +1815,21 @@
             if (newLink === null) return;
             hw[idx].link = newLink.trim();
             localStorage.setItem('levhub_hw', JSON.stringify(hw));
+            loadHomework();
+        }
+
+        function addAndCopyHW() {
+            const text = document.getElementById('hwInput').value.trim();
+            if (!text) return;
+            const link = document.getElementById('hwLinkInput').value.trim();
+            const hw = JSON.parse(localStorage.getItem('levhub_hw') || '[]');
+            hw.push({ text, done: false, link: link || '' });
+            localStorage.setItem('levhub_hw', JSON.stringify(hw));
+            let copyText = text;
+            if (link) copyText += '\n' + link;
+            navigator.clipboard.writeText(copyText);
+            document.getElementById('hwInput').value = '';
+            document.getElementById('hwLinkInput').value = '';
             loadHomework();
         }
 
