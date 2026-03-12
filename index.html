@@ -671,8 +671,43 @@
             transform: translateY(-1px);
             box-shadow: 0 8px 30px rgba(74,158,255,.15);
         }
+        .typing-cta-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+        .typing-cta-row .typing-cta { flex: 1; min-width: 180px; margin-top: 0; font-size: .82rem; padding: 13px; }
+        .typing-cta.green { background: linear-gradient(135deg, rgba(74,222,128,.15), rgba(74,222,128,.05)); border-color: rgba(74,222,128,.25); color: #4ade80; }
+        .typing-cta.green:hover { background: linear-gradient(135deg, rgba(74,222,128,.25), rgba(74,222,128,.1)); box-shadow: 0 8px 30px rgba(74,222,128,.15); }
+        .typing-cta.purple { background: linear-gradient(135deg, rgba(168,85,247,.15), rgba(168,85,247,.05)); border-color: rgba(168,85,247,.25); color: #a855f7; }
+        .typing-cta.purple:hover { background: linear-gradient(135deg, rgba(168,85,247,.25), rgba(168,85,247,.1)); box-shadow: 0 8px 30px rgba(168,85,247,.15); }
+        .typing-cta.orange { background: linear-gradient(135deg, rgba(245,158,11,.15), rgba(245,158,11,.05)); border-color: rgba(245,158,11,.25); color: #f59e0b; }
+        .typing-cta.orange:hover { background: linear-gradient(135deg, rgba(245,158,11,.25), rgba(245,158,11,.1)); box-shadow: 0 8px 30px rgba(245,158,11,.15); }
+        /* Progress bar */
+        .typing-progress-wrap { margin: 16px 0; }
+        .typing-progress-label { display: flex; justify-content: space-between; font-size: .7rem; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+        .typing-progress-bar { height: 8px; border-radius: 4px; background: rgba(255,255,255,.06); overflow: hidden; }
+        .typing-progress-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #4ade80, #4a9eff, #a855f7); transition: width .5s; }
+        /* Section divider */
+        .typing-divider { height: 1px; background: rgba(255,255,255,.06); margin: 20px 0; }
+        /* Forecast */
+        .typing-forecast { display: flex; flex-direction: column; gap: 10px; }
+        .typing-forecast-item {
+            display: flex; gap: 12px; align-items: flex-start;
+            padding: 12px; border-radius: 10px;
+            background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.04);
+        }
+        .typing-forecast-badge {
+            flex-shrink: 0; padding: 4px 10px; border-radius: 8px;
+            font-size: .65rem; font-weight: 700; letter-spacing: .5px;
+        }
+        .typing-forecast-text { font-size: .78rem; color: rgba(255,255,255,.5); line-height: 1.5; }
+        /* Mantra */
+        .typing-mantra {
+            padding: 14px 16px; border-radius: 10px;
+            background: rgba(201,169,110,.04); border-left: 3px solid rgba(201,169,110,.3);
+            font-size: .8rem; color: rgba(255,255,255,.55); line-height: 1.55;
+            font-style: italic; margin-bottom: 8px;
+        }
         @media (max-width: 600px) {
             .typing-tips { grid-template-columns: 1fr; }
+            .typing-cta-row { flex-direction: column; }
         }
 
         /* Appointments Section */
@@ -1388,52 +1423,81 @@
                 <div class="chevron">▼</div>
             </button>
             <div class="accordion-content">
-                <div style="margin-bottom:16px;">
-                    <div style="font-size:1rem;font-weight:600;color:#c9a96e;margin-bottom:6px;">Твой План: Быстрый Переход на Слепую Печать</div>
-                    <div style="font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.55;">Ты уже печатаешь быстро, но этот план поможет тебе перейти на слепой десятипальцевый набор, чтобы печатать ещё быстрее, без усталости и ошибок. Главное — регулярность и не смотреть на клавиатуру!</div>
+
+                <!-- ===== CURRENT STATUS ===== -->
+                <div style="margin-bottom:14px;">
+                    <div style="font-size:1rem;font-weight:600;color:#c9a96e;margin-bottom:6px;">English &rarr; Russian &rarr; German &rarr; Coding</div>
+                    <div style="font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.55;">Долгосрочный план перехода на слепой десятипальцевый набор на всех раскладках. Главное — регулярность и не смотреть на клавиатуру!</div>
                 </div>
+
+                <!-- Status badge -->
+                <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.15);margin-bottom:6px;">
+                    <div style="font-size:1.2rem;">🔥</div>
+                    <div>
+                        <div style="font-size:.82rem;font-weight:600;color:#4ade80;">Ты на 300-м уроке!</div>
+                        <div style="font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.5;margin-top:2px;">Сейчас ты проходишь «Долину Символов» (<code style="color:#f59e0b;background:rgba(245,158,11,.1);padding:1px 5px;border-radius:4px;font-size:.7rem;">{} [] \ /</code>). Это фундамент для программиста. Не сдавайся, за этим уровнем начинается чистая скорость.</div>
+                    </div>
+                </div>
+
+                <!-- Progress bar -->
+                <div class="typing-progress-wrap">
+                    <div class="typing-progress-label">
+                        <span>Урок 300 / 600</span>
+                        <span style="color:#4ade80;font-weight:600;">50%</span>
+                    </div>
+                    <div class="typing-progress-bar">
+                        <div class="typing-progress-fill" style="width:50%;"></div>
+                    </div>
+                </div>
+
+                <div class="typing-divider"></div>
+
+                <!-- ===== ROADMAP STAGES ===== -->
+                <div style="font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(201,169,110,.5);margin-bottom:12px;">Дорожная Карта</div>
 
                 <div class="typing-plan">
-                    <!-- Stage 1 -->
-                    <div class="typing-stage">
-                        <div class="typing-stage-icon" style="background:linear-gradient(135deg,rgba(74,222,128,.2),rgba(74,222,128,.08));border:1px solid rgba(74,222,128,.25);">1</div>
+                    <!-- Stage 1: English (current) -->
+                    <div class="typing-stage" style="border-color:rgba(74,222,128,.2);">
+                        <div class="typing-stage-icon" style="background:linear-gradient(135deg,rgba(74,222,128,.2),rgba(74,222,128,.08));border:1px solid rgba(74,222,128,.25);">EN</div>
                         <div class="typing-stage-body">
-                            <div class="typing-stage-days" style="color:#4ade80;">Дни 1–4 · Уроки 1–100</div>
-                            <div class="typing-stage-title">Основы</div>
-                            <div class="typing-stage-desc">Фокус на основном ряду (ФЫВА ОЛДЖ). Изучаем «дом» для пальцев — позиция, с которой всё начинается.</div>
+                            <div class="typing-stage-days" style="color:#4ade80;">Этап 1 · Сейчас &rarr; Уроки 1–600</div>
+                            <div class="typing-stage-title">English — TypingClub</div>
+                            <div class="typing-stage-desc">Полная база: буквы, символы, цифры, <code style="color:#f59e0b;font-size:.7rem;">{} [] \ / @ #</code>. Цель: завершить все 600 уроков и закрепить мышечную память.</div>
                         </div>
                     </div>
-                    <!-- Stage 2 -->
+                    <!-- Stage 2: Russian -->
                     <div class="typing-stage">
-                        <div class="typing-stage-icon" style="background:linear-gradient(135deg,rgba(74,158,255,.2),rgba(74,158,255,.08));border:1px solid rgba(74,158,255,.25);">2</div>
+                        <div class="typing-stage-icon" style="background:linear-gradient(135deg,rgba(74,158,255,.2),rgba(74,158,255,.08));border:1px solid rgba(74,158,255,.25);">RU</div>
                         <div class="typing-stage-body">
-                            <div class="typing-stage-days" style="color:#4a9eff;">Дни 5–10 · Уроки 101–250</div>
-                            <div class="typing-stage-title">Расширение</div>
-                            <div class="typing-stage-desc">Верхний и нижний ряды клавиатуры. Осваиваем все буквы без подглядывания.</div>
+                            <div class="typing-stage-days" style="color:#4a9eff;">Этап 2 · 3–5 дней</div>
+                            <div class="typing-stage-title">Русский — Экспресс-переход</div>
+                            <div class="typing-stage-desc">Тебе не нужно учить механику — только карту букв. Пальцы уже умеют нажимать кнопки, нужно просто показать им, где русские литеры. Экспресс-курс на Ratatype (RU) или русский блок на TypingClub. Скорость вернётся к 40 WPM за неделю.</div>
                         </div>
                     </div>
-                    <!-- Stage 3 -->
+                    <!-- Stage 3: German -->
                     <div class="typing-stage">
-                        <div class="typing-stage-icon" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(245,158,11,.08));border:1px solid rgba(245,158,11,.25);">3</div>
+                        <div class="typing-stage-icon" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(245,158,11,.08));border:1px solid rgba(245,158,11,.25);">DE</div>
                         <div class="typing-stage-body">
-                            <div class="typing-stage-days" style="color:#f59e0b;">Дни 11–15 · Уроки 251–400</div>
-                            <div class="typing-stage-title">Символы</div>
-                            <div class="typing-stage-desc">Заглавные буквы и знаки препинания. Учимся уверенно использовать Shift.</div>
+                            <div class="typing-stage-days" style="color:#f59e0b;">Этап 3 · 2 дня на привыкание</div>
+                            <div class="typing-stage-title">Немецкий (QWERTZ) + Schweizer Standard</div>
+                            <div class="typing-stage-desc">Адаптация к раскладке QWERTZ (Y и Z меняются местами) и освоение умлаутов (<span style="color:#f59e0b;font-weight:600;">ä ö ü</span>). Лучший инструмент — Keybr.com с немецкой раскладкой для отработки специфических букв.</div>
                         </div>
                     </div>
-                    <!-- Stage 4 -->
+                    <!-- Stage 4: Coding -->
                     <div class="typing-stage">
-                        <div class="typing-stage-icon" style="background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(168,85,247,.08));border:1px solid rgba(168,85,247,.25);">4</div>
+                        <div class="typing-stage-icon" style="background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(168,85,247,.08));border:1px solid rgba(168,85,247,.25);">&lt;/&gt;</div>
                         <div class="typing-stage-body">
-                            <div class="typing-stage-days" style="color:#a855f7;">Дни 16–20 · Уроки 401–489</div>
-                            <div class="typing-stage-title">Закрепление</div>
-                            <div class="typing-stage-desc">Цифры и длинные тексты. Доводим навык до полного автоматизма.</div>
+                            <div class="typing-stage-days" style="color:#a855f7;">Этап 4 · Инструментарий Applikationsentwickler</div>
+                            <div class="typing-stage-title">Кодинг — Typing.io + Hardware</div>
+                            <div class="typing-stage-desc">Тренировка печати реального кода (Java, Python, C#) на Typing.io. Инвестиция в механическую клавиатуру (Keychron / Logitech) как символ перехода в профи. Сертификация Platinum на Ratatype для резюме в Швейцарии.</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tips -->
-                <div style="font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(201,169,110,.5);margin-top:20px;margin-bottom:10px;">Важные Советы</div>
+                <div class="typing-divider"></div>
+
+                <!-- ===== TIPS ===== -->
+                <div style="font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(201,169,110,.5);margin-bottom:10px;">Важные Советы</div>
                 <div class="typing-tips">
                     <div class="typing-tip">
                         <div class="typing-tip-icon">🙈</div>
@@ -1453,11 +1517,52 @@
                     </div>
                 </div>
 
-                <!-- CTA -->
-                <a href="https://www.typingclub.com/" target="_blank" rel="noopener noreferrer" class="typing-cta">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" fill="currentColor" opacity=".85"/></svg>
-                    Начать Тренировку на TypingClub
-                </a>
+                <div class="typing-divider"></div>
+
+                <!-- ===== MANTRAS ===== -->
+                <div style="font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(201,169,110,.5);margin-bottom:10px;">Мантры</div>
+                <div class="typing-mantra">«Слепая печать — это не про скорость, это про свободу мысли.»</div>
+                <div class="typing-mantra">«Программист, который не смотрит на клавиатуру, думает о решении задачи, а не о поиске скобки.»</div>
+                <div class="typing-mantra">«100 слов в минуту — это не мечта, это неизбежность через 2 месяца тренировок.»</div>
+
+                <div class="typing-divider"></div>
+
+                <!-- ===== FORECAST ===== -->
+                <div style="font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(201,169,110,.5);margin-bottom:10px;">Прогноз</div>
+                <div class="typing-forecast">
+                    <div class="typing-forecast-item">
+                        <div class="typing-forecast-badge" style="background:rgba(74,222,128,.12);color:#4ade80;">+100</div>
+                        <div class="typing-forecast-text">Символы перестанут «пугать». Пальцы начнут летать к скобкам <code style="color:#f59e0b;font-size:.7rem;">[]</code> так же уверенно, как к пробелу.</div>
+                    </div>
+                    <div class="typing-forecast-item">
+                        <div class="typing-forecast-badge" style="background:rgba(74,158,255,.12);color:#4a9eff;">500</div>
+                        <div class="typing-forecast-text">Ты почувствуешь, что печатать на английском легче, чем на любом другом языке. Момент, когда ты стал «Native» в цифровом мире.</div>
+                    </div>
+                    <div class="typing-forecast-item">
+                        <div class="typing-forecast-badge" style="background:rgba(168,85,247,.12);color:#a855f7;">RU</div>
+                        <div class="typing-forecast-text">Ты удивишься, как быстро это произойдет. «О, я просто нажимаю кнопки, и оно пишет по-русски». Мозг уже не будет думать о пальцах вообще.</div>
+                    </div>
+                </div>
+
+                <!-- ===== CTA BUTTONS ===== -->
+                <div class="typing-cta-row">
+                    <a href="https://www.typingclub.com/" target="_blank" rel="noopener noreferrer" class="typing-cta">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" fill="currentColor" opacity=".85"/></svg>
+                        TypingClub
+                    </a>
+                    <a href="https://www.ratatype.com/" target="_blank" rel="noopener noreferrer" class="typing-cta green">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>
+                        Ratatype (RU)
+                    </a>
+                    <a href="https://www.keybr.com/" target="_blank" rel="noopener noreferrer" class="typing-cta orange">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="6" y1="10" x2="8" y2="10" stroke="currentColor" stroke-width="1.5"/><line x1="10" y1="10" x2="14" y2="10" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="10" x2="18" y2="10" stroke="currentColor" stroke-width="1.5"/><line x1="8" y1="14" x2="16" y2="14" stroke="currentColor" stroke-width="1.5"/></svg>
+                        Keybr.com (DE)
+                    </a>
+                    <a href="https://typing.io/" target="_blank" rel="noopener noreferrer" class="typing-cta purple">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        Typing.io (Code)
+                    </a>
+                </div>
             </div>
         </div>
 
