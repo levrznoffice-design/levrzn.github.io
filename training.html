@@ -177,6 +177,49 @@
   @keyframes bazaPulse {
     0%, 100% { opacity: 1; } 50% { opacity: .3; }
   }
+  /* Meal Toggle */
+  .meal-section { margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.05); }
+  .meal-toggle { display: flex; gap: 0; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,.1); margin-bottom: 12px; }
+  .meal-toggle-btn {
+    flex: 1; padding: 10px 8px; font-family: inherit; font-size: .72rem; font-weight: 600;
+    border: none; cursor: pointer; transition: all .3s; text-align: center;
+    background: rgba(255,255,255,.03); color: rgba(255,255,255,.4); letter-spacing: .3px;
+  }
+  .meal-toggle-btn.active {
+    background: rgba(201,169,110,.15); color: #c9a96e;
+  }
+  .meal-toggle-btn:not(.active):hover { background: rgba(255,255,255,.06); }
+  .meal-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 10px; border-radius: 8px;
+    background: rgba(255,255,255,.02); margin-bottom: 4px;
+    border: 1px solid rgba(255,255,255,.03);
+  }
+  .meal-row:last-of-type { margin-bottom: 0; }
+  .meal-name { font-size: .78rem; color: rgba(255,255,255,.6); }
+  .meal-name .meal-icon { margin-right: 6px; }
+  .meal-pct { font-size: .6rem; color: rgba(255,255,255,.25); margin-left: 4px; }
+  .meal-kcal { font-size: .85rem; font-weight: 600; color: #c9a96e; font-variant-numeric: tabular-nums; }
+  .meal-kcal .unit { font-size: .65rem; font-weight: 400; color: rgba(255,255,255,.25); }
+  .meal-total {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 10px; margin-top: 6px; border-radius: 8px;
+    background: rgba(201,169,110,.06); border: 1px solid rgba(201,169,110,.12);
+  }
+  .meal-total-label { font-size: .7rem; font-weight: 600; color: rgba(201,169,110,.6); text-transform: uppercase; letter-spacing: 1px; }
+  .meal-total-value { font-size: .95rem; font-weight: 700; color: #c9a96e; }
+  .meal-rule {
+    font-size: .68rem; color: rgba(255,255,255,.3); line-height: 1.5;
+    margin-top: 10px; padding: 8px 10px; border-radius: 8px;
+    background: rgba(255,255,255,.02); border-left: 2px solid rgba(74,222,128,.25);
+  }
+  .meal-water-check {
+    display: flex; align-items: center; gap: 8px; margin-top: 8px;
+    padding: 8px 10px; border-radius: 8px; background: rgba(74,158,255,.04);
+    border: 1px solid rgba(74,158,255,.1); cursor: pointer; user-select: none;
+  }
+  .meal-water-check input[type="checkbox"] { accent-color: #4a9eff; cursor: pointer; width: 16px; height: 16px; }
+  .meal-water-check label { font-size: .75rem; color: rgba(255,255,255,.5); cursor: pointer; }
 
   @media (max-width: 640px) {
     .container { padding: 40px 16px 60px; }
@@ -393,6 +436,34 @@
       <div class="baza-strat-item">
         <div class="baza-strat-icon">📈</div>
         <div><strong>Прогресс:</strong> Вес встал — добавь калории. Силовые встали — проверь сон и технику.</div>
+      </div>
+    </div>
+
+    <!-- Meal Control -->
+    <div class="meal-section">
+      <div style="font-size:.65rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,.4);margin-bottom:10px;">Контроль питания (РСК)</div>
+
+      <div class="meal-toggle">
+        <button class="meal-toggle-btn active" data-meal-mode="training" onclick="switchMealMode('training')">🏋️ Треня · 2500 ккал</button>
+        <button class="meal-toggle-btn" data-meal-mode="rest" onclick="switchMealMode('rest')">😴 Отдых · 2100 ккал</button>
+      </div>
+
+      <div id="mealList">
+        <div class="meal-row"><div class="meal-name"><span class="meal-icon">🍳</span>Завтрак<span class="meal-pct">(25%)</span></div><div class="meal-kcal"><span id="meal0">625</span> <span class="unit">ккал</span></div></div>
+        <div class="meal-row"><div class="meal-name"><span class="meal-icon">🍲</span>Обед<span class="meal-pct">(35%)</span></div><div class="meal-kcal"><span id="meal1">875</span> <span class="unit">ккал</span></div></div>
+        <div class="meal-row"><div class="meal-name"><span class="meal-icon">🍏</span>Перекус<span class="meal-pct">(15%)</span></div><div class="meal-kcal"><span id="meal2">375</span> <span class="unit">ккал</span></div></div>
+        <div class="meal-row"><div class="meal-name"><span class="meal-icon">🥩</span>Ужин<span class="meal-pct">(25%)</span></div><div class="meal-kcal"><span id="meal3">625</span> <span class="unit">ккал</span></div></div>
+      </div>
+      <div class="meal-total">
+        <div class="meal-total-label">Итого</div>
+        <div class="meal-total-value" id="mealTotal">2500 ккал</div>
+      </div>
+
+      <div class="meal-rule">🥦 Сначала овощи (клетчатка), ждём 15 минут, потом основа.</div>
+
+      <div class="meal-water-check" onclick="document.getElementById('waterCheck').click()">
+        <input type="checkbox" id="waterCheck" onclick="event.stopPropagation(); saveWaterCheck();">
+        <label for="waterCheck">💧 Выпил 3л воды сегодня?</label>
       </div>
     </div>
   </div>
@@ -795,6 +866,34 @@ secInput.addEventListener('input', () => {
   }
 });
 
+/* ===== MEAL TOGGLE ===== */
+const mealData = {
+  training: { total: 2500, meals: [625, 875, 375, 625] },
+  rest:     { total: 2100, meals: [525, 735, 315, 525] }
+};
+
+function switchMealMode(mode) {
+  document.querySelectorAll('.meal-toggle-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.meal-toggle-btn[data-meal-mode="${mode}"]`).classList.add('active');
+  const d = mealData[mode];
+  d.meals.forEach((v, i) => document.getElementById('meal' + i).textContent = v);
+  document.getElementById('mealTotal').textContent = d.total + ' ккал';
+  localStorage.setItem('bazaMealMode', mode);
+}
+
+function saveWaterCheck() {
+  const today = new Date().toISOString().slice(0, 10);
+  localStorage.setItem('bazaWater_' + today, document.getElementById('waterCheck').checked);
+}
+
+function loadMealState() {
+  const mode = localStorage.getItem('bazaMealMode') || 'training';
+  switchMealMode(mode);
+  const today = new Date().toISOString().slice(0, 10);
+  const water = localStorage.getItem('bazaWater_' + today);
+  if (water === 'true') document.getElementById('waterCheck').checked = true;
+}
+
 /* ===== SUPABASE AUTH + PROFILE SYNC ===== */
 const SUPABASE_URL = 'https://pvmdetoukuybxtfehgbx.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2bWRldG91a3V5Ynh0ZmVoZ2J4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5NTU3NzQsImV4cCI6MjA4ODUzMTc3NH0.9J4AadFYX4PnVMJS5nGSZfaYGX1s1E5yZvQPgpUsb08';
@@ -901,6 +1000,7 @@ function initApp() {
     initWorkoutDiary();
     initDietCalc();
     initDiaryCollapse();
+    loadMealState();
 }
 
 // Initialize
