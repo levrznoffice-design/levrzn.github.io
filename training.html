@@ -58,18 +58,36 @@
   .input-group label { font-size: .7rem; color: rgba(255,255,255,.35); text-transform: uppercase; letter-spacing: 1px; }
   .input-group input { background: transparent; border: 1px solid rgba(255,255,255,.1); border-radius: 10px; padding: 8px 12px; color: #fff; font-family: inherit; font-size: .85rem; outline: none; transition: border-color .25s; }
   .input-group input:focus { border-color: rgba(200,170,110,.3); }
+  /* Stepper */
+  .stepper { display: flex; align-items: center; gap: 0; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,.1); }
+  .stepper-btn {
+    width: 36px; height: 36px; border: none; cursor: pointer;
+    font-size: 1.1rem; font-weight: 700; font-family: inherit;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s; flex-shrink: 0;
+  }
+  .stepper-btn.minus { background: rgba(239,68,68,.1); color: #ef4444; }
+  .stepper-btn.minus:hover { background: rgba(239,68,68,.2); }
+  .stepper-btn.plus { background: rgba(74,222,128,.1); color: #4ade80; }
+  .stepper-btn.plus:hover { background: rgba(74,222,128,.2); }
+  .stepper input {
+    width: 54px; text-align: center; border: none; border-left: 1px solid rgba(255,255,255,.06);
+    border-right: 1px solid rgba(255,255,255,.06); border-radius: 0;
+    background: rgba(255,255,255,.03); color: #fff; font-size: .85rem;
+    font-family: inherit; padding: 6px 2px; outline: none; font-variant-numeric: tabular-nums;
+    -moz-appearance: textfield;
+  }
+  .stepper input::-webkit-outer-spin-button,
+  .stepper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .ex-note-input {
+    width: 100%; margin-top: 8px; padding: 6px 10px; font-size: .72rem;
+    background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+    border-radius: 8px; color: rgba(255,255,255,.6); font-family: inherit;
+    outline: none; transition: border-color .2s; resize: none;
+  }
+  .ex-note-input:focus { border-color: rgba(200,170,110,.25); color: #fff; }
+  .ex-note-input::placeholder { color: rgba(255,255,255,.2); }
 
-  .save-workout-btn { display: block; width: 100%; padding: 12px 16px; margin-top: 16px; border-radius: 12px; border: 1px solid rgba(200,170,110,.25); background: rgba(200,170,110,.1); color: #c9a96e; font-family: inherit; font-size: .85rem; font-weight: 500; cursor: pointer; transition: all .25s; text-transform: uppercase; letter-spacing: 1px; }
-  .save-workout-btn:hover { background: rgba(200,170,110,.2); }
-
-  .history-section { margin-top: 24px; }
-  .history-title { font-size: .75rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: rgba(200,170,110,.45); margin-bottom: 12px; }
-  .history-card { padding: 12px 16px; background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.05); border-radius: 12px; margin-bottom: 8px; cursor: pointer; transition: all .3s; }
-  .history-card:hover { background: rgba(255,255,255,.05); border-color: rgba(200,170,110,.2); }
-  .history-card.expanded { background: rgba(255,255,255,.04); }
-  .history-date { font-size: .85rem; color: #c9a96e; font-weight: 500; margin-bottom: 8px; }
-  .history-content { font-size: .8rem; color: rgba(255,255,255,.7); line-height: 1.4; display: none; max-height: 0; overflow: hidden; transition: max-height .3s; }
-  .history-card.expanded .history-content { display: block; max-height: 500px; }
 
   /* Diet Calc */
   .diet-calc-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
@@ -300,27 +318,12 @@
 
   <!-- Workout Diary -->
   <div class="card">
-    <div class="diet-calc-header" id="diaryHeader">
-      <h2 style="margin-bottom: 0;">Workout Diary</h2>
-      <div class="diet-chevron">▼</div>
-    </div>
-    <div class="diet-content" id="diaryContent">
-    <div style="margin-top:16px;">
+    <h2>Workout Diary</h2>
     <div class="toggle-btns">
       <button class="toggle-btn active" data-training="A">Training A</button>
       <button class="toggle-btn" data-training="B">Training B</button>
     </div>
     <div id="trainingContent"></div>
-    <button class="save-workout-btn" id="saveWorkoutBtn">Save Workout</button>
-    <div class="history-section">
-      <div style="display:flex;align-items:center;justify-content:space-between;">
-        <div class="history-title" style="margin-bottom:0;">History</div>
-        <button id="clearHistoryBtn" style="background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.2);color:#e74c3c;font-size:.65rem;font-family:Inter,sans-serif;padding:5px 12px;border-radius:8px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:all .3s;display:none;" onmouseover="this.style.background='rgba(231,76,60,.2)'" onmouseout="this.style.background='rgba(231,76,60,.1)'">Clear All</button>
-      </div>
-      <div id="historyList" style="margin-top:12px;"></div>
-    </div>
-    </div>
-    </div>
   </div>
 
   <!-- Diet Calculator -->
@@ -526,13 +529,22 @@ function renderTrainingExercises(type) {
         <div class="exercise-inputs">
           <div class="input-group">
             <label>Weight (kg)</label>
-            <input type="number" class="ex-weight-${type}" data-idx="${idx}" step="0.5" min="0">
+            <div class="stepper">
+              <button class="stepper-btn minus" type="button" onclick="stepVal('ex-weight-${type}',${idx},-2.5)">−</button>
+              <input type="number" class="ex-weight-${type}" data-idx="${idx}" step="2.5" min="0" value="">
+              <button class="stepper-btn plus" type="button" onclick="stepVal('ex-weight-${type}',${idx},2.5)">+</button>
+            </div>
           </div>
           <div class="input-group">
             <label>Reps</label>
-            <input type="number" class="ex-reps-${type}" data-idx="${idx}" min="0">
+            <div class="stepper">
+              <button class="stepper-btn minus" type="button" onclick="stepVal('ex-reps-${type}',${idx},-1)">−</button>
+              <input type="number" class="ex-reps-${type}" data-idx="${idx}" step="1" min="0" value="">
+              <button class="stepper-btn plus" type="button" onclick="stepVal('ex-reps-${type}',${idx},1)">+</button>
+            </div>
           </div>
         </div>
+        <input type="text" class="ex-note-input ex-note-${type}" data-idx="${idx}" placeholder="Заметка...">
       </div>
     `;
   });
@@ -540,13 +552,52 @@ function renderTrainingExercises(type) {
   return html;
 }
 
+function stepVal(cls, idx, delta) {
+  const inp = document.querySelector('.'+cls+'[data-idx="'+idx+'"]');
+  if (!inp) return;
+  let v = parseFloat(inp.value) || 0;
+  v = Math.max(0, +(v + delta).toFixed(1));
+  inp.value = v || '';
+  autoSaveWorkout();
+}
+
+function autoSaveWorkout() {
+  const type = currentTraining;
+  const data = {};
+  trainingData[type].forEach((ex, idx) => {
+    const w = document.querySelector(`.ex-weight-${type}[data-idx="${idx}"]`)?.value || '';
+    const r = document.querySelector(`.ex-reps-${type}[data-idx="${idx}"]`)?.value || '';
+    const n = document.querySelector(`.ex-note-${type}[data-idx="${idx}"]`)?.value || '';
+    if (w || r || n) data[idx] = { w, r, n };
+  });
+  localStorage.setItem('workoutInputs_' + type, JSON.stringify(data));
+}
+
+function loadWorkoutData() {
+  const saved = JSON.parse(localStorage.getItem('workoutInputs_' + currentTraining) || '{}');
+  Object.keys(saved).forEach(idx => {
+    const d = saved[idx];
+    const wEl = document.querySelector(`.ex-weight-${currentTraining}[data-idx="${idx}"]`);
+    const rEl = document.querySelector(`.ex-reps-${currentTraining}[data-idx="${idx}"]`);
+    const nEl = document.querySelector(`.ex-note-${currentTraining}[data-idx="${idx}"]`);
+    if (wEl && d.w) wEl.value = d.w;
+    if (rEl && d.r) rEl.value = d.r;
+    if (nEl && d.n) nEl.value = d.n;
+  });
+}
+
+function attachAutoSave() {
+  const type = currentTraining;
+  document.querySelectorAll(`.ex-weight-${type}, .ex-reps-${type}, .ex-note-${type}`).forEach(el => {
+    el.addEventListener('input', autoSaveWorkout);
+    el.addEventListener('change', autoSaveWorkout);
+  });
+}
+
 function initWorkoutDiary() {
   const toggleBtns = document.querySelectorAll('.toggle-btn');
   const contentDiv = document.getElementById('trainingContent');
-  const saveBtn = document.getElementById('saveWorkoutBtn');
-  const historyDiv = document.getElementById('historyList');
 
-  // Toggle training type
   toggleBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       toggleBtns.forEach(b => b.classList.remove('active'));
@@ -554,121 +605,19 @@ function initWorkoutDiary() {
       currentTraining = btn.dataset.training;
       contentDiv.innerHTML = renderTrainingExercises(currentTraining);
       loadWorkoutData();
+      attachAutoSave();
     });
   });
 
   contentDiv.innerHTML = renderTrainingExercises('A');
   loadWorkoutData();
-
-  // Save workout
-  saveBtn.addEventListener('click', () => {
-    const data = {
-      type: currentTraining,
-      date: new Date().toLocaleDateString('ru-RU'),
-      timestamp: Date.now(),
-      exercises: []
-    };
-
-    trainingData[currentTraining].forEach((ex, idx) => {
-      const weight = document.querySelector(`.ex-weight-${currentTraining}[data-idx="${idx}"]`)?.value || '';
-      const reps = document.querySelector(`.ex-reps-${currentTraining}[data-idx="${idx}"]`)?.value || '';
-      if (weight || reps) {
-        data.exercises.push({
-          name: ex.nameRu,
-          weight: weight ? parseFloat(weight) : null,
-          reps: reps ? parseInt(reps) : null
-        });
-      }
-    });
-
-    let history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
-    history.unshift(data);
-    history = history.slice(0, 50);
-    localStorage.setItem('workoutHistory', JSON.stringify(history));
-
-    renderHistory();
-  });
-
-  renderHistory();
-
-  // Clear all history
-  document.getElementById('clearHistoryBtn').addEventListener('click', clearAllHistory);
+  attachAutoSave();
 }
 
-function loadWorkoutData() {
-  const history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
-  const today = new Date().toLocaleDateString('ru-RU');
-  const todayData = history.find(h => h.date === today && h.type === currentTraining);
-
-  if (todayData) {
-    todayData.exercises.forEach(ex => {
-      const nameMatch = trainingData[currentTraining].find(e => e.nameRu === ex.name);
-      if (nameMatch) {
-        const idx = trainingData[currentTraining].indexOf(nameMatch);
-        if (ex.weight) {
-          document.querySelector(`.ex-weight-${currentTraining}[data-idx="${idx}"]`).value = ex.weight;
-        }
-        if (ex.reps) {
-          document.querySelector(`.ex-reps-${currentTraining}[data-idx="${idx}"]`).value = ex.reps;
-        }
-      }
-    });
-  }
-}
-
-function renderHistory() {
-  const historyDiv = document.getElementById('historyList');
-  const clearBtn = document.getElementById('clearHistoryBtn');
-  const history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
-
-  if (history.length === 0) {
-    historyDiv.innerHTML = '<div style="font-size: .85rem; color: rgba(255,255,255,.4); text-align: center; padding: 20px;">No workouts saved yet</div>';
-    clearBtn.style.display = 'none';
-    return;
-  }
-
-  clearBtn.style.display = 'block';
-
-  historyDiv.innerHTML = history.map((h, idx) => `
-    <div class="history-card" data-idx="${idx}">
-      <div style="display:flex;align-items:center;justify-content:space-between;">
-        <div class="history-date" style="margin-bottom:0;">${h.type === 'A' ? '▲' : '▼'} ${h.date}</div>
-        <button class="del-history-btn" data-idx="${idx}" style="background:none;border:none;color:rgba(231,76,60,.5);font-size:1rem;cursor:pointer;padding:2px 6px;transition:color .2s;line-height:1;" title="Delete">&times;</button>
-      </div>
-      <div class="history-content">
-        ${h.exercises.map(e => `<div>${e.name}: ${e.weight ? e.weight + ' kg' : '—'} × ${e.reps || '—'}</div>`).join('')}
-      </div>
-    </div>
-  `).join('');
-
-  historyDiv.querySelectorAll('.history-card').forEach(card => {
-    card.addEventListener('click', (e) => {
-      if (e.target.classList.contains('del-history-btn')) return;
-      card.classList.toggle('expanded');
-    });
-  });
-
-  historyDiv.querySelectorAll('.del-history-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const idx = parseInt(btn.dataset.idx);
-      deleteHistoryItem(idx);
-    });
-  });
-}
-
-function deleteHistoryItem(idx) {
-  const history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
-  history.splice(idx, 1);
-  localStorage.setItem('workoutHistory', JSON.stringify(history));
-  renderHistory();
-}
-
-function clearAllHistory() {
-  if (!confirm('Delete all workout history?')) return;
-  localStorage.setItem('workoutHistory', '[]');
-  renderHistory();
-}
+/* ===== MEAL DATA (used by diet calc + meal toggle) ===== */
+let liveTDEE = { training: 2500, rest: 2100 };
+let currentMealMode = 'training';
+const mealSplit = [0.25, 0.35, 0.15, 0.25];
 
 /* ===== DIET CALCULATOR ===== */
 function calculateDiet() {
@@ -721,6 +670,11 @@ function calculateDiet() {
   document.getElementById('bazaProt').textContent = protein;
   document.getElementById('bazaFat').textContent = fat;
   document.getElementById('bazaCarbs').textContent = carbs;
+
+  // Sync meal section with live TDEE
+  liveTDEE.training = trainingFinal;
+  liveTDEE.rest = restFinal;
+  updateMealFromDiet();
 }
 
 function initDietCalc() {
@@ -767,15 +721,7 @@ function initDietCalc() {
   calculateDiet();
 }
 
-/* ===== COLLAPSIBLE DIARY ===== */
-function initDiaryCollapse() {
-  const diaryHeader = document.getElementById('diaryHeader');
-  const diaryContent = document.getElementById('diaryContent');
-  diaryHeader.addEventListener('click', () => {
-    diaryHeader.classList.toggle('expanded');
-    diaryContent.classList.toggle('expanded');
-  });
-}
+/* (diary collapse removed — always visible) */
 
 /* ===== TIMER ===== */
 let timerInterval = null;
@@ -867,18 +813,26 @@ secInput.addEventListener('input', () => {
 });
 
 /* ===== MEAL TOGGLE ===== */
-const mealData = {
-  training: { total: 2500, meals: [625, 875, 375, 625] },
-  rest:     { total: 2100, meals: [525, 735, 315, 525] }
-};
+function updateMealFromDiet() {
+  const total = liveTDEE[currentMealMode];
+  mealSplit.forEach((pct, i) => {
+    document.getElementById('meal' + i).textContent = Math.round(total * pct);
+  });
+  document.getElementById('mealTotal').textContent = total + ' ккал';
+  // Update button labels
+  const tBtn = document.querySelector('.meal-toggle-btn[data-meal-mode="training"]');
+  const rBtn = document.querySelector('.meal-toggle-btn[data-meal-mode="rest"]');
+  if (tBtn) tBtn.textContent = '🏋️ Треня · ' + liveTDEE.training + ' ккал';
+  if (rBtn) rBtn.textContent = '😴 Отдых · ' + liveTDEE.rest + ' ккал';
+}
 
 function switchMealMode(mode) {
+  currentMealMode = mode;
   document.querySelectorAll('.meal-toggle-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`.meal-toggle-btn[data-meal-mode="${mode}"]`).classList.add('active');
-  const d = mealData[mode];
-  d.meals.forEach((v, i) => document.getElementById('meal' + i).textContent = v);
-  document.getElementById('mealTotal').textContent = d.total + ' ккал';
+  const active = document.querySelector(`.meal-toggle-btn[data-meal-mode="${mode}"]`);
+  if (active) active.classList.add('active');
   localStorage.setItem('bazaMealMode', mode);
+  updateMealFromDiet();
 }
 
 function saveWaterCheck() {
@@ -898,7 +852,7 @@ function loadMealState() {
 const SUPABASE_URL = 'https://pvmdetoukuybxtfehgbx.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2bWRldG91a3V5Ynh0ZmVoZ2J4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5NTU3NzQsImV4cCI6MjA4ODUzMTc3NH0.9J4AadFYX4PnVMJS5nGSZfaYGX1s1E5yZvQPgpUsb08';
 const EMAIL_MAP = { 'Lev': 'lev.rzn.office@gmail.com' };
-const SYNC_KEYS_TRAINING = ['workoutHistory', 'dietCalc'];
+const SYNC_KEYS_TRAINING = ['workoutInputs_A', 'workoutInputs_B', 'dietCalc'];
 let currentProfile = 'Lev';
 
 function getToken() { return localStorage.getItem('levhub_token'); }
@@ -999,7 +953,6 @@ function initApp() {
     updateDisplay();
     initWorkoutDiary();
     initDietCalc();
-    initDiaryCollapse();
     loadMealState();
 }
 
