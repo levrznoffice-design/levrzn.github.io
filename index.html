@@ -1190,6 +1190,18 @@
                 <button class="copy-btn" onclick="window.open('recharge.html', '_self')">Open</button>
             </div>
 
+            <!-- Prompt Tools -->
+            <div class="fast-access-card">
+                <div style="display: flex; gap: 12px; align-items: center; width: 100%;">
+                    <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#d97706,#f59e0b);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#fff;font-family:Inter,sans-serif;">P</div>
+                    <div class="fa-content">
+                        <div class="fa-label">Prompt Tools</div>
+                        <div class="fa-sublabel">API Setup + Tutorial</div>
+                    </div>
+                </div>
+                <button class="copy-btn" onclick="window.open('prompt-tools.html', '_self')">Open</button>
+            </div>
+
         </div>
 
         <!-- Notes Module -->
@@ -2101,19 +2113,29 @@
         }
 
         // Appointments
+        function formatDateDMY(dateStr) {
+            // "2026-03-08" → "08.03.2026"
+            if (!dateStr) return '';
+            const parts = dateStr.split('-');
+            if (parts.length === 3) return parts[2] + '.' + parts[1] + '.' + parts[0];
+            return dateStr;
+        }
+
         function loadAppointments() {
             const appts = JSON.parse(localStorage.getItem('levhub_appt') || '[]');
+            // Sort and save back so indices stay consistent
+            appts.sort((a, b) => new Date(a.date) - new Date(b.date));
+            localStorage.setItem('levhub_appt', JSON.stringify(appts));
+
             const list = document.getElementById('appointmentList');
             list.innerHTML = '';
-
-            appts.sort((a, b) => new Date(a.date) - new Date(b.date));
 
             appts.forEach((appt, idx) => {
                 const item = document.createElement('div');
                 item.className = 'appointment-item';
                 item.innerHTML = `
                     <div class="appointment-details">
-                        <div class="appointment-date">${appt.date}</div>
+                        <div class="appointment-date">${formatDateDMY(appt.date)}</div>
                         <div class="appointment-time">${appt.time}</div>
                         <div class="appointment-desc">${appt.desc}</div>
                     </div>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Tools — Lev's HUB</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; min-height: 100vh; overflow-x: hidden; }
+
+  /* Login */
+  .login-overlay { position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0a0a0a;transition:opacity .5s,visibility .5s; }
+  .login-overlay.hidden { opacity:0;visibility:hidden;pointer-events:none; }
+  .login-box { background:rgba(17,17,17,.95);border:1px solid rgba(201,169,110,.2);border-radius:20px;padding:48px 36px 36px;max-width:380px;width:90%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.6),0 0 60px rgba(201,169,110,.04); }
+  .login-logo { width:56px;height:56px;margin:0 auto 20px;border-radius:14px;background:linear-gradient(135deg,rgba(201,169,110,.15),rgba(201,169,110,.05));border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#c9a96e; }
+  .login-title { font-size:.7rem;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:rgba(200,170,110,.5);margin-bottom:28px; }
+  .login-input { width:100%;padding:14px 18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;color:#fff;font-family:Inter,sans-serif;font-size:.95rem;text-align:center;outline:none;margin-bottom:12px;transition:border-color .3s; }
+  .login-input:focus { border-color:rgba(201,169,110,.35); }
+  .login-input::placeholder { color:rgba(255,255,255,.2); }
+  .login-btn { width:100%;padding:14px;margin-top:8px;border-radius:12px;border:1px solid rgba(201,169,110,.3);background:linear-gradient(135deg,rgba(201,169,110,.2),rgba(201,169,110,.08));color:#c9a96e;font-family:Inter,sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;letter-spacing:1px;transition:all .3s; }
+  .login-btn:hover { background:linear-gradient(135deg,rgba(201,169,110,.3),rgba(201,169,110,.15)); }
+  .login-error { color:#e74c3c;font-size:.75rem;margin-top:12px;opacity:0;transition:opacity .3s; }
+  .login-error.show { opacity:1; }
+
+  .bg-img { position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; opacity: .12; filter: blur(2px) saturate(1.2); }
+  .bg-overlay { position: fixed; inset: 0; z-index: 1; background: radial-gradient(ellipse at 30% 20%, rgba(200,170,110,.08) 0%, transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(80,130,200,.06) 0%, transparent 60%), linear-gradient(180deg, rgba(10,10,10,.6) 0%, rgba(10,10,10,.92) 100%); }
+
+  .container { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 60px 24px 80px; }
+
+  .back-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); text-decoration: none; color: #ccc; font-size: .82rem; transition: all .3s; margin-bottom: 40px; }
+  .back-btn:hover { background: rgba(255,255,255,.1); color: #fff; border-color: rgba(200,170,110,.2); }
+
+  .header { text-align: center; margin-bottom: 48px; }
+  .header h1 { font-size: 1.8rem; font-weight: 300; letter-spacing: 4px; text-transform: uppercase; background: linear-gradient(135deg, #e8d5a8 0%, #fff 40%, #c9a96e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .header .line { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, #c9a96e, transparent); margin: 16px auto 0; }
+
+  .card { padding: 28px; border-radius: 16px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06); backdrop-filter: blur(12px); margin-bottom: 24px; }
+  .card h2 { font-size: .75rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: rgba(200,170,110,.45); margin-bottom: 18px; }
+
+  /* Code block */
+  .code-block {
+    position: relative;
+    background: rgba(0,0,0,.4);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 12px;
+    padding: 18px 16px;
+    font-family: 'Courier New', monospace;
+    font-size: .78rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,.75);
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .code-key { color: #c9a96e; }
+  .code-str { color: #4ade80; }
+
+  .copy-code-btn {
+    position: absolute; top: 10px; right: 10px;
+    padding: 6px 14px; border-radius: 8px;
+    border: 1px solid rgba(201,169,110,.3);
+    background: rgba(201,169,110,.12);
+    color: #c9a96e; font-family: Inter, sans-serif;
+    font-size: .7rem; font-weight: 600; cursor: pointer;
+    letter-spacing: .5px; transition: all .25s;
+  }
+  .copy-code-btn:hover { background: rgba(201,169,110,.25); }
+  .copy-code-btn.copied { background: rgba(74,222,128,.15); color: #4ade80; border-color: rgba(74,222,128,.3); }
+
+  /* Chapter links */
+  .chapter-list { display: flex; flex-direction: column; gap: 8px; }
+  .chapter-link {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-radius: 12px;
+    background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.05);
+    text-decoration: none; color: #fff; transition: all .25s;
+  }
+  .chapter-link:hover { background: rgba(255,255,255,.07); border-color: rgba(200,170,110,.2); }
+  .chapter-num {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: rgba(201,169,110,.12); border: 1px solid rgba(201,169,110,.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .8rem; font-weight: 600; color: #c9a96e; flex-shrink: 0;
+  }
+  .chapter-title { font-size: .82rem; color: rgba(255,255,255,.7); }
+  .chapter-link:hover .chapter-title { color: #fff; }
+  .chapter-arrow { margin-left: auto; color: rgba(255,255,255,.15); font-size: .9rem; transition: color .2s; }
+  .chapter-link:hover .chapter-arrow { color: rgba(200,170,110,.5); }
+
+  @media (max-width: 640px) {
+    .container { padding: 40px 16px 60px; }
+    .header h1 { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="login-logo">L</div>
+    <div class="login-title">LEV'S HUB</div>
+    <input class="login-input" id="loginUser" type="text" placeholder="Username" autocomplete="off">
+    <input class="login-input" id="loginPass" type="password" placeholder="Password">
+    <button class="login-btn" id="loginBtn">ENTER</button>
+    <div class="login-error" id="loginError">Invalid credentials</div>
+  </div>
+</div>
+
+<img class="bg-img" src="background5.jpg" alt="">
+<div class="bg-overlay"></div>
+
+<div class="container">
+
+  <a class="back-btn" href="index.html">&larr; Back to Main Hub</a>
+
+  <div class="header">
+    <h1>Prompt Tools</h1>
+    <div class="line"></div>
+  </div>
+
+  <!-- Setup Code -->
+  <div class="card">
+    <h2>Setup Code — Google Colab</h2>
+    <div class="code-block" id="setupCode"><button class="copy-code-btn" onclick="copyBlock('setup')">Copy</button><span class="code-key">API_KEY</span> = <span class="code-str">"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"</span>
+<span class="code-key">MODEL_NAME</span> = <span class="code-str">"claude-haiku-4-5-20251001"</span></div>
+  </div>
+
+  <!-- Tutorial Chapters -->
+  <div class="card">
+    <h2>Anthropic Prompt Engineering — Tutorial</h2>
+    <div class="chapter-list">
+      <a class="chapter-link" href="https://colab.research.google.com/github/anthropics/prompt-eng-interactive-tutorial/blob/master/Anthropic%201P/01_Basic_Prompt_Structure.ipynb" target="_blank" rel="noopener">
+        <div class="chapter-num">01</div>
+        <div class="chapter-title">Basic Prompt Structure</div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <a class="chapter-link" href="https://colab.research.google.com/github/anthropics/prompt-eng-interactive-tutorial/blob/master/Anthropic%201P/02_Being_Clear_and_Direct.ipynb" target="_blank" rel="noopener">
+        <div class="chapter-num">02</div>
+        <div class="chapter-title">Being Clear and Direct</div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <a class="chapter-link" href="https://colab.research.google.com/github/anthropics/prompt-eng-interactive-tutorial/blob/master/Anthropic%201P/03_Assigning_Roles.ipynb" target="_blank" rel="noopener">
+        <div class="chapter-num">03</div>
+        <div class="chapter-title">Assigning Roles</div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <a class="chapter-link" href="https://colab.research.google.com/github/anthropics/prompt-eng-interactive-tutorial/blob/master/Anthropic%201P/04_Separating_Data_and_Instructions.ipynb" target="_blank" rel="noopener">
+        <div class="chapter-num">04</div>
+        <div class="chapter-title">Separating Data and Instructions</div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <a class="chapter-link" href="https://colab.research.google.com/github/anthropics/prompt-eng-interactive-tutorial/blob/master/Anthropic%201P/05_Formatting_Output_and_Speaking_for_Claude.ipynb" target="_blank" rel="noopener">
+        <div class="chapter-num">05</div>
+        <div class="chapter-title">Formatting Output & Speaking for Claude</div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <a class="chapter-link" href="https://colab.research.google.com/github/anthropics/prompt-eng-interactive-tutorial/blob/master/Anthropic%201P/06_Precognition_Thinking_Step_by_Step.ipynb" target="_blank" rel="noopener">
+        <div class="chapter-num">06</div>
+        <div class="chapter-title">Thinking Step by Step</div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <a class="chapter-link" href="https://colab.research.google.com/github/anthropics/prompt-eng-interactive-tutorial/blob/master/Anthropic%201P/07_Using_Examples.ipynb" target="_blank" rel="noopener">
+        <div class="chapter-num">07</div>
+        <div class="chapter-title">Using Examples</div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <a class="chapter-link" href="https://colab.research.google.com/github/anthropics/prompt-eng-interactive-tutorial/blob/master/Anthropic%201P/08_Avoiding_Hallucinations.ipynb" target="_blank" rel="noopener">
+        <div class="chapter-num">08</div>
+        <div class="chapter-title">Avoiding Hallucinations</div>
+        <div class="chapter-arrow">→</div>
+      </a>
+      <a class="chapter-link" href="https://colab.research.google.com/github/anthropics/prompt-eng-interactive-tutorial/blob/master/Anthropic%201P/09_Complex_Prompts_for_Coding.ipynb" target="_blank" rel="noopener">
+        <div class="chapter-num">09</div>
+        <div class="chapter-title">Complex Prompts for Coding</div>
+        <div class="chapter-arrow">→</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* Copy block */
+function copyBlock(type) {
+  let text = '';
+  if (type === 'setup') {
+    text = 'API_KEY = "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"\nMODEL_NAME = "claude-haiku-4-5-20251001"';
+  }
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-code-btn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+/* ===== AUTH (same as other pages) ===== */
+const SUPABASE_URL = 'https://pvmdetoukuybxtfehgbx.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2bWRldG91a3V5Ynh0ZmVoZ2J4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5NTU3NzQsImV4cCI6MjA4ODUzMTc3NH0.9J4AadFYX4PnVMJS5nGSZfaYGX1s1E5yZvQPgpUsb08';
+const EMAIL_MAP = { 'Lev': 'lev.rzn.office@gmail.com' };
+
+function getToken() { return localStorage.getItem('levhub_token'); }
+
+async function supaAuth(email, password) {
+    const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=password', {
+        method: 'POST',
+        headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+    });
+    if (!res.ok) return null;
+    return await res.json();
+}
+
+async function refreshToken() {
+    const rt = localStorage.getItem('levhub_refresh');
+    if (!rt) return false;
+    const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=refresh_token', {
+        method: 'POST',
+        headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refresh_token: rt })
+    });
+    if (!res.ok) return false;
+    const d = await res.json();
+    if (!d.access_token) return false;
+    localStorage.setItem('levhub_token', d.access_token);
+    localStorage.setItem('levhub_refresh', d.refresh_token);
+    return true;
+}
+
+async function checkAuth() {
+    const token = getToken();
+    if (!token) return false;
+    return await refreshToken();
+}
+
+async function doLogin() {
+    const u = document.getElementById('loginUser').value.trim();
+    const p = document.getElementById('loginPass').value;
+    const email = EMAIL_MAP[u];
+    if (!email) { showLoginError(); return; }
+    document.getElementById('loginBtn').textContent = '...';
+    const result = await supaAuth(email, p);
+    document.getElementById('loginBtn').textContent = 'ENTER';
+    if (!result || !result.access_token) { showLoginError(); return; }
+    localStorage.setItem('levhub_token', result.access_token);
+    localStorage.setItem('levhub_refresh', result.refresh_token);
+    localStorage.setItem('levhub_profile', 'Lev');
+    document.getElementById('loginOverlay').classList.add('hidden');
+}
+
+function showLoginError() {
+    document.getElementById('loginError').classList.add('show');
+    setTimeout(() => document.getElementById('loginError').classList.remove('show'), 2000);
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const authed = await checkAuth();
+    if (authed) {
+        document.getElementById('loginOverlay').classList.add('hidden');
+    }
+    document.getElementById('loginBtn').addEventListener('click', doLogin);
+    document.getElementById('loginPass').addEventListener('keypress', e => { if(e.key==='Enter') doLogin(); });
+    document.getElementById('loginUser').addEventListener('keypress', e => { if(e.key==='Enter') document.getElementById('loginPass').focus(); });
+});
+</script>
+
+</body>
+</html>
