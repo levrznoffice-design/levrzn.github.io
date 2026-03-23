@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Prep — Lev's HUB</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; min-height: 100vh; overflow-x: hidden; }
+
+  /* Login */
+  .login-overlay { position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0a0a0a;transition:opacity .5s,visibility .5s; }
+  .login-overlay.hidden { opacity:0;visibility:hidden;pointer-events:none; }
+  .login-box { background:rgba(17,17,17,.95);border:1px solid rgba(201,169,110,.2);border-radius:20px;padding:48px 36px 36px;max-width:380px;width:90%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.6),0 0 60px rgba(201,169,110,.04); }
+  .login-logo { width:56px;height:56px;margin:0 auto 20px;border-radius:14px;background:linear-gradient(135deg,rgba(201,169,110,.15),rgba(201,169,110,.05));border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#c9a96e; }
+  .login-title { font-size:.7rem;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:rgba(200,170,110,.5);margin-bottom:28px; }
+  .login-input { width:100%;padding:14px 18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;color:#fff;font-family:Inter,sans-serif;font-size:.95rem;text-align:center;outline:none;margin-bottom:12px;transition:border-color .3s; }
+  .login-input:focus { border-color:rgba(201,169,110,.35); }
+  .login-input::placeholder { color:rgba(255,255,255,.2); }
+  .login-btn { width:100%;padding:14px;margin-top:8px;border-radius:12px;border:1px solid rgba(201,169,110,.3);background:linear-gradient(135deg,rgba(201,169,110,.2),rgba(201,169,110,.08));color:#c9a96e;font-family:Inter,sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;letter-spacing:1px;transition:all .3s; }
+  .login-btn:hover { background:linear-gradient(135deg,rgba(201,169,110,.3),rgba(201,169,110,.15)); }
+  .login-error { color:#e74c3c;font-size:.75rem;margin-top:12px;opacity:0;transition:opacity .3s; }
+  .login-error.show { opacity:1; }
+
+  .bg-img { position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; opacity: .12; filter: blur(2px) saturate(1.2); }
+  .bg-overlay { position: fixed; inset: 0; z-index: 1; background: radial-gradient(ellipse at 30% 20%, rgba(200,170,110,.08) 0%, transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(80,130,200,.06) 0%, transparent 60%), linear-gradient(180deg, rgba(10,10,10,.6) 0%, rgba(10,10,10,.92) 100%); }
+
+  .container { position: relative; z-index: 2; max-width: 740px; margin: 0 auto; padding: 60px 24px 80px; }
+
+  .back-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); text-decoration: none; color: #ccc; font-size: .82rem; transition: all .3s; margin-bottom: 40px; }
+  .back-btn:hover { background: rgba(255,255,255,.1); color: #fff; border-color: rgba(200,170,110,.2); }
+
+  .header { text-align: center; margin-bottom: 48px; }
+  .header h1 { font-size: 1.6rem; font-weight: 300; letter-spacing: 4px; text-transform: uppercase; background: linear-gradient(135deg, #e8d5a8 0%, #fff 40%, #c9a96e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .header .line { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, #c9a96e, transparent); margin: 16px auto 0; }
+
+  .card { padding: 28px; border-radius: 16px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06); backdrop-filter: blur(12px); margin-bottom: 24px; }
+  .card h2 { font-size: .75rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: rgba(200,170,110,.45); margin-bottom: 18px; }
+
+  /* Countdown */
+  .countdown-card {
+    text-align: center; padding: 32px 28px;
+    border-color: rgba(201,169,110,.2); background: rgba(201,169,110,.03);
+    position: relative; overflow: hidden;
+  }
+  .countdown-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, #c9a96e, transparent);
+  }
+  .countdown-num {
+    font-size: 3.5rem; font-weight: 700; color: #c9a96e;
+    font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  .countdown-label {
+    font-size: .8rem; color: rgba(255,255,255,.4); margin-top: 8px;
+    text-transform: uppercase; letter-spacing: 2px;
+  }
+  .countdown-bar {
+    width: 100%; height: 6px; border-radius: 3px;
+    background: rgba(255,255,255,.06); margin-top: 20px; overflow: hidden;
+  }
+  .countdown-bar-fill {
+    height: 100%; border-radius: 3px;
+    background: linear-gradient(90deg, #c9a96e, #4ade80);
+    transition: width .5s;
+  }
+  .countdown-pct {
+    font-size: .7rem; color: rgba(255,255,255,.3); margin-top: 6px;
+  }
+
+  /* Daily Rule */
+  .rule-card {
+    border-color: rgba(239,68,68,.25); background: rgba(239,68,68,.04);
+    position: relative; overflow: hidden;
+  }
+  .rule-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, #ef4444, #f59e0b, transparent);
+  }
+  .rule-big {
+    font-size: 1.6rem; font-weight: 700; color: #ef4444;
+    text-align: center; margin-bottom: 12px;
+  }
+  .rule-sub {
+    font-size: .85rem; color: rgba(255,255,255,.6); text-align: center; line-height: 1.7;
+  }
+  .rule-sub strong { color: #f59e0b; }
+  .rule-typing {
+    margin-top: 16px; padding: 14px 16px; border-radius: 12px;
+    background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.05);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .rule-typing-icon { font-size: 1.4rem; }
+  .rule-typing-text { font-size: .8rem; color: rgba(255,255,255,.55); line-height: 1.6; }
+  .rule-typing-text strong { color: #c9a96e; }
+
+  /* Spaced Repetition */
+  .rep-card {
+    border-color: rgba(74,222,128,.2); background: rgba(74,222,128,.03);
+    position: relative; overflow: hidden;
+  }
+  .rep-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, #4ade80, transparent);
+  }
+  .rep-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.04);
+  }
+  .rep-row:last-child { border-bottom: none; }
+  .rep-day {
+    width: 50px; height: 50px; border-radius: 12px; display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0;
+    font-size: .75rem; font-weight: 700; text-transform: uppercase;
+  }
+  .rep-day.d1 { background: rgba(201,169,110,.15); color: #c9a96e; }
+  .rep-day.d2 { background: rgba(74,222,128,.12); color: #4ade80; }
+  .rep-day.d7 { background: rgba(74,158,255,.12); color: #4a9eff; }
+  .rep-text { font-size: .82rem; color: rgba(255,255,255,.6); line-height: 1.5; }
+  .rep-text strong { color: rgba(255,255,255,.85); }
+  .rep-note {
+    font-size: .75rem; color: rgba(74,222,128,.6); margin-top: 10px;
+    padding: 10px 14px; border-radius: 10px;
+    background: rgba(74,222,128,.05); border-left: 3px solid rgba(74,222,128,.3);
+  }
+
+  /* Subject Cards */
+  .subj-card {
+    padding: 22px; border-radius: 14px;
+    background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.05);
+    margin-bottom: 14px; transition: background .2s;
+  }
+  .subj-card:hover { background: rgba(255,255,255,.05); }
+  .subj-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .subj-num {
+    width: 36px; height: 36px; border-radius: 10px; display: flex;
+    align-items: center; justify-content: center;
+    font-size: .85rem; font-weight: 700; flex-shrink: 0;
+  }
+  .subj-num.p1 { background: rgba(239,68,68,.15); color: #ef4444; }
+  .subj-num.p2 { background: rgba(245,158,11,.15); color: #f59e0b; }
+  .subj-num.p3 { background: rgba(74,222,128,.15); color: #4ade80; }
+  .subj-num.p4 { background: rgba(74,158,255,.15); color: #4a9eff; }
+  .subj-num.p5 { background: rgba(168,85,247,.15); color: #a855f7; }
+  .subj-num.p6 { background: rgba(201,169,110,.15); color: #c9a96e; }
+  .subj-num.p7 { background: rgba(255,255,255,.1); color: rgba(255,255,255,.6); }
+  .subj-title { font-size: .95rem; font-weight: 600; color: #e8d5a8; }
+  .subj-why {
+    font-size: .72rem; color: rgba(255,255,255,.35); margin-top: 2px;
+    font-style: italic;
+  }
+  .subj-topics {
+    font-size: .78rem; color: rgba(255,255,255,.5); line-height: 1.7;
+    margin-bottom: 12px; padding-left: 48px;
+  }
+  .subj-topics code {
+    background: rgba(255,255,255,.06); padding: 2px 6px; border-radius: 4px;
+    font-size: .75rem; color: #e8d5a8;
+  }
+  .subj-links { display: flex; gap: 8px; flex-wrap: wrap; padding-left: 48px; }
+  .subj-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px; border-radius: 10px;
+    background: rgba(201,169,110,.08); border: 1px solid rgba(201,169,110,.15);
+    text-decoration: none; color: #c9a96e; font-size: .75rem; font-weight: 500;
+    transition: all .25s;
+  }
+  .subj-link:hover { background: rgba(201,169,110,.18); border-color: rgba(201,169,110,.3); }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: rgba(255,255,255,.06); border-radius: 1px;
+  }
+  .tl-item {
+    position: relative; padding: 12px 0 12px 20px;
+    border-bottom: 1px solid rgba(255,255,255,.03);
+  }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-dot {
+    position: absolute; left: -24px; top: 16px;
+    width: 12px; height: 12px; border-radius: 50%;
+    border: 2px solid; background: #0a0a0a;
+  }
+  .tl-dot.python { border-color: #ef4444; }
+  .tl-dot.schnupper { border-color: #f59e0b; background: #f59e0b; }
+  .tl-dot.sql { border-color: #f59e0b; }
+  .tl-dot.git { border-color: #4ade80; }
+  .tl-dot.net { border-color: #4a9eff; }
+  .tl-dot.oop { border-color: #a855f7; }
+  .tl-dot.review { border-color: #c9a96e; background: #c9a96e; }
+  .tl-weeks {
+    font-size: .7rem; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 4px;
+  }
+  .tl-title { font-size: .88rem; font-weight: 500; color: rgba(255,255,255,.75); }
+  .tl-note { font-size: .72rem; color: rgba(255,255,255,.35); margin-top: 2px; }
+  .tl-item.active .tl-title { color: #c9a96e; }
+  .tl-item.active .tl-dot { box-shadow: 0 0 8px rgba(201,169,110,.4); }
+
+  /* Checklist */
+  .check-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0; font-size: .82rem; color: rgba(255,255,255,.6);
+  }
+  .check-item input[type="checkbox"] { accent-color: #c9a96e; width: 16px; height: 16px; cursor: pointer; }
+  .check-item.done { text-decoration: line-through; opacity: .4; }
+
+  @media (max-width: 640px) {
+    .container { padding: 40px 16px 60px; }
+    .header h1 { font-size: 1.2rem; }
+    .countdown-num { font-size: 2.5rem; }
+    .rule-big { font-size: 1.2rem; }
+    .subj-topics, .subj-links { padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="login-logo">L</div>
+    <div class="login-title">LEV'S HUB</div>
+    <input class="login-input" id="loginUser" type="text" placeholder="Username" autocomplete="off">
+    <input class="login-input" id="loginPass" type="password" placeholder="Password">
+    <button class="login-btn" id="loginBtn">ENTER</button>
+    <div class="login-error" id="loginError">Invalid credentials</div>
+  </div>
+</div>
+
+<img class="bg-img" src="background5.jpg" alt="">
+<div class="bg-overlay"></div>
+
+<div class="container">
+
+  <a class="back-btn" href="index.html">&larr; Back to Main Hub</a>
+
+  <div class="header">
+    <h1>Подготовка к школе — 18 недель</h1>
+    <div class="line"></div>
+  </div>
+
+  <!-- Countdown -->
+  <div class="card countdown-card">
+    <div class="countdown-num" id="daysLeft">—</div>
+    <div class="countdown-label">days until August 20, 2026</div>
+    <div class="countdown-bar"><div class="countdown-bar-fill" id="countdownBar"></div></div>
+    <div class="countdown-pct" id="countdownPct"></div>
+  </div>
+
+  <!-- DAILY RULE -->
+  <div class="card rule-card">
+    <div class="rule-big">3 ЧАСА В ДЕНЬ — MUST</div>
+    <div class="rule-sub">
+      Каждый день без исключений.<br>
+      <strong>Без повторения — запоминается только 10%.</strong><br>
+      С повторением в течение 24ч — <strong>80%</strong>.
+    </div>
+    <div class="rule-typing">
+      <div class="rule-typing-icon">⌨️</div>
+      <div class="rule-typing-text">
+        <strong>+ 2 подхода × 40 мин</strong> правильной печати каждый день (отдельно от 3ч учёбы).<br>
+        Цель: <strong>100+ слов/мин</strong> на DE/EN/RU к августу.
+      </div>
+    </div>
+    <div style="margin-top:12px; display:flex; justify-content:center;">
+      <a class="subj-link" href="https://www.typingclub.com/" target="_blank" rel="noopener">⌨️ TypingClub</a>
+    </div>
+  </div>
+
+  <!-- SPACED REPETITION -->
+  <div class="card rep-card">
+    <h2>Spaced Repetition — Интервальное повторение</h2>
+    <div class="rep-row">
+      <div class="rep-day d1">Day 1</div>
+      <div class="rep-text"><strong>Изучаешь новое.</strong> Мозг впервые видит информацию.</div>
+    </div>
+    <div class="rep-row">
+      <div class="rep-day d2">Day 2</div>
+      <div class="rep-text"><strong>Первые 10 минут — повторяешь вчерашнее.</strong> Потом новый материал.</div>
+    </div>
+    <div class="rep-row">
+      <div class="rep-day d7">Day 7</div>
+      <div class="rep-text"><strong>Повторяешь всю неделю за 15 минут.</strong> Закрепляешь в долгосрочную память.</div>
+    </div>
+    <div class="rep-note">Это единственный способ реально запомнить. Без повторения — 90% забывается за неделю.</div>
+  </div>
+
+  <!-- SUBJECTS -->
+  <div class="card">
+    <h2>Темы для изучения</h2>
+
+    <!-- 1. Python -->
+    <div class="subj-card">
+      <div class="subj-head">
+        <div class="subj-num p1">#1</div>
+        <div>
+          <div class="subj-title">Python</div>
+          <div class="subj-why">Основа всей школы — приоритет #1</div>
+        </div>
+      </div>
+      <div class="subj-topics">
+        <code>переменные</code> → <code>условия if/else</code> → <code>циклы</code> → <code>функции</code> → <code>классы и ООП</code>
+      </div>
+      <div class="subj-links">
+        <a class="subj-link" href="https://www.youtube.com/@ProgrammierenStwortten" target="_blank" rel="noopener">🎬 Programmieren Starten (DE)</a>
+        <a class="subj-link" href="https://www.youtube.com/@digitalize_" target="_blank" rel="noopener">🎬 Диджитализируй (RU)</a>
+        <a class="subj-link" href="https://futurecoder.io/" target="_blank" rel="noopener">💻 futurecoder.io</a>
+      </div>
+    </div>
+
+    <!-- 2. SQL -->
+    <div class="subj-card">
+      <div class="subj-head">
+        <div class="subj-num p2">#2</div>
+        <div>
+          <div class="subj-title">SQL / Базы данных</div>
+          <div class="subj-why">Modul 162 и 164 начинаются с первых недель</div>
+        </div>
+      </div>
+      <div class="subj-topics">
+        <code>что такое таблица</code> → <code>SELECT</code> → <code>WHERE</code> → <code>JOIN</code> → <code>CREATE / ALTER</code>
+      </div>
+      <div class="subj-links">
+        <a class="subj-link" href="https://sqlbolt.com/" target="_blank" rel="noopener">💻 SQLBolt</a>
+        <a class="subj-link" href="https://sqlzoo.net/" target="_blank" rel="noopener">💻 SQLZoo</a>
+      </div>
+    </div>
+
+    <!-- 3. Git -->
+    <div class="subj-card">
+      <div class="subj-head">
+        <div class="subj-num p3">#3</div>
+        <div>
+          <div class="subj-title">Git / GitHub</div>
+          <div class="subj-why">Используется с первого дня в школе</div>
+        </div>
+      </div>
+      <div class="subj-topics">
+        <code>репозиторий</code> → <code>commit</code> → <code>branch</code> → <code>merge</code> → <code>push/pull</code>
+      </div>
+      <div class="subj-links">
+        <a class="subj-link" href="https://learngitbranching.js.org/" target="_blank" rel="noopener">🎮 Learn Git Branching</a>
+      </div>
+    </div>
+
+    <!-- 4. Networks -->
+    <div class="subj-card">
+      <div class="subj-head">
+        <div class="subj-num p4">#4</div>
+        <div>
+          <div class="subj-title">Сети — Как работает Интернет</div>
+          <div class="subj-why">Modul 117 начинается в первые недели</div>
+        </div>
+      </div>
+      <div class="subj-topics">
+        <code>IP-адрес</code> → <code>DNS</code> → <code>HTTP</code> → <code>клиент-сервер</code>
+      </div>
+      <div class="subj-links">
+        <a class="subj-link" href="https://www.youtube.com/results?search_query=Wie+funktioniert+das+Internet" target="_blank" rel="noopener">🎬 YouTube: Wie funktioniert das Internet</a>
+      </div>
+    </div>
+
+    <!-- 5. OOP -->
+    <div class="subj-card">
+      <div class="subj-head">
+        <div class="subj-num p5">#5</div>
+        <div>
+          <div class="subj-title">ООП — Объектно-ориентированное программирование</div>
+          <div class="subj-why">Самая важная концепция всей профессии</div>
+        </div>
+      </div>
+      <div class="subj-topics">
+        Одна идея: <code>класс = чертёж</code>, <code>объект = то что по нему сделано</code>
+      </div>
+      <div class="subj-links">
+        <a class="subj-link" href="https://www.youtube.com/results?search_query=OOP+Python+einfach+erkl%C3%A4rt" target="_blank" rel="noopener">🎬 OOP Python einfach erklärt</a>
+      </div>
+    </div>
+
+    <!-- 6. German IT -->
+    <div class="subj-card">
+      <div class="subj-head">
+        <div class="subj-num p6">#6</div>
+        <div>
+          <div class="subj-title">Немецкий IT-словарь</div>
+          <div class="subj-why">Вся школа на немецком — минимум 15 мин/день</div>
+        </div>
+      </div>
+      <div class="subj-topics">
+        Каждый день читать один IT-текст на немецком. Запросы: <code>Was ist eine Datenbank</code>, <code>Wie funktioniert Git</code>, <code>Python einfach erklärt</code>
+      </div>
+    </div>
+
+    <!-- 7. Typing -->
+    <div class="subj-card">
+      <div class="subj-head">
+        <div class="subj-num p7">#7</div>
+        <div>
+          <div class="subj-title">Правильная печать</div>
+          <div class="subj-why">2 × 40 мин/день — цель 100+ слов/мин к августу</div>
+        </div>
+      </div>
+      <div class="subj-topics">
+        Немецкая раскладка: <code>ä</code> <code>ö</code> <code>ü</code> <code>ß</code> — плюс англ и русская
+      </div>
+      <div class="subj-links">
+        <a class="subj-link" href="https://www.typingclub.com/" target="_blank" rel="noopener">⌨️ TypingClub</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="card">
+    <h2>План по неделям</h2>
+    <div class="timeline" id="timeline">
+      <div class="tl-item" data-week="1">
+        <div class="tl-dot python"></div>
+        <div class="tl-weeks">Недели 1–4 (сейчас)</div>
+        <div class="tl-title">Python основы каждый день</div>
+        <div class="tl-note">futurecoder.io + YouTube</div>
+      </div>
+      <div class="tl-item" data-week="5">
+        <div class="tl-dot schnupper"></div>
+        <div class="tl-weeks">Неделя 5 (20–24 апреля)</div>
+        <div class="tl-title">SCHNUPPERWOCHE</div>
+        <div class="tl-note">Не учиться дома — только наблюдать и задавать вопросы студентам</div>
+      </div>
+      <div class="tl-item" data-week="6">
+        <div class="tl-dot sql"></div>
+        <div class="tl-weeks">Недели 6–8</div>
+        <div class="tl-title">SQL на sqlbolt.com</div>
+        <div class="tl-note">SELECT → WHERE → JOIN → CREATE</div>
+      </div>
+      <div class="tl-item" data-week="9">
+        <div class="tl-dot git"></div>
+        <div class="tl-weeks">Недели 9–11</div>
+        <div class="tl-title">Git на learngitbranching.js.org</div>
+        <div class="tl-note">commit → branch → merge → push/pull</div>
+      </div>
+      <div class="tl-item" data-week="12">
+        <div class="tl-dot net"></div>
+        <div class="tl-weeks">Недели 12–14</div>
+        <div class="tl-title">Сети на немецком YouTube</div>
+        <div class="tl-note">IP → DNS → HTTP → клиент-сервер</div>
+      </div>
+      <div class="tl-item" data-week="15">
+        <div class="tl-dot oop"></div>
+        <div class="tl-weeks">Недели 15–16</div>
+        <div class="tl-title">ООП концепции</div>
+        <div class="tl-note">класс → объект → наследование → методы</div>
+      </div>
+      <div class="tl-item" data-week="17">
+        <div class="tl-dot review"></div>
+        <div class="tl-weeks">Недели 17–18</div>
+        <div class="tl-title">Повторение всего + ОТДЫХ перед школой</div>
+        <div class="tl-note">Закрепление всех тем, отдых для мозга</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ===== COUNTDOWN ===== */
+function updateCountdown() {
+  const target = new Date('2026-08-20T00:00:00');
+  const start = new Date('2026-03-23T00:00:00');
+  const now = new Date();
+  const diff = target - now;
+  const days = Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+  document.getElementById('daysLeft').textContent = days;
+
+  const total = (target - start) / (1000 * 60 * 60 * 24);
+  const elapsed = (now - start) / (1000 * 60 * 60 * 24);
+  const pct = Math.min(100, Math.max(0, Math.round(elapsed / total * 100)));
+  document.getElementById('countdownBar').style.width = pct + '%';
+  document.getElementById('countdownPct').textContent = pct + '% of preparation time passed';
+}
+
+/* ===== HIGHLIGHT CURRENT WEEK IN TIMELINE ===== */
+function highlightTimeline() {
+  const start = new Date('2026-03-23T00:00:00');
+  const now = new Date();
+  const weekNum = Math.floor((now - start) / (1000 * 60 * 60 * 24 * 7)) + 1;
+
+  document.querySelectorAll('.tl-item').forEach(item => {
+    const w = parseInt(item.dataset.week);
+    if (weekNum >= w) item.classList.add('active');
+  });
+}
+
+/* ===== AUTH ===== */
+const SUPABASE_URL = 'https://pvmdetoukuybxtfehgbx.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2bWRldG91a3V5Ynh0ZmVoZ2J4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5NTU3NzQsImV4cCI6MjA4ODUzMTc3NH0.9J4AadFYX4PnVMJS5nGSZfaYGX1s1E5yZvQPgpUsb08';
+const EMAIL_MAP = { 'Lev': 'lev.rzn.office@gmail.com' };
+
+function getToken() { return localStorage.getItem('levhub_token'); }
+
+async function supaAuth(email, password) {
+    const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=password', {
+        method: 'POST',
+        headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+    });
+    if (!res.ok) return null;
+    return await res.json();
+}
+
+async function refreshToken() {
+    const rt = localStorage.getItem('levhub_refresh');
+    if (!rt) return false;
+    const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=refresh_token', {
+        method: 'POST',
+        headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refresh_token: rt })
+    });
+    if (!res.ok) return false;
+    const d = await res.json();
+    if (!d.access_token) return false;
+    localStorage.setItem('levhub_token', d.access_token);
+    localStorage.setItem('levhub_refresh', d.refresh_token);
+    return true;
+}
+
+async function checkAuth() {
+    const token = getToken();
+    if (!token) return false;
+    return await refreshToken();
+}
+
+async function doLogin() {
+    const u = document.getElementById('loginUser').value.trim();
+    const p = document.getElementById('loginPass').value;
+    const email = EMAIL_MAP[u];
+    if (!email) { showLoginError(); return; }
+    document.getElementById('loginBtn').textContent = '...';
+    const result = await supaAuth(email, p);
+    document.getElementById('loginBtn').textContent = 'ENTER';
+    if (!result || !result.access_token) { showLoginError(); return; }
+    localStorage.setItem('levhub_token', result.access_token);
+    localStorage.setItem('levhub_refresh', result.refresh_token);
+    localStorage.setItem('levhub_profile', 'Lev');
+    document.getElementById('loginOverlay').classList.add('hidden');
+}
+
+function showLoginError() {
+    document.getElementById('loginError').classList.add('show');
+    setTimeout(() => document.getElementById('loginError').classList.remove('show'), 2000);
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    updateCountdown();
+    highlightTimeline();
+    const authed = await checkAuth();
+    if (authed) {
+        document.getElementById('loginOverlay').classList.add('hidden');
+    }
+    document.getElementById('loginBtn').addEventListener('click', doLogin);
+    document.getElementById('loginPass').addEventListener('keypress', e => { if(e.key==='Enter') doLogin(); });
+    document.getElementById('loginUser').addEventListener('keypress', e => { if(e.key==='Enter') document.getElementById('loginPass').focus(); });
+});
+</script>
+
+</body>
+</html>
