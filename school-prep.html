@@ -95,6 +95,20 @@
   .rule-typing-text { font-size: .8rem; color: rgba(255,255,255,.55); line-height: 1.6; }
   .rule-typing-text strong { color: #c9a96e; }
 
+  /* German parallel */
+  .german-card {
+    border-color: rgba(74,158,255,.2); background: rgba(74,158,255,.03);
+    position: relative; overflow: hidden;
+  }
+  .german-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, #4a9eff, transparent);
+  }
+  .german-text {
+    font-size: .85rem; color: rgba(255,255,255,.6); text-align: center; line-height: 1.7;
+  }
+  .german-text strong { color: #4a9eff; }
+
   /* Spaced Repetition */
   .rep-card {
     border-color: rgba(74,222,128,.2); background: rgba(74,222,128,.03);
@@ -144,11 +158,14 @@
   .subj-num.p4 { background: rgba(74,158,255,.15); color: #4a9eff; }
   .subj-num.p5 { background: rgba(168,85,247,.15); color: #a855f7; }
   .subj-num.p6 { background: rgba(201,169,110,.15); color: #c9a96e; }
-  .subj-num.p7 { background: rgba(255,255,255,.1); color: rgba(255,255,255,.6); }
   .subj-title { font-size: .95rem; font-weight: 600; color: #e8d5a8; }
   .subj-why {
     font-size: .72rem; color: rgba(255,255,255,.35); margin-top: 2px;
     font-style: italic;
+  }
+  .subj-desc {
+    font-size: .8rem; color: rgba(255,255,255,.5); line-height: 1.7;
+    margin-bottom: 8px; padding-left: 48px;
   }
   .subj-topics {
     font-size: .78rem; color: rgba(255,255,255,.5); line-height: 1.7;
@@ -157,6 +174,14 @@
   .subj-topics code {
     background: rgba(255,255,255,.06); padding: 2px 6px; border-radius: 4px;
     font-size: .75rem; color: #e8d5a8;
+  }
+  .subj-goal {
+    font-size: .78rem; color: rgba(74,222,128,.5); line-height: 1.6;
+    margin-bottom: 12px; padding-left: 48px;
+  }
+  .subj-goal strong { color: rgba(74,222,128,.7); }
+  .subj-time {
+    font-size: .72rem; color: rgba(255,255,255,.3); padding-left: 48px; margin-bottom: 12px;
   }
   .subj-links { display: flex; gap: 8px; flex-wrap: wrap; padding-left: 48px; }
   .subj-link {
@@ -167,6 +192,38 @@
     transition: all .25s;
   }
   .subj-link:hover { background: rgba(201,169,110,.18); border-color: rgba(201,169,110,.3); }
+
+  /* Result Card */
+  .result-card {
+    border-color: rgba(201,169,110,.2); background: rgba(201,169,110,.03);
+    position: relative; overflow: hidden;
+  }
+  .result-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, #c9a96e, transparent);
+  }
+  .result-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 0; font-size: .82rem; color: rgba(255,255,255,.6);
+    border-bottom: 1px solid rgba(255,255,255,.03);
+  }
+  .result-item:last-child { border-bottom: none; }
+  .result-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+  .result-item strong { color: #e8d5a8; }
+
+  /* Why Card */
+  .why-card {
+    border-color: rgba(168,85,247,.2); background: rgba(168,85,247,.03);
+    position: relative; overflow: hidden;
+  }
+  .why-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, #a855f7, transparent);
+  }
+  .why-text {
+    font-size: .82rem; color: rgba(255,255,255,.55); line-height: 1.8;
+  }
+  .why-text strong { color: #a855f7; }
 
   /* Timeline */
   .timeline { position: relative; padding-left: 28px; }
@@ -184,12 +241,12 @@
     width: 12px; height: 12px; border-radius: 50%;
     border: 2px solid; background: #0a0a0a;
   }
-  .tl-dot.python { border-color: #ef4444; }
+  .tl-dot.sql { border-color: #ef4444; }
   .tl-dot.schnupper { border-color: #f59e0b; background: #f59e0b; }
-  .tl-dot.sql { border-color: #f59e0b; }
-  .tl-dot.git { border-color: #4ade80; }
+  .tl-dot.prog { border-color: #4ade80; }
   .tl-dot.net { border-color: #4a9eff; }
-  .tl-dot.oop { border-color: #a855f7; }
+  .tl-dot.hw { border-color: #a855f7; }
+  .tl-dot.java { border-color: #c9a96e; }
   .tl-dot.review { border-color: #c9a96e; background: #c9a96e; }
   .tl-weeks {
     font-size: .7rem; font-weight: 600; letter-spacing: 1px;
@@ -200,20 +257,12 @@
   .tl-item.active .tl-title { color: #c9a96e; }
   .tl-item.active .tl-dot { box-shadow: 0 0 8px rgba(201,169,110,.4); }
 
-  /* Checklist */
-  .check-item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 8px 0; font-size: .82rem; color: rgba(255,255,255,.6);
-  }
-  .check-item input[type="checkbox"] { accent-color: #c9a96e; width: 16px; height: 16px; cursor: pointer; }
-  .check-item.done { text-decoration: line-through; opacity: .4; }
-
   @media (max-width: 640px) {
     .container { padding: 40px 16px 60px; }
     .header h1 { font-size: 1.2rem; }
     .countdown-num { font-size: 2.5rem; }
     .rule-big { font-size: 1.2rem; }
-    .subj-topics, .subj-links { padding-left: 0; }
+    .subj-topics, .subj-links, .subj-desc, .subj-goal, .subj-time { padding-left: 0; }
   }
 </style>
 </head>
@@ -253,7 +302,7 @@
 
   <!-- DAILY RULE -->
   <div class="card rule-card">
-    <div class="rule-big">3 ЧАСА В ДЕНЬ — MUST</div>
+    <div class="rule-big">2–2.5 ЧАСА В ДЕНЬ — КАЖДЫЙ ДЕНЬ</div>
     <div class="rule-sub">
       Каждый день без исключений.<br>
       <strong>Без повторения — запоминается только 10%.</strong><br>
@@ -262,13 +311,23 @@
     <div class="rule-typing">
       <div class="rule-typing-icon">⌨️</div>
       <div class="rule-typing-text">
-        <strong>+ 2 подхода × 40 мин</strong> правильной печати каждый день (отдельно от 3ч учёбы).<br>
+        <strong>+ Печать каждый день</strong> — правильная печать отдельно от учёбы.<br>
         Цель: <strong>100+ слов/мин</strong> на DE/EN/RU к августу.
       </div>
     </div>
     <div style="margin-top:12px; display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
       <a class="subj-link" href="https://www.typingclub.com/" target="_blank" rel="noopener">⌨️ TypingClub</a>
       <a class="subj-link" href="https://www.online-stopwatch.com/" target="_blank" rel="noopener">⏱️ Timer</a>
+    </div>
+  </div>
+
+  <!-- GERMAN PARALLEL -->
+  <div class="card german-card">
+    <h2>Немецкий — каждый день параллельно</h2>
+    <div class="german-text">
+      Уроки с учителем остаются. Добавляешь: когда изучаешь тему —<br>
+      <strong>гуглишь её же на немецком и читаешь один абзац.</strong><br>
+      Строит технический словарь постепенно.
     </div>
   </div>
 
@@ -294,57 +353,61 @@
   <div class="card">
     <h2>Темы для изучения</h2>
 
-    <!-- 1. Python -->
+    <!-- 1. SQL -->
     <div class="subj-card">
       <div class="subj-head">
         <div class="subj-num p1">#1</div>
         <div>
-          <div class="subj-title">Python</div>
-          <div class="subj-why">Основа всей школы — приоритет #1</div>
+          <div class="subj-title">SQL — Недели 1–4</div>
+          <div class="subj-why">Три модуля первого года завязаны на SQL. Самое важное.</div>
         </div>
       </div>
-      <div class="subj-topics">
-        <code>переменные</code> → <code>условия if/else</code> → <code>циклы</code> → <code>функции</code> → <code>классы и ООП</code>
+      <div class="subj-desc">
+        Что гуглить: <code>SQL для начинающих</code>, <code>что такое база данных таблица</code>, <code>SQL SELECT WHERE JOIN объяснение</code>
       </div>
-      <div class="subj-links">
-        <a class="subj-link" href="https://www.youtube.com/watch?v=oxXAb8IikHM&list=PL_pqkvxZ6ho3u8PJAsUU-rOAQ74D0TqZB" target="_blank" rel="noopener">🎬 Programmieren Starten (DE)</a>
-        <a class="subj-link" href="https://www.youtube.com/playlist?list=PLDyJYA6aTY1lPWXBPk0gw6gR8fEtPDGKa" target="_blank" rel="noopener">🎬 Python (RU)</a>
-        <a class="subj-link" href="https://futurecoder.io/" target="_blank" rel="noopener">💻 futurecoder.io</a>
+      <div class="subj-goal">
+        <strong>Цель:</strong> создать таблицу, вставить данные, достать их запросом, соединить две таблицы через JOIN
       </div>
-    </div>
-
-    <!-- 2. SQL -->
-    <div class="subj-card">
-      <div class="subj-head">
-        <div class="subj-num p2">#2</div>
-        <div>
-          <div class="subj-title">SQL / Базы данных</div>
-          <div class="subj-why">Modul 162 и 164 начинаются с первых недель</div>
-        </div>
-      </div>
-      <div class="subj-topics">
-        <code>что такое таблица</code> → <code>SELECT</code> → <code>WHERE</code> → <code>JOIN</code> → <code>CREATE / ALTER</code>
-      </div>
+      <div class="subj-time">⏱️ 1 час видео + 1 час практика каждый день</div>
       <div class="subj-links">
         <a class="subj-link" href="https://sqlbolt.com/" target="_blank" rel="noopener">💻 SQLBolt</a>
         <a class="subj-link" href="https://sqlzoo.net/" target="_blank" rel="noopener">💻 SQLZoo</a>
       </div>
     </div>
 
-    <!-- 3. Git -->
+    <!-- 2. Schnupperwoche -->
+    <div class="subj-card" style="border-color: rgba(245,158,11,.2); background: rgba(245,158,11,.04);">
+      <div class="subj-head">
+        <div class="subj-num p2">#2</div>
+        <div>
+          <div class="subj-title">Schnupperwoche — Неделя 5</div>
+          <div class="subj-why">20–24 апреля — наблюдение в школе</div>
+        </div>
+      </div>
+      <div class="subj-desc">
+        Дома <strong>не учишься</strong>. Только наблюдаешь, задаёшь вопросы студентам.
+      </div>
+    </div>
+
+    <!-- 3. Programming / Python -->
     <div class="subj-card">
       <div class="subj-head">
         <div class="subj-num p3">#3</div>
         <div>
-          <div class="subj-title">Git / GitHub</div>
-          <div class="subj-why">Используется с первого дня в школе</div>
+          <div class="subj-title">Программирование (Python) — Недели 6–9</div>
+          <div class="subj-why">Модуль 319 — первое программирование в школе. Язык не важен, важна логика.</div>
         </div>
       </div>
-      <div class="subj-topics">
-        <code>репозиторий</code> → <code>commit</code> → <code>branch</code> → <code>merge</code> → <code>push/pull</code>
+      <div class="subj-desc">
+        Что гуглить: <code>программирование с нуля</code>, <code>что такое переменная</code>, <code>условия и циклы</code>, <code>функции для чего</code>
       </div>
+      <div class="subj-goal">
+        <strong>Цель:</strong> программа-приветствие, счётчик от 1 до 100, программа с если/иначе
+      </div>
+      <div class="subj-time">⏱️ 40 мин видео + 40 мин код каждый день</div>
       <div class="subj-links">
-        <a class="subj-link" href="https://learngitbranching.js.org/" target="_blank" rel="noopener">🎮 Learn Git Branching</a>
+        <a class="subj-link" href="https://replit.com/" target="_blank" rel="noopener">💻 Replit</a>
+        <a class="subj-link" href="https://futurecoder.io/" target="_blank" rel="noopener">💻 futurecoder.io</a>
       </div>
     </div>
 
@@ -353,64 +416,57 @@
       <div class="subj-head">
         <div class="subj-num p4">#4</div>
         <div>
-          <div class="subj-title">Сети — Как работает Интернет</div>
-          <div class="subj-why">Modul 117 начинается в первые недели</div>
+          <div class="subj-title">Сети — Недели 10–12</div>
+          <div class="subj-why">Модуль 117 — строишь офисную сеть</div>
         </div>
       </div>
-      <div class="subj-topics">
-        <code>IP-адрес</code> → <code>DNS</code> → <code>HTTP</code> → <code>клиент-сервер</code>
+      <div class="subj-desc">
+        🇷🇺 <code>как работает интернет</code>, <code>что такое IP адрес</code>, <code>роутер и свитч разница</code>, <code>DNS</code>, <code>OSI модель</code><br>
+        🇩🇪 <code>IP-Adresse erklärt</code>, <code>Router Switch Unterschied</code>, <code>OSI-Modell einfach erklärt</code>
       </div>
+      <div class="subj-goal">
+        <strong>Цель:</strong> понять что происходит от нажатия Enter до загрузки сайта
+      </div>
+      <div class="subj-time">⏱️ 1 час в день</div>
       <div class="subj-links">
-        <a class="subj-link" href="https://www.youtube.com/results?search_query=Wie+funktioniert+das+Internet" target="_blank" rel="noopener">🎬 YouTube: Wie funktioniert das Internet</a>
+        <a class="subj-link" href="https://www.youtube.com/results?search_query=Wie+funktioniert+das+Internet" target="_blank" rel="noopener">🎬 Wie funktioniert das Internet</a>
       </div>
     </div>
 
-    <!-- 5. OOP -->
+    <!-- 5. Hardware & OS -->
     <div class="subj-card">
       <div class="subj-head">
         <div class="subj-num p5">#5</div>
         <div>
-          <div class="subj-title">ООП — Объектно-ориентированное программирование</div>
-          <div class="subj-why">Самая важная концепция всей профессии</div>
+          <div class="subj-title">Компьютер и ОС — Недели 13–14</div>
+          <div class="subj-why">Модуль 187 — PC собрать и настроить</div>
         </div>
       </div>
-      <div class="subj-topics">
-        Одна идея: <code>класс = чертёж</code>, <code>объект = то что по нему сделано</code>
+      <div class="subj-desc">
+        Что гуглить: <code>материнская плата процессор RAM</code>, <code>что такое ОС</code>, <code>Linux и Windows разница</code>, <code>командная строка</code>
       </div>
-      <div class="subj-links">
-        <a class="subj-link" href="https://www.youtube.com/results?search_query=OOP+Python+einfach+erkl%C3%A4rt" target="_blank" rel="noopener">🎬 OOP Python einfach erklärt</a>
+      <div class="subj-goal">
+        <strong>Цель:</strong> выучи команды <code>cd</code>, <code>dir</code>, <code>mkdir</code>, <code>ping</code> — открой командную строку и попробуй
       </div>
+      <div class="subj-time">⏱️ 1 час в день</div>
     </div>
 
-    <!-- 6. German IT -->
+    <!-- 6. Java -->
     <div class="subj-card">
       <div class="subj-head">
         <div class="subj-num p6">#6</div>
         <div>
-          <div class="subj-title">Немецкий IT-словарь</div>
-          <div class="subj-why">Вся школа на немецком — минимум 15 мин/день</div>
+          <div class="subj-title">Java синтаксис — Недели 15–16</div>
+          <div class="subj-why">Модуль 320 второго года — ООП на Java. Просто снять страх.</div>
         </div>
       </div>
-      <div class="subj-topics">
-        Каждый день читать один IT-текст на немецком. Запросы: <code>Was ist eine Datenbank</code>, <code>Wie funktioniert Git</code>, <code>Python einfach erklärt</code>
+      <div class="subj-desc">
+        Что гуглить: <code>Java для начинающих первая программа</code>, <code>разница Python и Java</code>, <code>что такое класс в Java</code>
       </div>
-    </div>
-
-    <!-- 7. Typing -->
-    <div class="subj-card">
-      <div class="subj-head">
-        <div class="subj-num p7">#7</div>
-        <div>
-          <div class="subj-title">Правильная печать</div>
-          <div class="subj-why">2 × 40 мин/день — цель 100+ слов/мин к августу</div>
-        </div>
+      <div class="subj-goal">
+        <strong>Цель:</strong> написать одну программу Hello World на Java
       </div>
-      <div class="subj-topics">
-        Немецкая раскладка: <code>ä</code> <code>ö</code> <code>ü</code> <code>ß</code> — плюс англ и русская
-      </div>
-      <div class="subj-links">
-        <a class="subj-link" href="https://www.typingclub.com/" target="_blank" rel="noopener">⌨️ TypingClub</a>
-      </div>
+      <div class="subj-time">⏱️ 1 час в день</div>
     </div>
   </div>
 
@@ -419,47 +475,87 @@
     <h2>План по неделям</h2>
     <div class="timeline" id="timeline">
       <div class="tl-item" data-week="1">
-        <div class="tl-dot python"></div>
-        <div class="tl-weeks">Недели 1–4 (сейчас)</div>
-        <div class="tl-title">Python основы каждый день</div>
-        <div class="tl-note">futurecoder.io + YouTube</div>
+        <div class="tl-dot sql"></div>
+        <div class="tl-weeks">Недели 1–4</div>
+        <div class="tl-title">SQL — базы данных</div>
+        <div class="tl-note">sqlbolt.com — SELECT, WHERE, JOIN, CREATE</div>
       </div>
       <div class="tl-item" data-week="5">
         <div class="tl-dot schnupper"></div>
         <div class="tl-weeks">Неделя 5 (20–24 апреля)</div>
         <div class="tl-title">SCHNUPPERWOCHE</div>
-        <div class="tl-note">Не учиться дома — только наблюдать и задавать вопросы студентам</div>
+        <div class="tl-note">Не учиться дома — только наблюдать и задавать вопросы</div>
       </div>
       <div class="tl-item" data-week="6">
-        <div class="tl-dot sql"></div>
-        <div class="tl-weeks">Недели 6–8</div>
-        <div class="tl-title">SQL на sqlbolt.com</div>
-        <div class="tl-note">SELECT → WHERE → JOIN → CREATE</div>
+        <div class="tl-dot prog"></div>
+        <div class="tl-weeks">Недели 6–9</div>
+        <div class="tl-title">Программирование (Python)</div>
+        <div class="tl-note">Переменные → условия → циклы → функции</div>
       </div>
-      <div class="tl-item" data-week="9">
-        <div class="tl-dot git"></div>
-        <div class="tl-weeks">Недели 9–11</div>
-        <div class="tl-title">Git на learngitbranching.js.org</div>
-        <div class="tl-note">commit → branch → merge → push/pull</div>
-      </div>
-      <div class="tl-item" data-week="12">
+      <div class="tl-item" data-week="10">
         <div class="tl-dot net"></div>
-        <div class="tl-weeks">Недели 12–14</div>
-        <div class="tl-title">Сети на немецком YouTube</div>
-        <div class="tl-note">IP → DNS → HTTP → клиент-сервер</div>
+        <div class="tl-weeks">Недели 10–12</div>
+        <div class="tl-title">Сети — как работает Интернет</div>
+        <div class="tl-note">IP → DNS → роутер vs свитч → OSI модель</div>
+      </div>
+      <div class="tl-item" data-week="13">
+        <div class="tl-dot hw"></div>
+        <div class="tl-weeks">Недели 13–14</div>
+        <div class="tl-title">Компьютер и операционные системы</div>
+        <div class="tl-note">Железо, ОС, командная строка</div>
       </div>
       <div class="tl-item" data-week="15">
-        <div class="tl-dot oop"></div>
+        <div class="tl-dot java"></div>
         <div class="tl-weeks">Недели 15–16</div>
-        <div class="tl-title">ООП концепции</div>
-        <div class="tl-note">класс → объект → наследование → методы</div>
+        <div class="tl-title">Java синтаксис — снять страх</div>
+        <div class="tl-note">Hello World на Java, разница с Python</div>
       </div>
       <div class="tl-item" data-week="17">
         <div class="tl-dot review"></div>
         <div class="tl-weeks">Недели 17–18</div>
-        <div class="tl-title">Повторение всего + ОТДЫХ перед школой</div>
-        <div class="tl-note">Закрепление всех тем, отдых для мозга</div>
+        <div class="tl-title">Повторение + отдых перед школой</div>
+        <div class="tl-note">5 запросов с JOIN, одна программа без подсказок, отдых</div>
       </div>
+    </div>
+  </div>
+
+  <!-- WHAT YOU'LL KNOW -->
+  <div class="card result-card">
+    <h2>Что ты будешь знать к августу</h2>
+    <div class="result-item">
+      <span class="result-icon">🗄️</span>
+      <span><strong>SQL</strong> — понимаешь таблицы, умеешь писать запросы</span>
+    </div>
+    <div class="result-item">
+      <span class="result-icon">💻</span>
+      <span><strong>Программирование</strong> — понимаешь логику, умеешь написать простую программу</span>
+    </div>
+    <div class="result-item">
+      <span class="result-icon">🌐</span>
+      <span><strong>Сети</strong> — знаешь как работает интернет и офисная сеть</span>
+    </div>
+    <div class="result-item">
+      <span class="result-icon">🖥️</span>
+      <span><strong>Компьютер</strong> — знаешь из чего состоит, умеешь командную строку</span>
+    </div>
+    <div class="result-item">
+      <span class="result-icon">☕</span>
+      <span><strong>Java</strong> — видел синтаксис, не испугаешься</span>
+    </div>
+    <div class="result-item">
+      <span class="result-icon">🇩🇪</span>
+      <span><strong>Немецкий IT словарь</strong> — читаешь технические тексты без паники</span>
+    </div>
+  </div>
+
+  <!-- WHY THIS -->
+  <div class="card why-card">
+    <h2>Почему именно это</h2>
+    <div class="why-text">
+      <strong>SQL</strong> используется в каждом году из четырёх.<br>
+      <strong>Программирование</strong> — непрерывная линия от 319 до 321.<br>
+      <strong>Немецкий</strong> — весь ABU и все экзамены на нём.<br><br>
+      Это три вещи которые влияют на все четыре года. Остальное школа даст сама в нужное время.
     </div>
   </div>
 
@@ -565,6 +661,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('loginUser').addEventListener('keypress', e => { if(e.key==='Enter') document.getElementById('loginPass').focus(); });
 });
 </script>
+
+
+
+
+
+
 
 </body>
 </html>
