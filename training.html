@@ -48,6 +48,20 @@
   .toggle-btn { flex: 1; padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.05); color: #ccc; font-family: inherit; font-size: .85rem; font-weight: 500; cursor: pointer; transition: all .3s; text-transform: uppercase; letter-spacing: 1px; }
   .toggle-btn.active { background: rgba(200,170,110,.2); color: #c9a96e; border-color: rgba(200,170,110,.3); }
   .toggle-btn:hover:not(.active) { background: rgba(255,255,255,.08); }
+  .toggle-btn { position: relative; }
+  .next-dot {
+    position: absolute; top: -4px; right: -4px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #4ade80; cursor: pointer;
+    animation: nextPulse 2s infinite;
+    border: 2px solid #0a0a0a;
+    z-index: 2;
+  }
+  @keyframes nextPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(74,222,128,.5); }
+    50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+  }
+  .next-label { display: none; }
 
   .exercise-list { display: flex; flex-direction: column; gap: 14px; }
   .exercise-item { padding: 16px; background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.05); border-radius: 12px; }
@@ -418,11 +432,12 @@
   <!-- Workout Diary -->
   <div class="card">
     <h2>Workout Diary</h2>
-    <div class="toggle-btns">
+    <div class="toggle-btns" id="toggleBtns">
       <button class="toggle-btn active" data-training="A">Training A</button>
       <button class="toggle-btn" data-training="B">Training B</button>
       <button class="toggle-btn" data-training="C">Training C</button>
     </div>
+    <div class="next-label" id="nextLabel"></div>
     <div id="trainingContent"></div>
   </div>
 
@@ -730,11 +745,88 @@ function attachAutoSave() {
   });
 }
 
+/* ===== NEXT WORKOUT MARKER ===== */
+let nextWorkout = null;
+
+function renderNextDot() {
+  // Remove all existing dots
+  document.querySelectorAll('.next-dot').forEach(d => d.remove());
+  const label = document.getElementById('nextLabel');
+
+  if (!nextWorkout) {
+    label.textContent = '';
+    return;
+  }
+
+  label.textContent = '';
+
+  const btn = document.querySelector(`.toggle-btn[data-training="${nextWorkout}"]`);
+  if (!btn) return;
+  const dot = document.createElement('div');
+  dot.className = 'next-dot';
+  dot.title = 'Next workout — click to remove';
+  dot.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setNextWorkout(null);
+  });
+  btn.appendChild(dot);
+}
+
+function setNextWorkout(type) {
+  nextWorkout = type;
+  localStorage.setItem('levhub_next_workout', type || '');
+  renderNextDot();
+  saveNextWorkoutToSupabase();
+}
+
+async function saveNextWorkoutToSupabase() {
+  if (!getToken()) return;
+  const existing = await supaFetch('profiles?name=eq.' + encodeURIComponent(currentProfile), 'GET');
+  let merged = {};
+  if (existing && existing.length > 0 && existing[0].data) merged = existing[0].data;
+  merged.levhub_next_workout = nextWorkout || '';
+  await supaFetch('profiles', 'POST', { name: currentProfile, data: merged, updated_at: new Date().toISOString() });
+}
+
+async function loadNextWorkoutFromSupabase() {
+  // Try Supabase first, fall back to localStorage
+  if (getToken()) {
+    const data = await supaFetch('profiles?name=eq.' + encodeURIComponent(currentProfile), 'GET');
+    if (data && data.length > 0 && data[0].data && data[0].data.levhub_next_workout) {
+      nextWorkout = data[0].data.levhub_next_workout;
+      localStorage.setItem('levhub_next_workout', nextWorkout);
+      renderNextDot();
+      return;
+    }
+  }
+  nextWorkout = localStorage.getItem('levhub_next_workout') || null;
+  renderNextDot();
+}
+
 function initWorkoutDiary() {
   const toggleBtns = document.querySelectorAll('.toggle-btn');
   const contentDiv = document.getElementById('trainingContent');
 
   toggleBtns.forEach(btn => {
+    // Long-press or right-click to set as next
+    btn.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      const type = btn.dataset.training;
+      setNextWorkout(nextWorkout === type ? null : type);
+    });
+
+    // Double-tap to set as next (mobile friendly)
+    let lastTap = 0;
+    btn.addEventListener('touchend', (e) => {
+      const now = Date.now();
+      if (now - lastTap < 350) {
+        e.preventDefault();
+        const type = btn.dataset.training;
+        setNextWorkout(nextWorkout === type ? null : type);
+      }
+      lastTap = now;
+    });
+
     btn.addEventListener('click', () => {
       toggleBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
@@ -742,12 +834,17 @@ function initWorkoutDiary() {
       contentDiv.innerHTML = renderTrainingExercises(currentTraining);
       loadWorkoutData();
       attachAutoSave();
+      renderNextDot();
     });
   });
 
   contentDiv.innerHTML = renderTrainingExercises('A');
   loadWorkoutData();
   attachAutoSave();
+
+  // Load marker
+  nextWorkout = localStorage.getItem('levhub_next_workout') || null;
+  renderNextDot();
 }
 
 /* ===== MEAL DATA (used by diet calc + meal toggle) ===== */
@@ -1078,6 +1175,7 @@ async function doLogin() {
     localStorage.setItem('levhub_refresh', result.refresh_token);
     localStorage.setItem('levhub_profile', 'Lev');
     document.getElementById('loginOverlay').classList.add('hidden');
+    loadNextWorkoutFromSupabase();
 }
 
 function showLoginError() {
@@ -1219,6 +1317,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const authed = await checkAuth();
     if (authed) {
         document.getElementById('loginOverlay').classList.add('hidden');
+        loadNextWorkoutFromSupabase();
     }
     document.getElementById('loginBtn').addEventListener('click', doLogin);
     document.getElementById('loginPass').addEventListener('keypress', e => { if(e.key==='Enter') doLogin(); });
