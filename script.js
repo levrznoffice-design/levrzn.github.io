@@ -668,6 +668,86 @@ const FRAGRANCES = [
       summer: { day: 'forbidden', night: 'caution' },
       autumn: { day: 'full', night: 'full' }
     }
+  },
+  {
+    id: 'angels-share',
+    name: "Angels' Share",
+    house: 'By Kilian',
+    family: 'Гурманский · Пряный · Восточный',
+    image: 'levs-scent/bottles/angels-share.png',
+    vibe: 'levs-scent/vibes/angels-share-vibe.png',
+    accent: '#B85D19',
+    gradient: 'linear-gradient(135deg, #4a2508 0%, #8B4A12 55%, #B85D19 100%)',
+    total: 3,
+    refreshHours: null,
+    overspray: true,
+    maxCapped: true,
+    notes: {
+      top: ['Коньяк'],
+      heart: ['Корица', 'Бобы тонка', 'Дуб'],
+      base: ['Пралине', 'Ваниль', 'Сандал']
+    },
+    seasons: { winter: 'day+night', autumn: 'day+night', spring: 'night', summer: 'forbidden' },
+    vibeCaption: 'Пьянящий аромат выдержанного коньяка, тёплой корицы и пралине, создающий атмосферу дорогого уюта.',
+    masterWarning: 'Очень стойкий, сладкий и плотный — не пшикай больше 3-4 раз, чтобы не задушить себя и окружающих.',
+    variations: [
+      {
+        label: 'Лёгкий шлейф (2 пшика)',
+        points: [
+          { spot: 'spot-neck-back.png', n: 1, title: 'Шея сзади на кожу', detail: 'Для красивого шлейфа позади' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под одежду', detail: 'На кожу — для личного удовольствия' }
+        ]
+      },
+      {
+        label: 'Классика (3 пшика)',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок / волосы', detail: 'На волосы — отлично держится весь день' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'По одному на каждое — согревается пульсом' }
+        ]
+      },
+      {
+        label: 'Вечернее облако (4 пшика)',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'Близко к лицу собеседника' },
+          { spot: 'spot-collarbones-skin.png', n: 1, title: 'Ключица на кожу', detail: 'Тёплая база' },
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок / волосы', detail: 'Максимальная стойкость' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: { total: 0, forbidden: true, message: 'Слишком тяжёлый, алкогольный и сладкий для учёбы или тесного офиса.' },
+      gym: { total: 0, forbidden: true, message: 'Сладкая гурманика в спортзале задушит абсолютно всех, включая тебя.' },
+      date: {
+        total: 3,
+        note: 'Идеальный вариант для прохладного вечера, звучит дорого и притягательно.',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'На кожу — для сближения, она почувствует при разговоре' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под одежду', detail: 'На кожу — будет отдавать тепло весь вечер' }
+        ]
+      },
+      walk: {
+        total: 4,
+        note: 'На морозном воздухе корица и коньяк раскрываются бесподобно.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок / волосы', detail: 'На волосы — шлейф на ветру' },
+          { spot: 'spot-neck-front.png', n: 1, title: 'Шея спереди на кожу', detail: 'На кожу — бьёт в нос при расстёгнутой куртке' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань пальто/шарфа — держится вечно' }
+        ]
+      },
+      home: {
+        total: 1,
+        note: 'Для максимального уюта с чашкой чая.',
+        points: [
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'Одно запястье, затем прикоснуться ко второму — чтобы чувствовать самому' }
+        ]
+      }
+    },
+    seasonTimeMatrix: {
+      winter: { day: 'full', night: 'full' },
+      spring: { day: 'caution', night: 'caution' },
+      summer: { day: 'forbidden', night: 'forbidden' },
+      autumn: { day: 'full', night: 'full' }
+    }
   }
 ];
 
@@ -679,6 +759,7 @@ const COMBINATIONS = [
     name: 'Зимний гурман',
     fragrances: ['brun', 'fursan'],
     sub: 'Liquid Brun + Qaed Al Fursan',
+    season: 'Зима · Осень',
     totalSprays: 8,
     layers: [
       {
@@ -709,6 +790,7 @@ const COMBINATIONS = [
     name: 'Свидание',
     fragrances: ['qahwa', 'ninepm'],
     sub: 'Khamrah Qahwa + Afnan 9PM',
+    season: 'Осень · Зима · Прохладная весна',
     totalSprays: 5,
     layers: [
       {
@@ -739,6 +821,7 @@ const COMBINATIONS = [
     name: 'Мрачный вечер',
     fragrances: ['tobacco', 'brun'],
     sub: 'Red Tobacco + Liquid Brun',
+    season: 'Зима · Поздняя осень (только вечер)',
     totalSprays: 5,
     layers: [
       {
@@ -769,6 +852,7 @@ const COMBINATIONS = [
     name: 'Летний флекс',
     fragrances: ['encelade', 'fursan'],
     sub: 'Encelade + Qaed Al Fursan',
+    season: 'Весна · Лето · Тёплая осень',
     totalSprays: 5,
     layers: [
       {
@@ -798,6 +882,7 @@ const COMBINATIONS = [
     name: 'Офис / Учёба',
     fragrances: ['fakhar', 'ninepm'],
     sub: 'Fakhar Black + Afnan 9PM',
+    season: 'Весь год (кроме жаркого лета)',
     totalSprays: 5,
     layers: [
       {
@@ -822,6 +907,66 @@ const COMBINATIONS = [
       }
     ],
     effect: 'Свежесть + тёплая ваниль снизу. Профессионально, но не стерильно.'
+  },
+  {
+    id: 'cognac-evening',
+    name: 'Коньячный вечер',
+    fragrances: ['brun', 'angels-share'],
+    sub: "Liquid Brun + Angels' Share",
+    season: 'Зима · Осень (вечер)',
+    totalSprays: 4,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Liquid Brun',
+        fragId: 'brun',
+        instruction: 'Нанеси первым — кремовая ванильная база',
+        points: [
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь под одежду', detail: 'На кожу, под куртку — ваниль + корица Brun создают кремовую подложку для коньяка' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 1, title: 'Ключица под одежду', detail: 'На кожу — тепло тела раскроет тонку и бензоин' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: "Angels' Share",
+        fragId: 'angels-share',
+        instruction: 'Через 30 секунд — один пшик коньяка сверху',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — ОДИН пшик. Коньяк пробьётся через ваниль Brun и создаст глубину. Экономит Kilian.' }
+        ]
+      }
+    ],
+    effect: "Кремовая ваниль снизу, коньяк и пралине сверху — как дорогой бар в Цюрихе. И ты тратишь 1 пшик Kilian вместо 3."
+  },
+  {
+    id: 'sweet-contrast',
+    name: 'Сладкий контраст',
+    fragrances: ['fakhar', 'angels-share'],
+    sub: "Fakhar Black + Angels' Share",
+    season: 'Осень · Тёплая зима · Прохладная весна',
+    totalSprays: 4,
+    layers: [
+      {
+        order: 1,
+        fragName: "Angels' Share",
+        fragId: 'angels-share',
+        instruction: 'Нанеси первым — скрытая тёплая база на кожу',
+        points: [
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — коньяк + пралине как скрытый тёплый слой' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под одежду', detail: 'На кожу — Angels\' Share проступит через 30 минут, когда Fakhar сядет' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Fakhar Black',
+        fragId: 'fakhar',
+        instruction: 'Через 30 секунд — свежий верхний слой на одежду',
+        points: [
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань — свежий бергамот + ветивер перекрывает сладость. Через полчаса коньяк начнёт проступать из-под свежести' }
+        ]
+      }
+    ],
+    effect: "Сначала свежесть, потом — коньячная глубина. Fakhar балансирует Angels' Share, и можно носить даже осенью днём."
   }
 ];
 
@@ -912,6 +1057,14 @@ const REASONS = {
       'Лёгкий вечер для лёгкой сладости 9PM.',
       '9PM на прогулке в тёплый вечер — классика.'
     ]
+  },
+  'angels-share': {
+    cold: [
+      'Идеально согревает нотами коньяка и корицы.',
+      'Звучит уютно, дорого и как раз раскрывается на холодном воздухе.',
+      'Сладкая база из пралине поднимет настроение в серый день.'
+    ],
+    warm: []
   }
 };
 
@@ -1016,38 +1169,51 @@ function getScentOfDay(weather) {
   if (!weather.condition) return null;
 
   const score = computeWarmthScore(weather);
-  let candidates = [];
+  const season = getCurrentSeason();
+  const daytime = getDaytime();
+  let candidateIds = [];
 
   // High humidity + hot → only Fakhar
   if (weather.humidity === 'high' && score >= 2) {
-    candidates = ['fakhar'];
+    candidateIds = ['fakhar'];
   } else if (score <= -2) {
-    candidates = ['tobacco', 'brun'];
+    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share'];
   } else if (score === -1) {
-    candidates = ['qahwa', 'brun'];
+    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm'];
   } else if (score === 0) {
-    candidates = ['encelade', 'ninepm'];
+    candidateIds = ['encelade', 'ninepm', 'fursan', 'angels-share'];
   } else if (score === 1) {
-    candidates = ['ninepm', 'fursan'];
+    candidateIds = ['ninepm', 'fursan', 'fakhar'];
   } else {
-    candidates = ['fursan', 'fakhar'];
+    candidateIds = ['fursan', 'fakhar'];
   }
 
-  const chosen = randomFrom(candidates);
-  const frag = FRAGRANCES.find(f => f.id === chosen);
-  const isWarm = score >= 0;
-  const reasonPool = isWarm ? REASONS[chosen].warm : REASONS[chosen].cold;
-  const allReasons = [...REASONS[chosen].cold, ...REASONS[chosen].warm];
-  const reason = reasonPool.length > 0 ? randomFrom(reasonPool) : (allReasons.length > 0 ? randomFrom(allReasons) : frag.vibeCaption);
+  // Filter out fragrances that are forbidden in current season/time
+  const filtered = candidateIds
+    .map(id => FRAGRANCES.find(f => f.id === id))
+    .filter(f => {
+      if (!f) return false;
+      const m = f.seasonTimeMatrix[season];
+      return m && m[daytime] !== 'forbidden';
+    });
+
+  if (filtered.length === 0) return null;
 
   const condLabels = { sun: 'солнечно', clouds: 'облачно', rain: 'дождь', snow: 'снег', fog: 'туман' };
   const condText = condLabels[weather.condition] || '';
+  const summary = `${condText}, ${weather.temp > 0 ? '+' : ''}${weather.temp}°C`;
+  const isWarm = score >= 0;
 
-  return {
-    fragrance: frag,
-    reason: reason,
-    summary: `${condText}, ${weather.temp > 0 ? '+' : ''}${weather.temp}°C`
-  };
+  return filtered.map(frag => {
+    const reasonsObj = REASONS[frag.id];
+    let reason = frag.vibeCaption;
+    if (reasonsObj) {
+      const pool = isWarm ? reasonsObj.warm : reasonsObj.cold;
+      const all = [...reasonsObj.cold, ...reasonsObj.warm];
+      reason = pool.length > 0 ? randomFrom(pool) : (all.length > 0 ? randomFrom(all) : frag.vibeCaption);
+    }
+    return { fragrance: frag, reason, summary };
+  });
 }
 
 /* ===== DOM ELEMENTS ===== */
@@ -1220,24 +1386,37 @@ function updateScentOfDay() {
   if (!container) return;
 
   const weather = getWeatherState();
-  const result = getScentOfDay(weather);
+  const results = getScentOfDay(weather);
 
-  if (!result) {
+  if (!results || results.length === 0) {
     container.innerHTML = '<div class="sotd-empty">Выбери погоду выше, чтобы получить рекомендацию</div>';
     return;
   }
 
-  const f = result.fragrance;
-  container.innerHTML = `
-    <div class="sotd-card fade-in">
-      <div class="sotd-vibe" style="background-image:url('${f.vibe}')"></div>
-      <div class="sotd-content">
-        <div class="sotd-house">${f.house}</div>
-        <div class="sotd-name">${f.name}</div>
-        <div class="sotd-reason">${result.summary} — ${result.reason}</div>
-        <button class="sotd-btn" onclick="openFragCard('${f.id}')">Открыть инструкцию</button>
+  const cards = results.map((r, i) => {
+    const f = r.fragrance;
+    return `
+      <div class="sotd-slide fade-in" style="animation-delay:${i * 0.08}s">
+        <div class="sotd-card">
+          <div class="sotd-vibe" style="background-image:url('${f.vibe}')"></div>
+          <div class="sotd-content">
+            <div class="sotd-house">${f.house}</div>
+            <div class="sotd-name">${f.name}</div>
+            <div class="sotd-reason">${r.summary} — ${r.reason}</div>
+            <button class="sotd-btn" onclick="openFragCard('${f.id}')">Открыть инструкцию</button>
+          </div>
+        </div>
       </div>
-    </div>
+    `;
+  }).join('');
+
+  const countLabel = results.length > 1
+    ? `<div class="sotd-count">${results.length} ${pluralize(results.length, 'вариант', 'варианта', 'вариантов')} на сегодня</div>`
+    : '';
+
+  container.innerHTML = `
+    ${countLabel}
+    <div class="sotd-scroll">${cards}</div>
   `;
 }
 
@@ -1637,6 +1816,7 @@ function initCombinations() {
           <div>
             <div class="combo-name">${c.name}</div>
             <div class="combo-sub">${c.sub}</div>
+            <div class="combo-season">${c.season}</div>
           </div>
           <div class="combo-chevron">\u25BC</div>
         </div>
