@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lev's Scent.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="stickyNav">
+  <div class="nav-inner">
+    <button class="nav-btn active" data-view="main" data-scroll="collection">Коллекция</button>
+    <button class="nav-btn" data-view="main" data-scroll="combinations">Комбинации</button>
+    <button class="nav-btn" data-view="diary">Дневник</button>
+  </div>
+</nav>
+
+<!-- MAIN VIEW -->
+<div class="main-view" id="mainView">
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-location" id="heroLocation"></div>
+    <h1 class="hero-title">Lev's Scent.</h1>
+    <p class="hero-sub">Персональный дашборд ароматов</p>
+  </section>
+
+  <!-- WEATHER PICKER -->
+  <section class="section" id="weather">
+    <h2 class="section-title">Погода сегодня</h2>
+
+    <!-- Temperature -->
+    <div class="weather-block">
+      <div class="temp-display"><span class="temp-num" id="tempNum">10</span><span class="temp-deg">°C</span></div>
+      <input type="range" class="temp-slider" id="tempSlider" min="-10" max="35" value="10" step="1">
+      <div class="temp-range"><span>-10°</span><span>+35°</span></div>
+    </div>
+
+    <!-- Conditions -->
+    <div class="weather-block">
+      <div class="label-upper">Условия</div>
+      <div class="condition-row" id="conditionRow">
+        <button class="cond-btn" data-val="sun" aria-label="Солнце">
+          <svg viewBox="0 0 32 32" class="cond-icon"><circle cx="16" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><g stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="16" y1="3" x2="16" y2="7"/><line x1="16" y1="25" x2="16" y2="29"/><line x1="3" y1="16" x2="7" y2="16"/><line x1="25" y1="16" x2="29" y2="16"/><line x1="6.8" y1="6.8" x2="9.6" y2="9.6"/><line x1="22.4" y1="22.4" x2="25.2" y2="25.2"/><line x1="6.8" y1="25.2" x2="9.6" y2="22.4"/><line x1="22.4" y1="9.6" x2="25.2" y2="6.8"/></g></svg>
+          <span>Солнце</span>
+        </button>
+        <button class="cond-btn" data-val="clouds" aria-label="Облака">
+          <svg viewBox="0 0 32 32" class="cond-icon"><path d="M8 22a5 5 0 0 1-.3-10A7 7 0 0 1 21 11a5 5 0 0 1 3 9H8z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <span>Облака</span>
+        </button>
+        <button class="cond-btn" data-val="rain" aria-label="Дождь">
+          <svg viewBox="0 0 32 32" class="cond-icon"><path d="M8 18a5 5 0 0 1-.3-10A7 7 0 0 1 21 7a5 5 0 0 1 3 9H8z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="10" y1="22" x2="9" y2="26" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="16" y1="22" x2="15" y2="26" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="22" y1="22" x2="21" y2="26" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span>Дождь</span>
+        </button>
+        <button class="cond-btn" data-val="snow" aria-label="Снег">
+          <svg viewBox="0 0 32 32" class="cond-icon"><line x1="16" y1="4" x2="16" y2="28" stroke="currentColor" stroke-width="1.5"/><line x1="4" y1="16" x2="28" y2="16" stroke="currentColor" stroke-width="1.5"/><line x1="7.5" y1="7.5" x2="24.5" y2="24.5" stroke="currentColor" stroke-width="1.5"/><line x1="24.5" y1="7.5" x2="7.5" y2="24.5" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="16" r="2" fill="currentColor"/></svg>
+          <span>Снег</span>
+        </button>
+        <button class="cond-btn" data-val="fog" aria-label="Туман">
+          <svg viewBox="0 0 32 32" class="cond-icon"><g stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="12" x2="26" y2="12"/><line x1="8" y1="17" x2="24" y2="17"/><line x1="6" y1="22" x2="26" y2="22"/></g></svg>
+          <span>Туман</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Wind -->
+    <div class="weather-block">
+      <div class="label-upper">Ветер</div>
+      <div class="pill-row" id="windRow">
+        <button class="pill-btn active" data-val="weak">Слабый</button>
+        <button class="pill-btn" data-val="medium">Средний</button>
+        <button class="pill-btn" data-val="strong">Сильный</button>
+      </div>
+    </div>
+
+    <!-- Humidity -->
+    <div class="weather-block">
+      <div class="label-upper">Влажность</div>
+      <div class="pill-row" id="humidityRow">
+        <button class="pill-btn" data-val="low">Низкая</button>
+        <button class="pill-btn active" data-val="medium">Средняя</button>
+        <button class="pill-btn" data-val="high">Высокая</button>
+      </div>
+    </div>
+
+    <button class="text-btn" id="resetWeather">Сбросить погоду</button>
+  </section>
+
+  <!-- AI PROMPT -->
+  <section class="section ai-prompt-section">
+    <div class="ai-prompt-card">
+      <div class="ai-prompt-header">
+        <span class="label-upper" style="margin:0">AI · Узнать погоду в Ольтене</span>
+      </div>
+      <button class="btn-black" id="copyPrompt">Скопировать промпт</button>
+      <p class="ai-prompt-hint">Скопируй → вставь в ChatGPT → получи погоду → выбери выше</p>
+    </div>
+  </section>
+
+  <!-- SCENT OF THE DAY -->
+  <section class="section" id="scentOfDay">
+    <div class="label-upper" style="margin-bottom:12px">Аромат дня</div>
+    <div id="scentOfDayCard"></div>
+  </section>
+
+  <!-- COLLECTION -->
+  <section class="section" id="collection">
+    <h2 class="section-title">Коллекция · 7 ароматов</h2>
+    <div class="sort-row">
+      <button class="sort-btn active" data-sort="season">По сезону</button>
+      <button class="sort-btn" data-sort="dose">По дозе</button>
+      <button class="sort-btn" data-sort="alpha">По алфавиту</button>
+    </div>
+    <div class="collection-grid" id="collectionGrid"></div>
+  </section>
+
+  <!-- COMBINATIONS -->
+  <section class="section" id="combinations">
+    <h2 class="section-title">Комбинации · Layering</h2>
+    <p class="section-sub">Проверенные сочетания двух ароматов</p>
+    <div id="combosGrid"></div>
+  </section>
+
+  <!-- QUOTES -->
+  <section class="section quotes-section">
+    <div class="quote-dash">—</div>
+    <p class="quote-text" id="quoteText"></p>
+    <p class="quote-author" id="quoteAuthor"></p>
+  </section>
+
+</div>
+</div>
+
+<!-- DIARY VIEW -->
+<div class="diary-view hidden" id="diaryView">
+<div class="container">
+
+  <section class="section">
+    <h2 class="section-title">Дневник</h2>
+
+    <!-- Stats -->
+    <div class="diary-stats" id="diaryStats"></div>
+
+    <!-- Add button -->
+    <button class="btn-black diary-add-btn" id="diaryAddBtn">+ Добавить запись</button>
+
+    <!-- Form -->
+    <div class="diary-form hidden" id="diaryForm">
+      <div class="form-group">
+        <label class="label-upper">Дата</label>
+        <input type="date" class="form-input" id="diaryDate">
+      </div>
+      <div class="form-group">
+        <label class="label-upper">Аромат</label>
+        <select class="form-input" id="diaryFragrance"></select>
+      </div>
+      <div class="form-group">
+        <label class="label-upper">Количество пшиков</label>
+        <input type="number" class="form-input" id="diarySprays" min="1" max="20" value="5">
+      </div>
+      <div class="form-group">
+        <label class="label-upper">Ситуация</label>
+        <select class="form-input" id="diarySituation">
+          <option value="school">Школа</option>
+          <option value="gym">Зал</option>
+          <option value="date">Свидание</option>
+          <option value="walk">Прогулка</option>
+          <option value="home">Дома</option>
+          <option value="other">Другое</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="label-upper">Комплименты</label>
+        <input type="number" class="form-input" id="diaryCompliments" min="0" value="0">
+      </div>
+      <div class="form-group">
+        <label class="label-upper">От кого (опционально)</label>
+        <input type="text" class="form-input" id="diaryFrom" placeholder="">
+      </div>
+      <div class="form-group">
+        <label class="label-upper">Заметка</label>
+        <textarea class="form-input form-textarea" id="diaryNote" rows="3"></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn-black" id="diarySave">Сохранить</button>
+        <button class="text-btn" id="diaryCancel">Отмена</button>
+      </div>
+    </div>
+
+    <!-- Entries -->
+    <div id="diaryEntries"></div>
+  </section>
+
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

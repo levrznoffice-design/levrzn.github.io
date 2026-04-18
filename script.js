@@ -1,0 +1,1469 @@
+/* ============================================================
+   LEV'S SCENT — script.js
+   Персональный парфюмерный дашборд
+   ============================================================ */
+
+/* ===== DATA ===== */
+
+const FRAGRANCES = [
+  {
+    id: 'qahwa',
+    name: 'Khamrah Qahwa',
+    house: 'Lattafa',
+    family: 'Кофе · Сладкий · Алкогольный',
+    image: 'levs-scent/bottles/qahwa.png',
+    vibe: 'levs-scent/vibes/qahwa-vibe.png',
+    accent: '#c68642',
+    gradient: 'linear-gradient(135deg, #4b2c20 0%, #8B5A3C 55%, #c68642 100%)',
+    total: 6,
+    refreshHours: 7,
+    overspray: true,
+    maxCapped: false,
+    notes: {
+      top: ['Кардамон', 'Корица', 'Мускатный орех'],
+      heart: ['Финики', 'Пралине', 'Майский цветок'],
+      base: ['Ваниль', 'Тонка', 'Бензоин', 'Мирра']
+    },
+    seasons: { winter: 'day+night', autumn: 'day+night', spring: 'night', summer: 'night-only' },
+    vibeCaption: 'Арабский кофе, финики, кардамон. Уют как в холодное утро.',
+    variations: [
+      {
+        label: 'Классика (6 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок под волосы', detail: 'Генератор шлейфа' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи одежды', detail: 'Левое и правое — держится весь день' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'Личное облако' }
+        ]
+      },
+      {
+        label: 'Шлейф-вариант (6 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок', detail: 'Максимум шлейфа' },
+          { spot: 'spot-hair.png', n: 1, title: 'Волосы', detail: 'Парфюм держится на волосах дольше всего' },
+          { spot: 'spot-shoulder-blades.png', n: 2, title: 'Лопатки на одежду', detail: 'Сзади, чтобы не бить в нос спереди' }
+        ]
+      },
+      {
+        label: 'Интимный (4 пшика)',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Для близкого контакта' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Сгиб локтя', detail: 'Игра аромата при движении' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье', detail: 'Не тереть' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: { total: 4, note: 'Ключицы + плечи одежды. В школе не перебарщивай — сидишь в помещении 6 часов.' },
+      gym: { total: 0, forbidden: true, message: 'Лёва, ПОЩАДИ людей в зале. Надень Fakhar или Fursan.' },
+      date: { total: 5, note: 'Классика минус 1 пшик с плеча. Она должна хотеть подойти ближе.' },
+      walk: { total: 6, note: 'Полная доза. Холодный Ольтен съест половину.' },
+      home: { total: 3, note: 'Для кайфа. 1 на запястье, 1 на грудь, 1 на плечо.' }
+    },
+    masterWarning: null,
+    seasonTimeMatrix: {
+      winter: { day: 'full', night: 'full' },
+      spring: { day: 'caution', night: 'full' },
+      summer: { day: 'forbidden', night: 'caution' },
+      autumn: { day: 'full', night: 'full' }
+    }
+  },
+  {
+    id: 'brun',
+    name: 'Liquid Brun',
+    house: 'Fragrance World',
+    family: 'Сладкий · Пряный · Ванильный',
+    image: 'levs-scent/bottles/brun.png',
+    vibe: 'levs-scent/vibes/brun-vibe.png',
+    accent: '#c69362',
+    gradient: 'linear-gradient(135deg, #5a3825 0%, #8B6B4A 55%, #c69362 100%)',
+    total: 7,
+    refreshHours: 7,
+    overspray: true,
+    maxCapped: false,
+    notes: {
+      top: ['Корица', 'Яблоко', 'Гвоздика'],
+      heart: ['Ваниль', 'Пралине'],
+      base: ['Тонка', 'Мускус', 'Бензоин']
+    },
+    seasons: { winter: 'day+night', autumn: 'day+night', spring: 'night', summer: 'forbidden' },
+    vibeCaption: 'Корица, ваниль, тёплые специи. Магнит комплиментов.',
+    variations: [
+      {
+        label: 'Классика (7 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок', detail: 'Генератор шлейфа' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'Тепло тела раскроет аромат' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи одежды', detail: 'Держится весь день на ткани' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Сгиб локтя', detail: 'Движение руки усиливает шлейф' }
+        ]
+      },
+      {
+        label: 'Максимум шлейфа (7 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок', detail: 'Максимальная проекция' },
+          { spot: 'spot-hair.png', n: 1, title: 'Волосы', detail: 'Держится дольше всего' },
+          { spot: 'spot-neck-back.png', n: 1, title: 'Шея сзади', detail: 'Дополнительный шлейф' },
+          { spot: 'spot-shoulder-blades.png', n: 2, title: 'Лопатки на одежду', detail: 'Сзади — для тех, кто идёт за тобой' }
+        ]
+      },
+      {
+        label: 'Свидание (5 пшиков)',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Интимная зона' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Сгиб локтя', detail: 'При объятии раскроется' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястья', detail: 'Не тереть друг о друга' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь', detail: 'Личное облако тепла' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: { total: 5, note: 'Затылок + ключицы + 1 плечо. В классе хватит с головой.' },
+      gym: { total: 0, forbidden: true, message: 'Лёва, ПОЩАДИ людей в зале. Надень Fakhar или Fursan.' },
+      date: { total: 6, note: 'Свидание-вариант + 1 пшик на плечо. Ваниль — твоё оружие.' },
+      walk: { total: 7, note: 'Полная доза. Корица на морозе звучит божественно.' },
+      home: { total: 3, note: '1 на запястье, 1 на грудь, 1 на плечо. Кайф-режим.' }
+    },
+    masterWarning: null,
+    seasonTimeMatrix: {
+      winter: { day: 'full', night: 'full' },
+      spring: { day: 'caution', night: 'full' },
+      summer: { day: 'forbidden', night: 'forbidden' },
+      autumn: { day: 'full', night: 'full' }
+    }
+  },
+  {
+    id: 'fakhar',
+    name: 'Fakhar Black',
+    house: 'Lattafa',
+    family: 'Свежий · Древесный · Амбровый',
+    image: 'levs-scent/bottles/fakhar.png',
+    vibe: 'levs-scent/vibes/fakhar-vibe.png',
+    accent: '#6A6FB5',
+    gradient: 'linear-gradient(135deg, #2d2f5e 0%, #4a4d8a 55%, #6A6FB5 100%)',
+    total: 9,
+    refreshHours: 4,
+    overspray: false,
+    maxCapped: false,
+    notes: {
+      top: ['Бергамот', 'Яблоко'],
+      heart: ['Герань', 'Шалфей'],
+      base: ['Амбровуд', 'Ветивер']
+    },
+    seasons: { winter: 'day', autumn: 'day+night', spring: 'day+night', summer: 'day+night' },
+    vibeCaption: 'Свежий, чистый, YSL Y стиль. Им можно поливаться.',
+    variations: [
+      {
+        label: 'Классика (9 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок + шея', detail: 'Основной генератор свежести' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи одежды', detail: 'Стабильная проекция' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь', detail: 'Облако при расстёгнутой куртке' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья', detail: 'Свежесть при жестикуляции' }
+        ]
+      },
+      {
+        label: 'Зал (3 пшика)',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок', detail: 'Минимум, но достаточно' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястья', detail: 'Лёгкий акцент' }
+        ]
+      },
+      {
+        label: 'Утро в школу (7 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок', detail: 'Основа' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи одежды', detail: 'Для коридоров' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'Личный кайф' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье', detail: 'Финальный штрих' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: { total: 9, note: 'Полная доза. Fakhar безопасен в закрытых помещениях.' },
+      gym: { total: 3, note: 'Затылок 2 + запястье 1. Свежесть без агрессии.' },
+      date: { total: 7, note: 'Школьный вариант. Свежесть + чистота = доверие.' },
+      walk: { total: 9, note: 'Полная доза. На воздухе испаряется быстро.' },
+      home: { total: 4, note: '2 на затылок + 1 грудь + 1 запястье.' }
+    },
+    masterWarning: null,
+    seasonTimeMatrix: {
+      winter: { day: 'full', night: 'caution' },
+      spring: { day: 'full', night: 'full' },
+      summer: { day: 'full', night: 'full' },
+      autumn: { day: 'full', night: 'full' }
+    }
+  },
+  {
+    id: 'fursan',
+    name: 'Qaed Al Fursan',
+    house: 'Lattafa',
+    family: 'Фруктовый · Дымный · Древесный',
+    image: 'levs-scent/bottles/fursan.png',
+    vibe: 'levs-scent/vibes/fursan-vibe.png',
+    accent: '#d4a017',
+    gradient: 'linear-gradient(135deg, #5c4400 0%, #8B7020 55%, #d4a017 100%)',
+    total: 10,
+    refreshHours: 4,
+    overspray: false,
+    maxCapped: false,
+    notes: {
+      top: ['Ананас', 'Шафран'],
+      heart: ['Роза', 'Чёрный перец'],
+      base: ['Пачули', 'Уд', 'Амбра']
+    },
+    seasons: { winter: 'day+night', autumn: 'day+night', spring: 'day+night', summer: 'day' },
+    vibeCaption: 'Ананасовый взрыв с дымной древесиной.',
+    variations: [
+      {
+        label: 'Классика (10 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок', detail: 'Мощная база шлейфа' },
+          { spot: 'spot-shoulders-clothes.png', n: 3, title: 'Одежда', detail: 'Плечи + воротник' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши', detail: 'Проекция при разговоре' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья', detail: 'Активные точки' }
+        ]
+      },
+      {
+        label: 'Зал (3 пшика)',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок', detail: 'Минимум' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье', detail: 'Лёгкий акцент' }
+        ]
+      },
+      {
+        label: 'Вечер (8 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок', detail: 'Максимальный шлейф' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Ночная зона' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи одежды', detail: 'Стабильность' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье', detail: 'Финальный штрих' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: { total: 8, note: 'Затылок 3 + плечи 3 + запястья 2. Ананас заходит всем.' },
+      gym: { total: 3, note: 'Затылок 2 + запястье 1. Свежий фрукт в зале — ок.' },
+      date: { total: 8, note: 'Вечерний вариант. Дымный ананас — интрига.' },
+      walk: { total: 10, note: 'Полная доза. Ананас на холоде = бомба.' },
+      home: { total: 4, note: '2 на затылок + 1 грудь + 1 запястье. Фоновый кайф.' }
+    },
+    masterWarning: null,
+    seasonTimeMatrix: {
+      winter: { day: 'full', night: 'full' },
+      spring: { day: 'full', night: 'full' },
+      summer: { day: 'full', night: 'caution' },
+      autumn: { day: 'full', night: 'full' }
+    }
+  },
+  {
+    id: 'encelade',
+    name: 'Encelade',
+    house: 'Marc-Antoine Barrois',
+    family: 'Зелёный · Металлик · Мускусный',
+    image: 'levs-scent/bottles/encelade.png',
+    vibe: 'levs-scent/vibes/encelade-vibe.png',
+    accent: '#7ab851',
+    gradient: 'linear-gradient(135deg, #2d4a1e 0%, #4a7a30 55%, #7ab851 100%)',
+    total: 3,
+    refreshHours: null,
+    overspray: true,
+    maxCapped: true,
+    notes: {
+      top: ['Ревень', 'Артемизия'],
+      heart: ['Ирис', 'Металлик-аккорд'],
+      base: ['Ветивер', 'Мускус', 'Амбра']
+    },
+    seasons: { winter: 'day+night', autumn: 'day+night', spring: 'day+night', summer: 'night' },
+    vibeCaption: 'Монстр стойкости и шлейфа. Нишевый флекс.',
+    masterWarning: 'Больше трёх пшиков — и ты пахнешь термоядерной зеленью. Считай по пальцам.',
+    variations: [
+      {
+        label: 'Стандарт (3 пшика)',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок', detail: 'Один пшик — хватит для шлейфа' },
+          { spot: 'spot-shoulders-clothes.png', n: 1, title: 'Живот на одежду', detail: 'Скрытая точка' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье', detail: 'Для себя' }
+        ]
+      },
+      {
+        label: 'Флекс (3 пшика)',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок', detail: 'Основа' },
+          { spot: 'spot-behind-ears.png', n: 1, title: 'За уши', detail: 'Нишевый flex при разговоре' },
+          { spot: 'spot-shoulder-blades.png', n: 1, title: 'Лопатка', detail: 'Шлейф сзади' }
+        ]
+      },
+      {
+        label: 'Минимум (2 пшика)',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок', detail: 'Единственный генератор' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье', detail: 'Для личного контроля' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: { total: 2, note: 'Затылок + запястье. В классе Encelade ОЧЕНЬ громкий.' },
+      gym: { total: 0, forbidden: true, message: 'Лёва, Encelade в зале — это преступление. Fakhar или Fursan.' },
+      date: { total: 3, note: 'Флекс-вариант. Она спросит "что это?". Твой ответ: "нишевый."' },
+      walk: { total: 3, note: 'Стандарт. На улице раскроется в полную силу.' },
+      home: { total: 2, note: 'Минимум. 1 на запястье + 1 на грудь. Для кайфа.' }
+    },
+    seasonTimeMatrix: {
+      winter: { day: 'full', night: 'full' },
+      spring: { day: 'full', night: 'full' },
+      summer: { day: 'caution', night: 'full' },
+      autumn: { day: 'full', night: 'full' }
+    }
+  },
+  {
+    id: 'tobacco',
+    name: 'Red Tobacco',
+    house: 'Mancera',
+    family: 'Табачный · Пряный · Амбровый',
+    image: 'levs-scent/bottles/tobacco.png',
+    vibe: 'levs-scent/vibes/tobacco-vibe.png',
+    accent: '#B01A1A',
+    gradient: 'linear-gradient(135deg, #3d0a0a 0%, #7a1515 55%, #B01A1A 100%)',
+    total: 3,
+    refreshHours: null,
+    overspray: true,
+    maxCapped: true,
+    notes: {
+      top: ['Красный перец', 'Табак'],
+      heart: ['Кедр', 'Мускатный орех'],
+      base: ['Амбра', 'Ваниль', 'Мирра']
+    },
+    seasons: { winter: 'day+night', autumn: 'night', spring: 'forbidden', summer: 'forbidden' },
+    vibeCaption: 'Ядерный табак со специями. Король холодного вечера.',
+    masterWarning: 'НЕ пшикай на шею спереди. Через час у тебя самого заболит голова.',
+    variations: [
+      {
+        label: 'Классика (3 пшика)',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок под волосы', detail: 'Единственная точка спереди — нет' },
+          { spot: 'spot-shoulder-blades.png', n: 2, title: 'Лопатки на одежду', detail: 'Табак держится на ткани невероятно' }
+        ]
+      },
+      {
+        label: 'Вечер-выход (3 пшика)',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок', detail: 'Основа' },
+          { spot: 'spot-shoulder-blades.png', n: 1, title: 'Спина-лопатка', detail: 'Шлейф для тех, кто сзади' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье', detail: 'Контроль дозы' }
+        ]
+      },
+      {
+        label: 'Летний запрет-режим (1 пшик)',
+        points: [
+          { spot: 'spot-behind-knees.png', n: 1, title: 'Под колени', detail: 'Единственный безопасный вариант летом' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: { total: 0, forbidden: true, message: 'Red Tobacco в школе? Нет. Учителя вызовут скорую.' },
+      gym: { total: 0, forbidden: true, message: 'Нет. Просто нет. Никогда.' },
+      date: { total: 3, note: 'Классика. Табак на свидании зимой — это власть.' },
+      walk: { total: 3, note: 'Вечер-выход. Холодный Ольтен + Red Tobacco = магия.' },
+      home: { total: 2, note: '1 на запястье + 1 на лопатку. Тёплый кайф.' }
+    },
+    seasonTimeMatrix: {
+      winter: { day: 'full', night: 'full' },
+      spring: { day: 'forbidden', night: 'caution' },
+      summer: { day: 'forbidden', night: 'forbidden' },
+      autumn: { day: 'caution', night: 'full' }
+    }
+  },
+  {
+    id: 'ninepm',
+    name: 'Afnan 9PM',
+    house: 'Afnan',
+    family: 'Сладкий · Яблочный · Ванильный',
+    image: 'levs-scent/bottles/9pm.png',
+    vibe: 'levs-scent/vibes/9pm-vibe.png',
+    accent: '#C9A227',
+    gradient: 'linear-gradient(135deg, #4a3a08 0%, #8a7218 55%, #C9A227 100%)',
+    total: 6,
+    refreshHours: 5,
+    overspray: false,
+    maxCapped: false,
+    notes: {
+      top: ['Яблоко', 'Лаванда', 'Кардамон'],
+      heart: ['Корица', 'Кедр'],
+      base: ['Ваниль', 'Амбра', 'Тонка']
+    },
+    seasons: { winter: 'day+night', autumn: 'day+night', spring: 'night', summer: 'night-only' },
+    vibeCaption: 'Яблоко, корица, ваниль, амбра. Сладкий, молодой, комплиментарный.',
+    masterWarning: null,
+    variations: [
+      {
+        label: 'Классика (6 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок', detail: 'Основа шлейфа' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'Личное тепло' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи одежды', detail: 'Стабильная проекция' }
+        ]
+      },
+      {
+        label: 'Свидание (5 пшиков)',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Интимная зона' },
+          { spot: 'spot-behind-ears.png', n: 1, title: 'За уши', detail: 'При поцелуе в щёку' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Сгиб локтя', detail: 'При объятии' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье', detail: 'Не тереть' }
+        ]
+      },
+      {
+        label: 'Школа (4 пшика)',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок', detail: 'Один — достаточно' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи одежды', detail: 'Лёгкий фон' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье', detail: 'Для себя' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: { total: 4, note: 'Школьный вариант. 9PM — универсальный комплиментарный.' },
+      gym: { total: 0, forbidden: true, message: 'Сладкий в зале — плохая идея. Fakhar или Fursan.' },
+      date: { total: 5, note: 'Свидание-вариант. Яблоко + ваниль = непобедимо.' },
+      walk: { total: 6, note: 'Полная доза. Классика для прогулки.' },
+      home: { total: 3, note: '1 на запястье, 1 на грудь, 1 на плечо. Уютно.' }
+    },
+    seasonTimeMatrix: {
+      winter: { day: 'full', night: 'full' },
+      spring: { day: 'caution', night: 'full' },
+      summer: { day: 'forbidden', night: 'caution' },
+      autumn: { day: 'full', night: 'full' }
+    }
+  }
+];
+
+/* ===== COMBINATIONS ===== */
+
+const COMBINATIONS = [
+  {
+    id: 'winter-gourmet',
+    name: 'Зимний гурман',
+    fragrances: ['brun', 'fursan'],
+    sub: 'Liquid Brun + Qaed Al Fursan',
+    totalSprays: 8,
+    steps: [
+      'Сначала <strong>Liquid Brun</strong>: 3 пшика на грудь + 2 на затылок',
+      'Подожди 30 секунд',
+      'Затем <strong>Qaed Al Fursan</strong>: 2 на плечи одежды + 1 за уши'
+    ],
+    effect: 'Ананас оседает в карамельной ванили. Зимой играет как $300 ниша.'
+  },
+  {
+    id: 'date-combo',
+    name: 'Свидание',
+    fragrances: ['qahwa', 'ninepm'],
+    sub: 'Khamrah Qahwa + Afnan 9PM',
+    totalSprays: 5,
+    steps: [
+      'Сначала <strong>9PM</strong>: 2 на ключицы (под одежду) + 1 на запястье',
+      'Подожди 30 секунд',
+      'Затем <strong>Qahwa</strong>: 1 на затылок + 1 на плечо одежды'
+    ],
+    effect: 'Сладкий шлейф кофе + яблочная ваниль. Она не выдержит.'
+  },
+  {
+    id: 'dark-evening',
+    name: 'Мрачный вечер',
+    fragrances: ['tobacco', 'brun'],
+    sub: 'Red Tobacco + Liquid Brun',
+    totalSprays: 5,
+    steps: [
+      'Сначала <strong>Liquid Brun</strong>: 2 на грудь + 1 на сгиб локтя',
+      'Подожди 30 секунд',
+      'Затем <strong>Red Tobacco</strong>: 1 на затылок + 1 на лопатку'
+    ],
+    effect: 'Табак в кремовой оправе. Холодная ночь Ольтена — твоя.'
+  },
+  {
+    id: 'summer-flex',
+    name: 'Летний флекс',
+    fragrances: ['encelade', 'fursan'],
+    sub: 'Encelade + Qaed Al Fursan',
+    totalSprays: 5,
+    steps: [
+      'Сначала <strong>Qaed Al Fursan</strong>: 3 на плечи одежды + 1 за уши',
+      'Подожди 30 секунд',
+      'Затем <strong>Encelade</strong>: 1 на затылок (строго один)'
+    ],
+    effect: 'Ананас с металлическим зелёным послевкусием. Нишевая загадка.'
+  },
+  {
+    id: 'office-study',
+    name: 'Офис / Учёба',
+    fragrances: ['fakhar', 'ninepm'],
+    sub: 'Fakhar Black + Afnan 9PM',
+    totalSprays: 5,
+    steps: [
+      'Сначала <strong>Fakhar</strong>: 2 на плечи + 1 на затылок',
+      'Подожди 30 секунд',
+      'Затем <strong>9PM</strong>: 1 на ключицу + 1 на запястье'
+    ],
+    effect: 'Свежесть + тёплая ваниль снизу. Профессионально, но не стерильно.'
+  }
+];
+
+/* ===== QUOTES ===== */
+
+const QUOTES = [
+  'Парфюм должен приходить на секунду раньше тебя и уходить на секунду позже.',
+  'Запах на тебе. Не ты в запахе.',
+  'Лучше два пшика, которые запомнят, чем десять, от которых уйдут.',
+  'Шлейф — это подпись. Не подделывай её количеством.',
+  'Сладкое не значит детское. Холодное не значит взрослое.',
+  'Если ты сомневаешься — один пшик. Всегда.',
+  'Затылок — это твой главный инструмент. Остальное — декор.',
+  'Духи нюхают те, кто рядом. Ты — последний, кто должен их слышать.',
+  'Оверспрей — это крик. Дозировка — это шёпот. Шёпот громче.',
+  'Парфюм без повода — лучший повод.',
+  'В помещении — меньше. На улице — средне. На свидании — как всегда.',
+  'Красивый человек в плохом парфюме — грустная история.'
+];
+
+/* ===== SCENT-OF-DAY REASONS ===== */
+
+const REASONS = {
+  qahwa: {
+    cold: [
+      'Кофе и кардамон идеально раскрываются в холодном воздухе.',
+      'Qahwa создаёт уютное облако, когда за окном минус.',
+      'Финики и пралине — лучшие компаньоны для холода.'
+    ],
+    warm: [
+      'Вечер тёплого дня — кофейные ноты не будут давить.',
+      'Лёгкая прохлада раскрывает кардамон идеально.'
+    ]
+  },
+  brun: {
+    cold: [
+      'Корица и ваниль — магнит комплиментов в холодный день.',
+      'Liquid Brun на морозе звучит как кремовый десерт.',
+      'Тонка и бензоин создают тёплый кокон вокруг тебя.'
+    ],
+    warm: [
+      'Вечерний Brun в переходную погоду — мягкий и элегантный.'
+    ]
+  },
+  fakhar: {
+    cold: [
+      'Свежесть Fakhar пробьёт даже серый зимний день.'
+    ],
+    warm: [
+      'Fakhar создан для тёплой погоды — бергамот и ветивер на солнце.',
+      'Жарко и влажно? Только Fakhar. Остальные поплывут.',
+      'Свежий аромат для свежего дня. Без компромиссов.'
+    ]
+  },
+  fursan: {
+    cold: [
+      'Ананас + уд на холоде — дымная фруктовая бомба.'
+    ],
+    warm: [
+      'Ананас Fursan раскрывается на тёплом воздухе невероятно.',
+      'Тёплый день + Fursan = шлейф на 3 метра.',
+      'Qaed Al Fursan в тепле — это летний флекс.'
+    ]
+  },
+  encelade: {
+    cold: [
+      'Encelade в прохладе — зелёный металлик без агрессии.',
+      'Идеальная температура для ириса и ветивера.'
+    ],
+    warm: [
+      'Нишевый зелёный аккорд на тёплом вечере — интрига.'
+    ]
+  },
+  tobacco: {
+    cold: [
+      'Red Tobacco — король мороза. Табак и перец в ледяном воздухе.',
+      'Холодный вечер Ольтена заслуживает Red Tobacco.',
+      'Ниже нуля? Время для ядерного табака.'
+    ],
+    warm: []
+  },
+  ninepm: {
+    cold: [
+      'Яблоко и корица 9PM — как тёплый сидр на холоде.',
+      '9PM в прохладе — мягкий, молодой, комплиментарный.'
+    ],
+    warm: [
+      'Лёгкий вечер для лёгкой сладости 9PM.',
+      '9PM на прогулке в тёплый вечер — классика.'
+    ]
+  }
+};
+
+/* ===== WEATHER AI PROMPT ===== */
+
+const AI_PROMPT = `Дай мне прогноз погоды на сегодня в городе Ольтен, Швейцария. Ответ строго в формате без воды:
+Температура днём: [число]°C
+Температура вечером: [число]°C
+Условия: [солнечно / облачно / дождь / снег / туман]
+Ветер: [слабый / средний / сильный]
+Влажность: [низкая / средняя / высокая]
+Вердикт: [одна фраза]
+Без вступлений, без объяснений, только эти 6 строчек.`;
+
+/* ===== HELPERS ===== */
+
+function todayKey() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function getCurrentSeason() {
+  const m = new Date().getMonth();
+  if (m >= 2 && m <= 4) return 'spring';
+  if (m >= 5 && m <= 7) return 'summer';
+  if (m >= 8 && m <= 10) return 'autumn';
+  return 'winter';
+}
+
+function getDaytime() {
+  const h = new Date().getHours();
+  return h >= 6 && h < 18 ? 'day' : 'night';
+}
+
+function randomFrom(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function pluralize(n, one, few, many) {
+  const abs = Math.abs(n) % 100;
+  const n1 = abs % 10;
+  if (abs > 10 && abs < 20) return many;
+  if (n1 > 1 && n1 < 5) return few;
+  if (n1 === 1) return one;
+  return many;
+}
+
+function sprayWord(n) {
+  return pluralize(n, 'пшик', 'пшика', 'пшиков');
+}
+
+/* ===== WEATHER ===== */
+
+function getWeatherKey() { return 'levs-weather-' + todayKey(); }
+
+function loadWeather() {
+  // Clean old keys
+  const prefix = 'levs-weather-';
+  const today = todayKey();
+  for (let i = localStorage.length - 1; i >= 0; i--) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith(prefix) && k !== prefix + today) {
+      localStorage.removeItem(k);
+    }
+  }
+  const raw = localStorage.getItem(getWeatherKey());
+  return raw ? JSON.parse(raw) : null;
+}
+
+function saveWeather(data) {
+  localStorage.setItem(getWeatherKey(), JSON.stringify(data));
+}
+
+function getWeatherState() {
+  return loadWeather() || {
+    temp: 10,
+    condition: null,
+    wind: 'weak',
+    humidity: 'medium'
+  };
+}
+
+/* ===== SCENT OF THE DAY ALGORITHM ===== */
+
+function computeWarmthScore(weather) {
+  let score = 0;
+  const t = weather.temp;
+  if (t < 0) score = -2;
+  else if (t <= 10) score = -1;
+  else if (t <= 18) score = 0;
+  else if (t <= 25) score = 1;
+  else score = 2;
+
+  // Conditions adjust
+  if (['rain', 'snow', 'fog'].includes(weather.condition)) score -= 1;
+  if (weather.wind === 'strong') score -= 1;
+  if (weather.condition === 'sun' && weather.wind === 'weak') score += 1;
+
+  return score;
+}
+
+function getScentOfDay(weather) {
+  if (!weather.condition) return null;
+
+  const score = computeWarmthScore(weather);
+  let candidates = [];
+
+  // High humidity + hot → only Fakhar
+  if (weather.humidity === 'high' && score >= 2) {
+    candidates = ['fakhar'];
+  } else if (score <= -2) {
+    candidates = ['tobacco', 'brun'];
+  } else if (score === -1) {
+    candidates = ['qahwa', 'brun'];
+  } else if (score === 0) {
+    candidates = ['encelade', 'ninepm'];
+  } else if (score === 1) {
+    candidates = ['ninepm', 'fursan'];
+  } else {
+    candidates = ['fursan', 'fakhar'];
+  }
+
+  const chosen = randomFrom(candidates);
+  const frag = FRAGRANCES.find(f => f.id === chosen);
+  const isWarm = score >= 0;
+  const reasonPool = isWarm ? REASONS[chosen].warm : REASONS[chosen].cold;
+  const allReasons = [...REASONS[chosen].cold, ...REASONS[chosen].warm];
+  const reason = reasonPool.length > 0 ? randomFrom(reasonPool) : (allReasons.length > 0 ? randomFrom(allReasons) : frag.vibeCaption);
+
+  const condLabels = { sun: 'солнечно', clouds: 'облачно', rain: 'дождь', snow: 'снег', fog: 'туман' };
+  const condText = condLabels[weather.condition] || '';
+
+  return {
+    fragrance: frag,
+    reason: reason,
+    summary: `${condText}, ${weather.temp > 0 ? '+' : ''}${weather.temp}°C`
+  };
+}
+
+/* ===== DOM ELEMENTS ===== */
+
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
+
+/* ===== INIT ===== */
+
+document.addEventListener('DOMContentLoaded', () => {
+  initHero();
+  initWeather();
+  initCopyPrompt();
+  initCollection();
+  initCombinations();
+  initDiary();
+  initQuote();
+  initNav();
+  updateScentOfDay();
+  initRefreshTimers();
+});
+
+/* ===== HERO ===== */
+
+function initHero() {
+  const loc = $('#heroLocation');
+  if (loc) {
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
+    loc.textContent = 'Ольтен · ' + dateStr;
+  }
+}
+
+/* ===== NAVIGATION ===== */
+
+function initNav() {
+  const btns = $$('.nav-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const view = btn.dataset.view;
+      const scroll = btn.dataset.scroll;
+
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (view === 'diary') {
+        $('#mainView').classList.add('hidden');
+        $('#diaryView').classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        renderDiary();
+      } else {
+        $('#mainView').classList.remove('hidden');
+        $('#diaryView').classList.add('hidden');
+        if (scroll) {
+          setTimeout(() => {
+            const target = document.getElementById(scroll);
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+          }, 50);
+        }
+      }
+    });
+  });
+}
+
+/* ===== WEATHER PICKER ===== */
+
+function initWeather() {
+  const state = getWeatherState();
+
+  // Temperature slider
+  const slider = $('#tempSlider');
+  const tempNum = $('#tempNum');
+  if (slider) {
+    slider.value = state.temp;
+    tempNum.textContent = state.temp;
+    slider.addEventListener('input', () => {
+      const v = parseInt(slider.value);
+      tempNum.textContent = v;
+      state.temp = v;
+      saveWeather(state);
+      updateScentOfDay();
+    });
+  }
+
+  // Conditions
+  const condBtns = $$('#conditionRow .cond-btn');
+  condBtns.forEach(btn => {
+    if (btn.dataset.val === state.condition) btn.classList.add('active');
+    btn.addEventListener('click', () => {
+      condBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.condition = btn.dataset.val;
+      saveWeather(state);
+      updateScentOfDay();
+    });
+  });
+
+  // Wind
+  initPillRow('#windRow', state.wind, (val) => {
+    state.wind = val;
+    saveWeather(state);
+    updateScentOfDay();
+  });
+
+  // Humidity
+  initPillRow('#humidityRow', state.humidity, (val) => {
+    state.humidity = val;
+    saveWeather(state);
+    updateScentOfDay();
+  });
+
+  // Reset
+  const resetBtn = $('#resetWeather');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      localStorage.removeItem(getWeatherKey());
+      location.reload();
+    });
+  }
+}
+
+function initPillRow(selector, activeVal, onChange) {
+  const btns = $$(selector + ' .pill-btn');
+  btns.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.val === activeVal);
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      onChange(btn.dataset.val);
+    });
+  });
+}
+
+/* ===== COPY PROMPT ===== */
+
+function initCopyPrompt() {
+  const btn = $('#copyPrompt');
+  if (!btn) return;
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(AI_PROMPT);
+      btn.textContent = 'Скопировано \u2713';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Скопировать промпт';
+        btn.classList.remove('copied');
+      }, 2000);
+    } catch (e) {
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = AI_PROMPT;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.textContent = 'Скопировано \u2713';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Скопировать промпт';
+        btn.classList.remove('copied');
+      }, 2000);
+    }
+  });
+}
+
+/* ===== SCENT OF THE DAY ===== */
+
+function updateScentOfDay() {
+  const container = $('#scentOfDayCard');
+  if (!container) return;
+
+  const weather = getWeatherState();
+  const result = getScentOfDay(weather);
+
+  if (!result) {
+    container.innerHTML = '<div class="sotd-empty">Выбери погоду выше, чтобы получить рекомендацию</div>';
+    return;
+  }
+
+  const f = result.fragrance;
+  container.innerHTML = `
+    <div class="sotd-card fade-in">
+      <div class="sotd-vibe" style="background-image:url('${f.vibe}')"></div>
+      <div class="sotd-content">
+        <div class="sotd-house">${f.house}</div>
+        <div class="sotd-name">${f.name}</div>
+        <div class="sotd-reason">${result.summary} — ${result.reason}</div>
+        <button class="sotd-btn" onclick="openFragCard('${f.id}')">Открыть инструкцию</button>
+      </div>
+    </div>
+  `;
+}
+
+function openFragCard(id) {
+  // Switch to main view if on diary
+  $('#mainView').classList.remove('hidden');
+  $('#diaryView').classList.add('hidden');
+  $$('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.scroll === 'collection' && b.dataset.view === 'main');
+  });
+
+  // Find and open card
+  const card = document.querySelector(`.frag-card[data-id="${id}"]`);
+  if (card) {
+    // Close others
+    $$('.frag-card.open').forEach(c => c.classList.remove('open'));
+    card.classList.add('open');
+    setTimeout(() => {
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+}
+
+/* ===== COLLECTION ===== */
+
+function initCollection() {
+  renderCollection(getSortPref());
+  initSortButtons();
+}
+
+function getSortPref() {
+  return localStorage.getItem('levs-sort-pref') || 'season';
+}
+
+function initSortButtons() {
+  $$('.sort-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.sort === getSortPref());
+    btn.addEventListener('click', () => {
+      $$('.sort-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      localStorage.setItem('levs-sort-pref', btn.dataset.sort);
+      renderCollection(btn.dataset.sort);
+    });
+  });
+}
+
+function sortFragrances(sortBy) {
+  const list = [...FRAGRANCES];
+  const season = getCurrentSeason();
+  const seasonOrder = { winter: 0, autumn: 1, spring: 2, summer: 3 };
+
+  switch (sortBy) {
+    case 'season':
+      // Sort by current season compatibility (full > caution > forbidden)
+      const matrixScore = (f) => {
+        const m = f.seasonTimeMatrix[season];
+        const dt = getDaytime();
+        const val = m ? m[dt] : 'caution';
+        return val === 'full' ? 0 : val === 'caution' ? 1 : 2;
+      };
+      list.sort((a, b) => matrixScore(a) - matrixScore(b));
+      break;
+    case 'dose':
+      list.sort((a, b) => b.total - a.total);
+      break;
+    case 'alpha':
+      list.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+      break;
+  }
+  return list;
+}
+
+function renderCollection(sortBy) {
+  const grid = $('#collectionGrid');
+  if (!grid) return;
+  const sorted = sortFragrances(sortBy);
+  grid.innerHTML = sorted.map(f => buildFragCard(f)).join('');
+  attachFragListeners();
+}
+
+function buildFragCard(f) {
+  const season = getCurrentSeason();
+  const chips = [];
+  if (f.overspray) chips.push('<span class="frag-chip warn">\u26A0 Оверспрей-риск</span>');
+  if (f.refreshHours === null) chips.push('<span class="frag-chip norefresh">\u221E Не обновлять</span>');
+  if (!f.overspray && !f.maxCapped) chips.push('<span class="frag-chip universal">\u2713 Универсал</span>');
+
+  // Season time matrix
+  const seasons = ['winter', 'spring', 'summer', 'autumn'];
+  const seasonLabels = { winter: 'Зима', spring: 'Весна', summer: 'Лето', autumn: 'Осень' };
+  const matrixIcons = { full: '\u2713', caution: '\u25B3', forbidden: '\u2715' };
+  const matrixClasses = { full: 'matrix-full', caution: 'matrix-caution', forbidden: 'matrix-forbidden' };
+
+  let matrixRows = seasons.map(s => {
+    const m = f.seasonTimeMatrix[s];
+    const isCurrent = s === season;
+    return `<tr>
+      <td class="${isCurrent ? 'current' : ''}">${seasonLabels[s]}</td>
+      <td class="${isCurrent ? 'current ' : ''}${matrixClasses[m.day]}"><span>${matrixIcons[m.day]}</span></td>
+      <td class="${isCurrent ? 'current ' : ''}${matrixClasses[m.night]}"><span>${matrixIcons[m.night]}</span></td>
+    </tr>`;
+  }).join('');
+
+  // Notes
+  const noteChips = (label, arr) => {
+    if (!arr || !arr.length) return '';
+    return `<div class="label-upper" style="margin-top:10px">${label}</div>
+    <div class="notes-row">${arr.map(n => `<span class="note-chip">${n}</span>`).join('')}</div>`;
+  };
+
+  // Scenarios
+  const scenarioNames = { school: 'Школа', gym: 'Зал', date: 'Свидание', walk: 'Прогулка', home: 'Дома' };
+  const scenarioKeys = Object.keys(scenarioNames);
+
+  // Variations tabs
+  const varTabs = f.variations.map((v, i) => `<button class="var-tab${i === 0 ? ' active' : ''}" data-var="${i}">${v.label.split('(')[0].trim()}</button>`).join('');
+  const varContents = f.variations.map((v, i) => {
+    const points = v.points.map(p => `
+      <div class="spray-point">
+        <img class="spray-spot" src="levs-scent/spots/${p.spot}" alt="${p.title}" loading="lazy">
+        <div class="spray-info">
+          <span class="spray-n">${p.n}</span><span class="spray-title">${p.title}</span>
+          <div class="spray-detail">${p.detail}</div>
+        </div>
+      </div>
+    `).join('');
+    return `<div class="var-content${i === 0 ? '' : ' hidden'}" data-var="${i}">${points}</div>`;
+  }).join('');
+
+  // Refresh block
+  let refreshBlock = '';
+  if (f.refreshHours !== null) {
+    refreshBlock = `
+      <div class="refresh-block" data-frag="${f.id}">
+        <div class="label-upper">Когда обновлять</div>
+        <div class="refresh-timer" data-frag="${f.id}"></div>
+        <button class="btn-black" onclick="markApplied('${f.id}', ${f.refreshHours})">Я только что нанёс</button>
+        <div style="margin-top:8px">
+          <button class="text-btn" onclick="resetRefresh('${f.id}')">Сбросить таймер</button>
+        </div>
+      </div>
+    `;
+  } else {
+    refreshBlock = `
+      <div class="refresh-block">
+        <div class="label-upper">Когда обновлять</div>
+        <div style="font-size:13px;color:var(--text2);padding:10px 0">Не требует обновления — стойкость на весь день.</div>
+      </div>
+    `;
+  }
+
+  // Master warning
+  let warningBlock = '';
+  if (f.masterWarning) {
+    warningBlock = `
+      <div class="master-warning">
+        <div class="master-warning-icon">\u26A0</div>
+        <div class="master-warning-text">${f.masterWarning}</div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="frag-card" data-id="${f.id}">
+      <div class="frag-card-header">
+        <img class="frag-bottle" src="${f.image}" alt="${f.name}" loading="lazy">
+        <div class="frag-info">
+          <div class="frag-name">${f.name}</div>
+          <div class="frag-house">${f.house}</div>
+          <div class="frag-family">${f.family}</div>
+        </div>
+        <div class="frag-dose-chip">${f.total}</div>
+      </div>
+      <div class="frag-body">
+        <div class="frag-hero" style="background-image:url('${f.vibe}')">
+          <div class="frag-hero-overlay"></div>
+          <div class="frag-hero-name">${f.name}</div>
+        </div>
+        <div class="frag-inner">
+          <!-- Total banner -->
+          <div class="frag-total-banner">
+            <div class="frag-total-num" data-frag-total="${f.id}">${f.total}</div>
+            <div class="frag-total-label">${sprayWord(f.total)}</div>
+            <div class="frag-chips">${chips.join('')}</div>
+          </div>
+
+          <!-- Scenario switcher -->
+          <div class="scenario-row" data-frag="${f.id}">
+            ${scenarioKeys.map((k, i) => `<button class="scenario-btn${i === 0 ? ' active' : ''}" data-scenario="${k}">${scenarioNames[k]}</button>`).join('')}
+          </div>
+          <div class="scenario-note" data-frag-scenario="${f.id}">${f.scenarios[scenarioKeys[0]].forbidden ? '' : f.scenarios[scenarioKeys[0]].note}</div>
+          ${f.scenarios[scenarioKeys[0]].forbidden ? `<div class="scenario-forbidden">${f.scenarios[scenarioKeys[0]].message}</div>` : ''}
+
+          <!-- Spray variations -->
+          <div class="label-upper" style="margin-top:16px">Точки нанесения</div>
+          <div class="var-tabs" data-frag="${f.id}">${varTabs}</div>
+          <div class="var-list" data-frag-vars="${f.id}">${varContents}</div>
+
+          <!-- Refresh -->
+          ${refreshBlock}
+
+          <!-- Notes -->
+          <div class="notes-block">
+            <div class="label-upper">Ноты аромата</div>
+            ${noteChips('Верхние', f.notes.top)}
+            ${noteChips('Сердце', f.notes.heart)}
+            ${noteChips('База', f.notes.base)}
+          </div>
+
+          <!-- Season matrix -->
+          <div class="matrix-block">
+            <div class="label-upper">Сезон \u00D7 Время</div>
+            <table class="matrix-table">
+              <thead><tr><th></th><th>День</th><th>Ночь</th></tr></thead>
+              <tbody>${matrixRows}</tbody>
+            </table>
+          </div>
+
+          ${warningBlock}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function attachFragListeners() {
+  // Card toggle
+  $$('.frag-card-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const card = header.closest('.frag-card');
+      const wasOpen = card.classList.contains('open');
+      // On desktop: close others
+      if (window.innerWidth >= 768) {
+        $$('.frag-card.open').forEach(c => c.classList.remove('open'));
+      }
+      card.classList.toggle('open', !wasOpen);
+      if (!wasOpen) {
+        setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+      }
+    });
+  });
+
+  // Scenario switcher
+  $$('.scenario-row').forEach(row => {
+    const fragId = row.dataset.frag;
+    const frag = FRAGRANCES.find(f => f.id === fragId);
+    const noteEl = document.querySelector(`.scenario-note[data-frag-scenario="${fragId}"]`);
+    const totalEl = document.querySelector(`[data-frag-total="${fragId}"]`);
+
+    row.querySelectorAll('.scenario-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        row.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const sc = frag.scenarios[btn.dataset.scenario];
+        // Remove old forbidden block
+        const oldForbidden = row.parentElement.querySelector('.scenario-forbidden');
+        if (oldForbidden) oldForbidden.remove();
+
+        if (sc.forbidden) {
+          noteEl.textContent = '';
+          const fb = document.createElement('div');
+          fb.className = 'scenario-forbidden';
+          fb.textContent = sc.message;
+          noteEl.after(fb);
+          if (totalEl) {
+            totalEl.textContent = '0';
+            totalEl.nextElementSibling.textContent = sprayWord(0);
+          }
+        } else {
+          noteEl.textContent = sc.note;
+          if (totalEl) {
+            totalEl.textContent = sc.total;
+            totalEl.nextElementSibling.textContent = sprayWord(sc.total);
+          }
+        }
+      });
+    });
+  });
+
+  // Variation tabs
+  $$('.var-tabs').forEach(tabRow => {
+    const fragId = tabRow.dataset.frag;
+    const contentContainer = document.querySelector(`[data-frag-vars="${fragId}"]`);
+    tabRow.querySelectorAll('.var-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabRow.querySelectorAll('.var-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        contentContainer.querySelectorAll('.var-content').forEach(c => c.classList.add('hidden'));
+        contentContainer.querySelector(`.var-content[data-var="${tab.dataset.var}"]`).classList.remove('hidden');
+      });
+    });
+  });
+}
+
+/* ===== REFRESH TIMERS ===== */
+
+function initRefreshTimers() {
+  updateAllTimers();
+  setInterval(updateAllTimers, 30000); // Update every 30s
+}
+
+function updateAllTimers() {
+  FRAGRANCES.forEach(f => {
+    if (f.refreshHours === null) return;
+    const timerEl = document.querySelector(`.refresh-timer[data-frag="${f.id}"]`);
+    if (!timerEl) return;
+
+    const key = `levs-refresh-${f.id}`;
+    const ts = localStorage.getItem(key);
+    if (!ts) {
+      timerEl.textContent = 'Таймер не запущен';
+      timerEl.classList.remove('expired');
+      return;
+    }
+
+    const applied = parseInt(ts);
+    const expiry = applied + f.refreshHours * 3600000;
+    const now = Date.now();
+    const diff = expiry - now;
+
+    if (diff <= 0) {
+      timerEl.classList.add('expired');
+      timerEl.innerHTML = '<div class="refresh-expired-msg">Пора обновить: 1 пшик на затылок</div>';
+    } else {
+      timerEl.classList.remove('expired');
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      timerEl.textContent = `Обновить через: ${h}ч ${m}мин`;
+    }
+  });
+}
+
+function markApplied(fragId, hours) {
+  localStorage.setItem(`levs-refresh-${fragId}`, Date.now().toString());
+  updateAllTimers();
+}
+
+function resetRefresh(fragId) {
+  localStorage.removeItem(`levs-refresh-${fragId}`);
+  updateAllTimers();
+}
+
+/* ===== COMBINATIONS ===== */
+
+function initCombinations() {
+  const grid = $('#combosGrid');
+  if (!grid) return;
+
+  grid.innerHTML = COMBINATIONS.map(c => {
+    const steps = c.steps.map(s => `<div class="combo-step">${s}</div>`).join('');
+    return `
+      <div class="combo-card">
+        <div class="combo-header">
+          <div>
+            <div class="combo-name">${c.name}</div>
+            <div class="combo-sub">${c.sub}</div>
+          </div>
+          <div class="combo-chevron">\u25BC</div>
+        </div>
+        <div class="combo-body">
+          <div class="combo-inner">
+            ${steps}
+            <div class="combo-effect">${c.effect}</div>
+            <div class="combo-total">Итого: ${c.totalSprays} ${sprayWord(c.totalSprays)}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Toggle
+  $$('.combo-header').forEach(header => {
+    header.addEventListener('click', () => {
+      header.closest('.combo-card').classList.toggle('open');
+    });
+  });
+}
+
+/* ===== DIARY ===== */
+
+function getDiary() {
+  const raw = localStorage.getItem('levs-diary');
+  return raw ? JSON.parse(raw) : [];
+}
+
+function saveDiary(entries) {
+  localStorage.setItem('levs-diary', JSON.stringify(entries));
+}
+
+function initDiary() {
+  // Populate fragrance dropdown
+  const sel = $('#diaryFragrance');
+  if (sel) {
+    FRAGRANCES.forEach(f => {
+      const opt = document.createElement('option');
+      opt.value = f.id;
+      opt.textContent = f.name;
+      sel.appendChild(opt);
+    });
+  }
+
+  // Default date
+  const dateInput = $('#diaryDate');
+  if (dateInput) dateInput.value = todayKey();
+
+  // Add button
+  const addBtn = $('#diaryAddBtn');
+  const form = $('#diaryForm');
+  if (addBtn && form) {
+    addBtn.addEventListener('click', () => {
+      form.classList.toggle('hidden');
+    });
+  }
+
+  // Cancel
+  const cancelBtn = $('#diaryCancel');
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', () => {
+      form.classList.add('hidden');
+    });
+  }
+
+  // Save
+  const saveBtn = $('#diarySave');
+  if (saveBtn) {
+    saveBtn.addEventListener('click', () => {
+      const entry = {
+        id: Date.now(),
+        date: $('#diaryDate').value,
+        fragrance: $('#diaryFragrance').value,
+        sprays: parseInt($('#diarySprays').value) || 0,
+        situation: $('#diarySituation').value,
+        compliments: parseInt($('#diaryCompliments').value) || 0,
+        from: $('#diaryFrom').value.trim(),
+        note: $('#diaryNote').value.trim()
+      };
+
+      const entries = getDiary();
+      entries.unshift(entry);
+      saveDiary(entries);
+
+      // Reset form
+      $('#diarySprays').value = 5;
+      $('#diaryCompliments').value = 0;
+      $('#diaryFrom').value = '';
+      $('#diaryNote').value = '';
+      form.classList.add('hidden');
+
+      renderDiary();
+    });
+  }
+
+  renderDiary();
+}
+
+function renderDiary() {
+  const entries = getDiary();
+  renderDiaryStats(entries);
+  renderDiaryEntries(entries);
+}
+
+function renderDiaryStats(entries) {
+  const container = $('#diaryStats');
+  if (!container) return;
+
+  const totalEntries = entries.length;
+  const totalCompliments = entries.reduce((s, e) => s + (e.compliments || 0), 0);
+
+  // Most worn
+  let mostWorn = '—';
+  if (entries.length > 0) {
+    const counts = {};
+    entries.forEach(e => { counts[e.fragrance] = (counts[e.fragrance] || 0) + 1; });
+    const topId = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
+    const frag = FRAGRANCES.find(f => f.id === topId);
+    if (frag) mostWorn = frag.name;
+  }
+
+  container.innerHTML = `
+    <div class="diary-stat">
+      <div class="diary-stat-num">${totalEntries}</div>
+      <div class="diary-stat-label">Записей</div>
+    </div>
+    <div class="diary-stat">
+      <div class="diary-stat-num" style="font-size:14px;padding-top:6px">${mostWorn}</div>
+      <div class="diary-stat-label">Фаворит</div>
+    </div>
+    <div class="diary-stat">
+      <div class="diary-stat-num">${totalCompliments}</div>
+      <div class="diary-stat-label">Комплиментов</div>
+    </div>
+  `;
+}
+
+function renderDiaryEntries(entries) {
+  const container = $('#diaryEntries');
+  if (!container) return;
+
+  if (entries.length === 0) {
+    container.innerHTML = '<div style="text-align:center;color:#bbb;padding:40px 0;font-size:14px">Пока нет записей</div>';
+    return;
+  }
+
+  const situationLabels = { school: 'Школа', gym: 'Зал', date: 'Свидание', walk: 'Прогулка', home: 'Дома', other: 'Другое' };
+
+  container.innerHTML = entries.map(e => {
+    const frag = FRAGRANCES.find(f => f.id === e.fragrance);
+    const accent = frag ? frag.accent : '#ccc';
+    const name = frag ? frag.name : e.fragrance;
+    const dateFormatted = e.date ? new Date(e.date + 'T00:00:00').toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' }) : '';
+    const sitLabel = situationLabels[e.situation] || e.situation;
+    const compText = e.compliments > 0 ? ` \u00B7 ${e.compliments} ${pluralize(e.compliments, 'комплимент', 'комплимента', 'комплиментов')}${e.from ? ' от ' + e.from : ''}` : '';
+
+    return `
+      <div class="diary-entry" style="border-left-color:${accent}">
+        <div class="diary-entry-body">
+          <div class="diary-entry-top">
+            <div class="diary-entry-frag">${name}</div>
+            <div class="diary-entry-date">${dateFormatted}</div>
+          </div>
+          <div class="diary-entry-meta">${e.sprays} ${sprayWord(e.sprays)} \u00B7 ${sitLabel}${compText}</div>
+          ${e.note ? `<div class="diary-entry-note">${e.note}</div>` : ''}
+        </div>
+        <button class="diary-entry-del" onclick="deleteDiaryEntry(${e.id})" aria-label="Удалить">\u00D7</button>
+      </div>
+    `;
+  }).join('');
+}
+
+function deleteDiaryEntry(id) {
+  if (!confirm('Удалить запись?')) return;
+  const entries = getDiary().filter(e => e.id !== id);
+  saveDiary(entries);
+  renderDiary();
+}
+
+/* ===== QUOTES ===== */
+
+function initQuote() {
+  const textEl = $('#quoteText');
+  const authorEl = $('#quoteAuthor');
+  if (textEl && authorEl) {
+    textEl.textContent = '\u201C' + randomFrom(QUOTES) + '\u201D';
+    authorEl.textContent = '\u2014 Мастер, 102 года';
+  }
+}
