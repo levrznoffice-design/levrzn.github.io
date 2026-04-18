@@ -53,11 +53,42 @@ const FRAGRANCES = [
       }
     ],
     scenarios: {
-      school: { total: 4, note: 'Ключицы + плечи одежды. В школе не перебарщивай — сидишь в помещении 6 часов.' },
+      school: {
+        total: 4,
+        note: 'В школе не перебарщивай — сидишь в помещении 6 часов.',
+        points: [
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'На кожу, футболка сверху — аромат греется телом' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань куртки/худи — держится до вечера' }
+        ]
+      },
       gym: { total: 0, forbidden: true, message: 'Лёва, ПОЩАДИ людей в зале. Надень Fakhar или Fursan.' },
-      date: { total: 5, note: 'Классика минус 1 пшик с плеча. Она должна хотеть подойти ближе.' },
-      walk: { total: 6, note: 'Полная доза. Холодный Ольтен съест половину.' },
-      home: { total: 3, note: 'Для кайфа. 1 на запястье, 1 на грудь, 1 на плечо.' }
+      date: {
+        total: 5,
+        note: 'Она должна хотеть подойти ближе.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок под волосы', detail: 'Генератор шлейфа — на кожу' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Открытая кожа — при приближении она почувствует' },
+          { spot: 'spot-shoulders-clothes.png', n: 1, title: 'Одно плечо на одежду', detail: 'На ткань — фоновый шлейф сбоку' }
+        ]
+      },
+      walk: {
+        total: 6,
+        note: 'Полная доза. Холодный Ольтен съест половину.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок под волосы', detail: 'На кожу — генератор шлейфа' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань куртки — левое и правое' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'На кожу, под застёгнутую куртку — личное облако' }
+        ]
+      },
+      home: {
+        total: 3,
+        note: 'Кайф-режим. Для себя.',
+        points: [
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'Поднесёшь к носу — кайф. Не тереть' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под футболку', detail: 'На кожу — тепло тела раскрывает ноты' },
+          { spot: 'spot-shoulders-clothes.png', n: 1, title: 'Плечо на одежду', detail: 'На ткань домашней кофты — фоновый аромат' }
+        ]
+      }
     },
     masterWarning: null,
     seasonTimeMatrix: {
@@ -117,11 +148,46 @@ const FRAGRANCES = [
       }
     ],
     scenarios: {
-      school: { total: 5, note: 'Затылок + ключицы + 1 плечо. В классе хватит с головой.' },
+      school: {
+        total: 5,
+        note: 'В классе хватит с головой.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Под волосы — шлейф для тех, кто сзади' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'На кожу, под футболку — тепло тела раскрывает ваниль' },
+          { spot: 'spot-shoulders-clothes.png', n: 1, title: 'Одно плечо на одежду', detail: 'На ткань куртки — хватит одного' }
+        ]
+      },
       gym: { total: 0, forbidden: true, message: 'Лёва, ПОЩАДИ людей в зале. Надень Fakhar или Fursan.' },
-      date: { total: 6, note: 'Свидание-вариант + 1 пшик на плечо. Ваниль — твоё оружие.' },
-      walk: { total: 7, note: 'Полная доза. Корица на морозе звучит божественно.' },
-      home: { total: 3, note: '1 на запястье, 1 на грудь, 1 на плечо. Кайф-режим.' }
+      date: {
+        total: 6,
+        note: 'Ваниль — твоё оружие.',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на открытую кожу', detail: 'Если ворот открыт — прямой удар на близкой дистанции' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Сгиб локтя на кожу', detail: 'При объятии раскроется корица' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'Не тереть друг о друга' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под одежду', detail: 'На кожу — личное облако тепла' },
+          { spot: 'spot-shoulders-clothes.png', n: 1, title: 'Плечо на одежду', detail: 'На ткань — фоновая стабильность' }
+        ]
+      },
+      walk: {
+        total: 7,
+        note: 'Полная доза. Корица на морозе звучит божественно.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Под волосы — генератор шлейфа' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'На кожу, под куртку — тепло тела = ванильный кокон' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань куртки — левое и правое' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Сгиб локтя на кожу', detail: 'Движение руки усиливает шлейф' }
+        ]
+      },
+      home: {
+        total: 3,
+        note: 'Кайф-режим для себя.',
+        points: [
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'Подносишь к носу — наслаждаешься' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под футболку', detail: 'На кожу — ваниль поднимается от тепла' },
+          { spot: 'spot-shoulders-clothes.png', n: 1, title: 'Плечо на одежду', detail: 'На ткань домашней кофты — фоновый кайф' }
+        ]
+      }
     },
     masterWarning: null,
     seasonTimeMatrix: {
@@ -179,11 +245,53 @@ const FRAGRANCES = [
       }
     ],
     scenarios: {
-      school: { total: 9, note: 'Полная доза. Fakhar безопасен в закрытых помещениях.' },
-      gym: { total: 3, note: 'Затылок 2 + запястье 1. Свежесть без агрессии.' },
-      date: { total: 7, note: 'Школьный вариант. Свежесть + чистота = доверие.' },
-      walk: { total: 9, note: 'Полная доза. На воздухе испаряется быстро.' },
-      home: { total: 4, note: '2 на затылок + 1 грудь + 1 запястье.' }
+      school: {
+        total: 9,
+        note: 'Fakhar безопасен — поливайся. Свежесть не давит в помещении.',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок + шея на кожу', detail: 'На кожу — основной генератор свежести' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань куртки/рубашки — стабильная проекция в коридорах' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь под одежду', detail: 'На кожу, под футболку — облако при расстёгнутой куртке' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — свежесть при жестикуляции' }
+        ]
+      },
+      gym: {
+        total: 3,
+        note: 'Свежесть без агрессии. Fakhar — один из немногих для зала.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — минимум, но достаточно' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — лёгкий акцент' }
+        ]
+      },
+      date: {
+        total: 7,
+        note: 'Свежесть + чистота = доверие.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу под волосы — шлейф' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань — стабильный фон' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'На кожу, под рубашку — при расстёгнутом воротнике' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — финальный штрих' }
+        ]
+      },
+      walk: {
+        total: 9,
+        note: 'Полная доза. На воздухе испаряется быстро.',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок + шея на кожу', detail: 'На кожу — основной генератор' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань куртки — стабильная проекция' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь под одежду', detail: 'На кожу — облако при расстёгнутой молнии' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — свежесть при жестикуляции' }
+        ]
+      },
+      home: {
+        total: 4,
+        note: 'Лёгкий фоновый режим.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — основа' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под футболку', detail: 'На кожу — поднимается от тепла' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — для себя' }
+        ]
+      }
     },
     masterWarning: null,
     seasonTimeMatrix: {
@@ -241,11 +349,52 @@ const FRAGRANCES = [
       }
     ],
     scenarios: {
-      school: { total: 8, note: 'Затылок 3 + плечи 3 + запястья 2. Ананас заходит всем.' },
-      gym: { total: 3, note: 'Затылок 2 + запястье 1. Свежий фрукт в зале — ок.' },
-      date: { total: 8, note: 'Вечерний вариант. Дымный ананас — интрига.' },
-      walk: { total: 10, note: 'Полная доза. Ананас на холоде = бомба.' },
-      home: { total: 4, note: '2 на затылок + 1 грудь + 1 запястье. Фоновый кайф.' }
+      school: {
+        total: 8,
+        note: 'Ананас заходит всем. Можно смело.',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок на кожу', detail: 'На кожу под волосы — мощная база шлейфа' },
+          { spot: 'spot-shoulders-clothes.png', n: 3, title: 'Плечи + воротник на одежду', detail: 'На ткань куртки — ананас держится на ткани отлично' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — активные точки при движении' }
+        ]
+      },
+      gym: {
+        total: 3,
+        note: 'Свежий фрукт в зале — ок.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — минимум' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — лёгкий акцент' }
+        ]
+      },
+      date: {
+        total: 8,
+        note: 'Дымный ананас — интрига.',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок на кожу', detail: 'На кожу — максимальный шлейф' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на открытую кожу', detail: 'На кожу — ночная зона, она почувствует при приближении' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань — стабильность на весь вечер' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — финальный штрих' }
+        ]
+      },
+      walk: {
+        total: 10,
+        note: 'Полная доза. Ананас на холоде = бомба.',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок на кожу', detail: 'На кожу — мощная база' },
+          { spot: 'spot-shoulders-clothes.png', n: 3, title: 'Одежда: плечи + воротник', detail: 'На ткань куртки — держится весь день' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'На кожу — проекция при разговоре' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — активные точки' }
+        ]
+      },
+      home: {
+        total: 4,
+        note: 'Фоновый кайф.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — основа' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под футболку', detail: 'На кожу — тепло тела раскрывает ананас' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — для себя' }
+        ]
+      }
     },
     masterWarning: null,
     seasonTimeMatrix: {
@@ -302,11 +451,41 @@ const FRAGRANCES = [
       }
     ],
     scenarios: {
-      school: { total: 2, note: 'Затылок + запястье. В классе Encelade ОЧЕНЬ громкий.' },
+      school: {
+        total: 2,
+        note: 'В классе Encelade ОЧЕНЬ громкий. Только 2.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу под волосы — одного хватит на весь класс' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — для личного контроля' }
+        ]
+      },
       gym: { total: 0, forbidden: true, message: 'Лёва, Encelade в зале — это преступление. Fakhar или Fursan.' },
-      date: { total: 3, note: 'Флекс-вариант. Она спросит "что это?". Твой ответ: "нишевый."' },
-      walk: { total: 3, note: 'Стандарт. На улице раскроется в полную силу.' },
-      home: { total: 2, note: 'Минимум. 1 на запястье + 1 на грудь. Для кайфа.' }
+      date: {
+        total: 3,
+        note: 'Она спросит "что это?". Твой ответ: "нишевый."',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — основа' },
+          { spot: 'spot-behind-ears.png', n: 1, title: 'За уши на кожу', detail: 'На кожу — нишевый флекс при близком разговоре' },
+          { spot: 'spot-shoulder-blades.png', n: 1, title: 'Лопатка на одежду', detail: 'На ткань — шлейф сзади при уходе' }
+        ]
+      },
+      walk: {
+        total: 3,
+        note: 'На улице раскроется в полную силу.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — один пшик для шлейфа' },
+          { spot: 'spot-shoulders-clothes.png', n: 1, title: 'Живот/плечо на одежду', detail: 'На ткань — скрытая точка' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — для себя' }
+        ]
+      },
+      home: {
+        total: 2,
+        note: 'Минимум. Для кайфа.',
+        points: [
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — подносишь к носу, наслаждаешься' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под футболку', detail: 'На кожу — зелёный металлик поднимается от тепла' }
+        ]
+      }
     },
     seasonTimeMatrix: {
       winter: { day: 'full', night: 'full' },
@@ -362,9 +541,31 @@ const FRAGRANCES = [
     scenarios: {
       school: { total: 0, forbidden: true, message: 'Red Tobacco в школе? Нет. Учителя вызовут скорую.' },
       gym: { total: 0, forbidden: true, message: 'Нет. Просто нет. Никогда.' },
-      date: { total: 3, note: 'Классика. Табак на свидании зимой — это власть.' },
-      walk: { total: 3, note: 'Вечер-выход. Холодный Ольтен + Red Tobacco = магия.' },
-      home: { total: 2, note: '1 на запястье + 1 на лопатку. Тёплый кайф.' }
+      date: {
+        total: 3,
+        note: 'Табак на свидании зимой — это власть.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок под волосы на кожу', detail: 'На кожу — единственная точка спереди нет! Только затылок' },
+          { spot: 'spot-shoulder-blades.png', n: 2, title: 'Лопатки на одежду', detail: 'На ткань куртки — табак держится на ткани невероятно. Шлейф сзади' }
+        ]
+      },
+      walk: {
+        total: 3,
+        note: 'Холодный Ольтен + Red Tobacco = магия.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — основа. НЕ на шею спереди!' },
+          { spot: 'spot-shoulder-blades.png', n: 1, title: 'Лопатка на одежду', detail: 'На ткань — шлейф для тех, кто идёт за тобой' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — контроль дозы, можно понюхать' }
+        ]
+      },
+      home: {
+        total: 2,
+        note: 'Тёплый кайф.',
+        points: [
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — подносишь к носу, наслаждаешься табаком' },
+          { spot: 'spot-shoulder-blades.png', n: 1, title: 'Лопатка на одежду', detail: 'На ткань домашней кофты — фоновый табачный шлейф' }
+        ]
+      }
     },
     seasonTimeMatrix: {
       winter: { day: 'full', night: 'full' },
@@ -422,11 +623,44 @@ const FRAGRANCES = [
       }
     ],
     scenarios: {
-      school: { total: 4, note: 'Школьный вариант. 9PM — универсальный комплиментарный.' },
+      school: {
+        total: 4,
+        note: '9PM — универсальный комплиментарный. В школе хватит 4.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу под волосы — один достаточно' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань куртки — лёгкий яблочный фон' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — для себя' }
+        ]
+      },
       gym: { total: 0, forbidden: true, message: 'Сладкий в зале — плохая идея. Fakhar или Fursan.' },
-      date: { total: 5, note: 'Свидание-вариант. Яблоко + ваниль = непобедимо.' },
-      walk: { total: 6, note: 'Полная доза. Классика для прогулки.' },
-      home: { total: 3, note: '1 на запястье, 1 на грудь, 1 на плечо. Уютно.' }
+      date: {
+        total: 5,
+        note: 'Яблоко + ваниль = непобедимо.',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на открытую кожу', detail: 'На кожу — интимная зона, она почувствует при приближении' },
+          { spot: 'spot-behind-ears.png', n: 1, title: 'За уши на кожу', detail: 'На кожу — при поцелуе в щёку' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Сгиб локтя на кожу', detail: 'На кожу — раскроется при объятии' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — не тереть' }
+        ]
+      },
+      walk: {
+        total: 6,
+        note: 'Полная доза. Классика для прогулки.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу под волосы — основа шлейфа' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'На кожу, под куртку — личное тепло' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань куртки — стабильная проекция' }
+        ]
+      },
+      home: {
+        total: 3,
+        note: 'Уютно. Для себя.',
+        points: [
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — подносишь к носу, наслаждаешься' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под футболку', detail: 'На кожу — яблоко + ваниль поднимаются от тепла' },
+          { spot: 'spot-shoulders-clothes.png', n: 1, title: 'Плечо на одежду', detail: 'На ткань домашней кофты — фоновый аромат' }
+        ]
+      }
     },
     seasonTimeMatrix: {
       winter: { day: 'full', night: 'full' },
@@ -1000,6 +1234,19 @@ function renderCollection(sortBy) {
   attachFragListeners();
 }
 
+function buildScenarioPoints(sc) {
+  if (!sc || sc.forbidden || !sc.points || !sc.points.length) return '';
+  return sc.points.map(p => `
+    <div class="spray-point">
+      <img class="spray-spot" src="levs-scent/spots/${p.spot}" alt="${p.title}" loading="lazy">
+      <div class="spray-info">
+        <span class="spray-n">${p.n}</span><span class="spray-title">${p.title}</span>
+        <div class="spray-detail">${p.detail}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
 function buildFragCard(f) {
   const season = getCurrentSeason();
   const chips = [];
@@ -1112,6 +1359,7 @@ function buildFragCard(f) {
           </div>
           <div class="scenario-note" data-frag-scenario="${f.id}">${f.scenarios[scenarioKeys[0]].forbidden ? '' : f.scenarios[scenarioKeys[0]].note}</div>
           ${f.scenarios[scenarioKeys[0]].forbidden ? `<div class="scenario-forbidden">${f.scenarios[scenarioKeys[0]].message}</div>` : ''}
+          <div class="scenario-points var-list" data-frag-scenario-points="${f.id}">${buildScenarioPoints(f.scenarios[scenarioKeys[0]])}</div>
 
           <!-- Spray variations -->
           <div class="label-upper" style="margin-top:16px">Точки нанесения</div>
@@ -1168,6 +1416,7 @@ function attachFragListeners() {
     const frag = FRAGRANCES.find(f => f.id === fragId);
     const noteEl = document.querySelector(`.scenario-note[data-frag-scenario="${fragId}"]`);
     const totalEl = document.querySelector(`[data-frag-total="${fragId}"]`);
+    const pointsEl = document.querySelector(`[data-frag-scenario-points="${fragId}"]`);
 
     row.querySelectorAll('.scenario-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1189,12 +1438,14 @@ function attachFragListeners() {
             totalEl.textContent = '0';
             totalEl.nextElementSibling.textContent = sprayWord(0);
           }
+          if (pointsEl) pointsEl.innerHTML = '';
         } else {
           noteEl.textContent = sc.note;
           if (totalEl) {
             totalEl.textContent = sc.total;
             totalEl.nextElementSibling.textContent = sprayWord(sc.total);
           }
+          if (pointsEl) pointsEl.innerHTML = buildScenarioPoints(sc);
         }
       });
     });

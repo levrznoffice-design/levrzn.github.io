@@ -380,6 +380,13 @@ input, select, textarea { font-family: var(--sans); }
   margin: 12px 0;
 }
 
+/* Scenario points */
+.scenario-points {
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.scenario-points:empty { display: none; }
+
 /* Spray variations */
 .var-tabs { display: flex; gap: 6px; padding: 16px 0 12px; }
 .var-tab {
