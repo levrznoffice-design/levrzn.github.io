@@ -680,10 +680,27 @@ const COMBINATIONS = [
     fragrances: ['brun', 'fursan'],
     sub: 'Liquid Brun + Qaed Al Fursan',
     totalSprays: 8,
-    steps: [
-      'Сначала <strong>Liquid Brun</strong>: 3 пшика на грудь + 2 на затылок',
-      'Подожди 30 секунд',
-      'Затем <strong>Qaed Al Fursan</strong>: 2 на плечи одежды + 1 за уши'
+    layers: [
+      {
+        order: 1,
+        fragName: 'Liquid Brun',
+        fragId: 'brun',
+        instruction: 'Нанеси первым — база комбинации',
+        points: [
+          { spot: 'spot-chest.png', n: 3, title: 'Грудь под одежду', detail: 'На кожу, под куртку — ваниль и корица создают тёплую базу' },
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу под волосы — генератор сладкого шлейфа' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Qaed Al Fursan',
+        fragId: 'fursan',
+        instruction: 'Через 30 секунд — верхний слой',
+        points: [
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань куртки — ананас держится на ткани и перекрывает Brun сверху' },
+          { spot: 'spot-behind-ears.png', n: 1, title: 'За уши на кожу', detail: 'На кожу — дымный ананас при разговоре' }
+        ]
+      }
     ],
     effect: 'Ананас оседает в карамельной ванили. Зимой играет как $300 ниша.'
   },
@@ -693,10 +710,27 @@ const COMBINATIONS = [
     fragrances: ['qahwa', 'ninepm'],
     sub: 'Khamrah Qahwa + Afnan 9PM',
     totalSprays: 5,
-    steps: [
-      'Сначала <strong>9PM</strong>: 2 на ключицы (под одежду) + 1 на запястье',
-      'Подожди 30 секунд',
-      'Затем <strong>Qahwa</strong>: 1 на затылок + 1 на плечо одежды'
+    layers: [
+      {
+        order: 1,
+        fragName: 'Afnan 9PM',
+        fragId: 'ninepm',
+        instruction: 'Нанеси первым — сладкая база ближнего контакта',
+        points: [
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'На кожу, под рубашку — яблоко + ваниль греются телом, она почувствует при приближении' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — при касании руки' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Khamrah Qahwa',
+        fragId: 'qahwa',
+        instruction: 'Через 30 секунд — кофейная верхушка',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу под волосы — кофейный шлейф при уходе' },
+          { spot: 'spot-shoulders-clothes.png', n: 1, title: 'Плечо на одежду', detail: 'На ткань — одно плечо, кардамон на ткани стабильнее' }
+        ]
+      }
     ],
     effect: 'Сладкий шлейф кофе + яблочная ваниль. Она не выдержит.'
   },
@@ -706,10 +740,27 @@ const COMBINATIONS = [
     fragrances: ['tobacco', 'brun'],
     sub: 'Red Tobacco + Liquid Brun',
     totalSprays: 5,
-    steps: [
-      'Сначала <strong>Liquid Brun</strong>: 2 на грудь + 1 на сгиб локтя',
-      'Подожди 30 секунд',
-      'Затем <strong>Red Tobacco</strong>: 1 на затылок + 1 на лопатку'
+    layers: [
+      {
+        order: 1,
+        fragName: 'Liquid Brun',
+        fragId: 'brun',
+        instruction: 'Нанеси первым — кремовая подложка для табака',
+        points: [
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь под одежду', detail: 'На кожу, под куртку — ваниль смягчит табак снизу' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Сгиб локтя на кожу', detail: 'На кожу — при движении руки раскроется корица' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Red Tobacco',
+        fragId: 'tobacco',
+        instruction: 'Через 30 секунд — табак сверху',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу под волосы — НЕ на шею спереди! Только затылок' },
+          { spot: 'spot-shoulder-blades.png', n: 1, title: 'Лопатка на одежду', detail: 'На ткань куртки — табак на ткани = мощный шлейф сзади' }
+        ]
+      }
     ],
     effect: 'Табак в кремовой оправе. Холодная ночь Ольтена — твоя.'
   },
@@ -719,10 +770,26 @@ const COMBINATIONS = [
     fragrances: ['encelade', 'fursan'],
     sub: 'Encelade + Qaed Al Fursan',
     totalSprays: 5,
-    steps: [
-      'Сначала <strong>Qaed Al Fursan</strong>: 3 на плечи одежды + 1 за уши',
-      'Подожди 30 секунд',
-      'Затем <strong>Encelade</strong>: 1 на затылок (строго один)'
+    layers: [
+      {
+        order: 1,
+        fragName: 'Qaed Al Fursan',
+        fragId: 'fursan',
+        instruction: 'Нанеси первым — фруктовая база',
+        points: [
+          { spot: 'spot-shoulders-clothes.png', n: 3, title: 'Плечи + воротник на одежду', detail: 'На ткань — ананас на ткани держится отлично и не давит на кожу в жару' },
+          { spot: 'spot-behind-ears.png', n: 1, title: 'За уши на кожу', detail: 'На кожу — фруктовая проекция при разговоре' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Encelade',
+        fragId: 'encelade',
+        instruction: 'Через 30 секунд — СТРОГО один пшик',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — один и только один. Зелёный металлик пробьётся через ананас' }
+        ]
+      }
     ],
     effect: 'Ананас с металлическим зелёным послевкусием. Нишевая загадка.'
   },
@@ -732,10 +799,27 @@ const COMBINATIONS = [
     fragrances: ['fakhar', 'ninepm'],
     sub: 'Fakhar Black + Afnan 9PM',
     totalSprays: 5,
-    steps: [
-      'Сначала <strong>Fakhar</strong>: 2 на плечи + 1 на затылок',
-      'Подожди 30 секунд',
-      'Затем <strong>9PM</strong>: 1 на ключицу + 1 на запястье'
+    layers: [
+      {
+        order: 1,
+        fragName: 'Fakhar Black',
+        fragId: 'fakhar',
+        instruction: 'Нанеси первым — свежая база',
+        points: [
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань рубашки/куртки — свежесть держится на ткани стабильно' },
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — бергамот + ветивер = чистый фон' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Afnan 9PM',
+        fragId: 'ninepm',
+        instruction: 'Через 30 секунд — тёплый слой',
+        points: [
+          { spot: 'spot-collarbones-under-clothes.png', n: 1, title: 'Ключица под одежду', detail: 'На кожу, под рубашку — ваниль снизу добавляет глубину' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — яблоко + корица при жестикуляции' }
+        ]
+      }
     ],
     effect: 'Свежесть + тёплая ваниль снизу. Профессионально, но не стерильно.'
   }
@@ -1521,7 +1605,32 @@ function initCombinations() {
   if (!grid) return;
 
   grid.innerHTML = COMBINATIONS.map(c => {
-    const steps = c.steps.map(s => `<div class="combo-step">${s}</div>`).join('');
+    const layersHtml = c.layers.map(layer => {
+      const frag = FRAGRANCES.find(f => f.id === layer.fragId);
+      const accent = frag ? frag.accent : '#888';
+      const pointsHtml = layer.points.map(p => `
+        <div class="spray-point">
+          <img class="spray-spot" src="levs-scent/spots/${p.spot}" alt="${p.title}" loading="lazy">
+          <div class="spray-info">
+            <span class="spray-n">${p.n}</span><span class="spray-title">${p.title}</span>
+            <div class="spray-detail">${p.detail}</div>
+          </div>
+        </div>
+      `).join('');
+      return `
+        <div class="combo-layer">
+          <div class="combo-layer-header">
+            <div class="combo-layer-badge" style="background:${accent}">${layer.order}</div>
+            <div>
+              <div class="combo-layer-name">${layer.fragName}</div>
+              <div class="combo-layer-instruction">${layer.instruction}</div>
+            </div>
+          </div>
+          <div class="var-list">${pointsHtml}</div>
+        </div>
+      `;
+    }).join(`<div class="combo-pause">\u23F1 Подожди 30 секунд</div>`);
+
     return `
       <div class="combo-card">
         <div class="combo-header">
@@ -1533,7 +1642,7 @@ function initCombinations() {
         </div>
         <div class="combo-body">
           <div class="combo-inner">
-            ${steps}
+            ${layersHtml}
             <div class="combo-effect">${c.effect}</div>
             <div class="combo-total">Итого: ${c.totalSprays} ${sprayWord(c.totalSprays)}</div>
           </div>
