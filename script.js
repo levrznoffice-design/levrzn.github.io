@@ -748,6 +748,217 @@ const FRAGRANCES = [
       summer: { day: 'forbidden', night: 'forbidden' },
       autumn: { day: 'full', night: 'full' }
     }
+  },
+
+  /* ---------- OPULENT DUBAI ---------- */
+  {
+    id: 'opulent-dubai',
+    name: 'Lattafa Opulent Dubai EDP',
+    house: 'Lattafa',
+    family: 'Тропический · Цитрусовый · Древесный',
+    image: 'levs-scent/bottles/opulent-dubai.png',
+    vibe: 'levs-scent/vibes/opulent-dubai-vibe.png',
+    accent: '#e68a00',
+    gradient: 'linear-gradient(135deg, #5c3600 0%, #b36b00 55%, #e68a00 100%)',
+    total: 7,
+    refreshHours: 6,
+    overspray: true,
+    maxCapped: false,
+    notes: {
+      top: ['Манго', 'Грейпфрут', 'Лимон', 'Имбирь'],
+      heart: ['Жасмин', 'Кедр', 'Фиалка'],
+      base: ['Серая амбра', 'Бензоин', 'Дубовый мох', 'Древесные ноты']
+    },
+    seasons: { winter: 'day+night', autumn: 'day+night', spring: 'day+night', summer: 'day+night' },
+    vibeCaption: 'Сочный тропический старт из манго и грейпфрута с переходом в теплую амброво-древесную базу.',
+    masterWarning: 'Амбра в базе довольно стойкая, 7-8 пшиков вполне достаточно для шлейфа на весь день.',
+    variations: [
+      {
+        label: 'Стандарт (7 пшиков)',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'На кожу — манго и имбирь ударят собеседнику в первые минуты' },
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — шлейф тропического дерева за спиной' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'На кожу — амбра и кедр раскроются от тепла тела' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань — стойкий фон на весь день' }
+        ]
+      },
+      {
+        label: 'Легкий (4 пшика)',
+        points: [
+          { spot: 'spot-neck-back.png', n: 2, title: 'Шея сзади на кожу', detail: 'На кожу — деликатный шлейф с имбирём' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — по одному на каждое, нюхать самому в течение дня' }
+        ]
+      },
+      {
+        label: 'Вечер (10 пшиков)',
+        points: [
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'На кожу — манго в зоне декольте' },
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — двойной удар для максимального шлейфа' },
+          { spot: 'spot-shoulders-clothes.png', n: 4, title: 'Плечи на одежду', detail: 'На ткань — по два на каждое плечо, облако тропиков' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь под одежду', detail: 'На кожу — амбра будет греть из-под рубашки' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: {
+        total: 5,
+        note: 'Фруктово-древесный, не раздражает, но шлейф заметный.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — лёгкий шлейф позади' },
+          { spot: 'spot-neck-back.png', n: 2, title: 'Шея сзади на кожу', detail: 'На кожу — манго и грейпфрут ненавязчиво' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань — держится до конца учёбы' }
+        ]
+      },
+      gym: {
+        total: 3,
+        note: 'Минимально — свежий старт не будет мешать.',
+        points: [
+          { spot: 'spot-neck-back.png', n: 1, title: 'Шея сзади на кожу', detail: 'На кожу — лёгкий цитрусовый фон' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — по одному на каждое, свежий имбирь' }
+        ]
+      },
+      date: {
+        total: 6,
+        note: 'Манго + амбра на свидании — экзотика и притяжение.',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'На кожу — она почувствует манго при разговоре' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'На кожу — амбра и жасмин раскроются от тепла' },
+          { spot: 'spot-inner-elbow.png', n: 2, title: 'Сгиб локтя на кожу', detail: 'На кожу — по одному, тропический аккорд при движениях' }
+        ]
+      },
+      walk: {
+        total: 9,
+        note: 'На свежем воздухе можно дать больше — шлейф будет красивым.',
+        points: [
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'На кожу — грейпфрут и манго на ветру' },
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — мощный древесный шлейф' },
+          { spot: 'spot-shoulders-clothes.png', n: 3, title: 'Плечи на одежду', detail: 'На ткань — облако вокруг' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь под одежду', detail: 'На кожу — амбра греет из-под куртки' }
+        ]
+      },
+      home: {
+        total: 3,
+        note: 'Тропический уют для себя.',
+        points: [
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь на кожу', detail: 'На кожу — для собственного удовольствия' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — нюхать манго весь вечер' }
+        ]
+      }
+    },
+    seasonTimeMatrix: {
+      winter: { day: 'full', night: 'full' },
+      spring: { day: 'full', night: 'full' },
+      summer: { day: 'full', night: 'full' },
+      autumn: { day: 'full', night: 'full' }
+    }
+  },
+
+  /* ---------- PACIFIC AURA ---------- */
+  {
+    id: 'pacific-aura',
+    name: 'Rayhaan Pacific Aura EDP',
+    house: 'Rayhaan',
+    family: 'Акватический · Зеленый · Свежий',
+    image: 'levs-scent/bottles/pacific-aura.png',
+    vibe: 'levs-scent/vibes/pacific-aura-vibe.png',
+    accent: '#3dbba6',
+    gradient: 'linear-gradient(135deg, #1a5c50 0%, #2d9080 55%, #3dbba6 100%)',
+    total: 9,
+    refreshHours: 4,
+    overspray: false,
+    maxCapped: false,
+    notes: {
+      top: ['Цитрон', 'Мята', 'Смородина', 'Апельсин'],
+      heart: ['Абрикос', 'Базилик', 'Роза'],
+      base: ['Инжир', 'Финики', 'Амброксан']
+    },
+    seasons: { winter: 'night', autumn: 'day+night', spring: 'day+night', summer: 'day+night' },
+    vibeCaption: 'Ледяной морской бриз с мятой, сочным инжиром и чистыми зелеными аккордами.',
+    masterWarning: null,
+    variations: [
+      {
+        label: 'Свежий старт (9 пшиков)',
+        points: [
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'На кожу — мята и цитрон бьют свежестью' },
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — акватический шлейф позади' },
+          { spot: 'spot-shoulders-clothes.png', n: 3, title: 'Плечи на одежду', detail: 'На ткань — морской бриз вокруг' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'На кожу — инжир и амброксан раскроются от тепла' }
+        ]
+      },
+      {
+        label: 'Офис/Учеба (6 пшиков)',
+        points: [
+          { spot: 'spot-neck-back.png', n: 2, title: 'Шея сзади на кожу', detail: 'На кожу — деликатная свежесть' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань — ненавязчивый фон' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — мята и смородина при жестикуляции' }
+        ]
+      },
+      {
+        label: 'Интенсив (12 пшиков)',
+        points: [
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'На кожу — ледяной удар мяты' },
+          { spot: 'spot-neck-back.png', n: 2, title: 'Шея сзади на кожу', detail: 'На кожу — двойной охват шеи' },
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — мощный шлейф' },
+          { spot: 'spot-shoulders-clothes.png', n: 4, title: 'Плечи на одежду', detail: 'На ткань — по два на каждое, океанское облако' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь под одежду', detail: 'На кожу — инжир и финики из-под рубашки' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: {
+        total: 7,
+        note: 'Свежий и чистый — идеально для учёбы, не будет мешать.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — акватический шлейф' },
+          { spot: 'spot-neck-back.png', n: 2, title: 'Шея сзади на кожу', detail: 'На кожу — мята и цитрон деликатно' },
+          { spot: 'spot-shoulders-clothes.png', n: 3, title: 'Плечи на одежду', detail: 'На ткань — свежесть весь день' }
+        ]
+      },
+      gym: {
+        total: 5,
+        note: 'Мятный и акватический — освежает даже во время тренировки.',
+        points: [
+          { spot: 'spot-neck-back.png', n: 2, title: 'Шея сзади на кожу', detail: 'На кожу — мята охлаждает' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — свежесть при каждом движении' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь на кожу', detail: 'На кожу — лёгкий акватический фон' }
+        ]
+      },
+      date: {
+        total: 8,
+        note: 'Чистая свежесть с инжирной глубиной — притягивает.',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'На кожу — мята и роза при сближении' },
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'На кожу — свежесть в зоне декольте' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'На кожу — амброксан и инжир от тепла тела' },
+          { spot: 'spot-inner-elbow.png', n: 2, title: 'Сгиб локтя на кожу', detail: 'На кожу — по одному, свежесть при касаниях' }
+        ]
+      },
+      walk: {
+        total: 11,
+        note: 'На воздухе можно смело — акватика не давит.',
+        points: [
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'На кожу — мята на ветру' },
+          { spot: 'spot-neck-back.png', n: 1, title: 'Шея сзади на кожу', detail: 'На кожу — зелёный аккорд' },
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — морской шлейф' },
+          { spot: 'spot-shoulders-clothes.png', n: 4, title: 'Плечи на одежду', detail: 'На ткань — по два на каждое, океанский бриз' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь под одежду', detail: 'На кожу — инжир из-под куртки' }
+        ]
+      },
+      home: {
+        total: 4,
+        note: 'Свежесть дома — как открытое окно на море.',
+        points: [
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь на кожу', detail: 'На кожу — инжир и мята для себя' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — нюхать свежесть весь вечер' }
+        ]
+      }
+    },
+    seasonTimeMatrix: {
+      winter: { day: 'caution', night: 'caution' },
+      spring: { day: 'full', night: 'full' },
+      summer: { day: 'full', night: 'full' },
+      autumn: { day: 'full', night: 'full' }
+    }
   }
 ];
 
@@ -967,6 +1178,132 @@ const COMBINATIONS = [
       }
     ],
     effect: "Сначала свежесть, потом — коньячная глубина. Fakhar балансирует Angels' Share, и можно носить даже осенью днём."
+  },
+  {
+    id: 'icy-mango',
+    name: 'Ледяное Манго',
+    fragrances: ['opulent-dubai', 'pacific-aura'],
+    sub: 'Opulent Dubai + Pacific Aura',
+    season: 'Весна · Лето',
+    totalSprays: 9,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Opulent Dubai',
+        fragId: 'opulent-dubai',
+        instruction: 'Нанеси первым — тропическая фруктовая база',
+        points: [
+          { spot: 'spot-neck-front.png', n: 1, title: 'Шея спереди на кожу', detail: 'На кожу — манго и имбирь как тёплый фундамент' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'На кожу — амбра и кедр раскроются от тепла тела' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Pacific Aura',
+        fragId: 'pacific-aura',
+        instruction: 'Через 30 секунд — ледяной свежий слой поверх',
+        points: [
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу (поверх)', detail: 'На кожу — мята и цитрон охлаждают манго Dubai' },
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — акватический шлейф позади' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань — морской бриз вокруг' }
+        ]
+      }
+    ],
+    effect: 'Pacific Aura охлаждает композицию мятной акватикой, а Dubai дает глубокий фруктовый шлейф манго.'
+  },
+  {
+    id: 'tropical-storm',
+    name: 'Тропический Шторм',
+    fragrances: ['opulent-dubai', 'fursan'],
+    sub: 'Opulent Dubai + Qaed Al Fursan',
+    season: 'Лето · Теплая осень',
+    totalSprays: 10,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Opulent Dubai',
+        fragId: 'opulent-dubai',
+        instruction: 'Нанеси первым — манговая тропическая база',
+        points: [
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'На кожу — манго и грейпфрут как сочный фундамент' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'На кожу — амбра Dubai даст глубину' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Qaed Al Fursan',
+        fragId: 'fursan',
+        instruction: 'Через 30 секунд — ананасово-удовый штурм поверх',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — ананас и уд дают дымный шлейф' },
+          { spot: 'spot-shoulders-clothes.png', n: 4, title: 'Плечи на одежду', detail: 'На ткань — по два на каждое, фруктовый взрыв' }
+        ]
+      }
+    ],
+    effect: 'Мощный микс манго и ананаса на древесно-дымной базе. Максимальный шлейф.'
+  },
+  {
+    id: 'cyber-jungle',
+    name: 'Кибер-Джунгли',
+    fragrances: ['encelade', 'pacific-aura'],
+    sub: 'Encelade + Pacific Aura',
+    season: 'Весна · Лето',
+    totalSprays: 7,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Encelade',
+        fragId: 'encelade',
+        instruction: 'Нанеси первым — он ОЧЕНЬ мощный, минимум!',
+        points: [
+          { spot: 'spot-neck-back.png', n: 1, title: 'Шея сзади на кожу', detail: 'На кожу — ОДИН пшик! Encelade пробьёт что угодно' },
+          { spot: 'spot-lower-back.png', n: 1, title: 'Поясница на кожу', detail: 'На кожу — зелёная металлика будет проступать снизу' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Pacific Aura',
+        fragId: 'pacific-aura',
+        instruction: 'Через 30 секунд — мятная акватика смягчает Encelade',
+        points: [
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'На кожу — мята и цитрон охлаждают агрессию Encelade' },
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — инжир и амброксан как акватический шлейф' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — по одному, свежесть при каждом движении' }
+        ]
+      }
+    ],
+    effect: 'Холодная мята и инжир Pacific Aura смягчают агрессивную металлическую зелень Encelade.'
+  },
+  {
+    id: 'mango-mousse',
+    name: 'Манговый Мусс',
+    fragrances: ['brun', 'opulent-dubai'],
+    sub: 'Liquid Brun + Opulent Dubai',
+    season: 'Осень · Зима · Прохладный вечер',
+    totalSprays: 8,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Liquid Brun',
+        fragId: 'brun',
+        instruction: 'Нанеси первым — сливочная ванильная база',
+        points: [
+          { spot: 'spot-neck-back.png', n: 2, title: 'Шея сзади на кожу', detail: 'На кожу — корица и ваниль как кремовый фундамент' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'На кожу — тонка и бензоин создадут сладкую подушку' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Opulent Dubai',
+        fragId: 'opulent-dubai',
+        instruction: 'Через 30 секунд — тропический слой поверх сливок',
+        points: [
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'На кожу — манго и имбирь поверх ванили = десерт' },
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — амбра Dubai + тонка Brun в шлейфе' }
+        ]
+      }
+    ],
+    effect: 'Сливочная ваниль и специи превращают тропическое манго в изысканный гурманский десерт.'
   }
 ];
 
@@ -1065,6 +1402,26 @@ const REASONS = {
       'Сладкая база из пралине поднимет настроение в серый день.'
     ],
     warm: []
+  },
+  'opulent-dubai': {
+    cold: [
+      'Амброво-древесная база отлично согревает, а имбирь добавляет пикантности в мороз.',
+      'Манго звучит ярко и необычно на фоне зимнего холода.'
+    ],
+    warm: [
+      'Тропический профиль идеально раскрывается в жару, создавая атмосферу отдыха.',
+      'Древесные ноты и жасмин в тепле звучат благородно и дорого.'
+    ]
+  },
+  'pacific-aura': {
+    cold: [
+      'Мята и цитрон на холоде становятся хрустальными и звенящими.',
+      'Амброксан дает ощущение морозной чистоты.'
+    ],
+    warm: [
+      'Настоящее спасение в жару — мята и инжир работают как ледяной душ.',
+      'Легкая акватика не душит и создает свежую ауру вокруг.'
+    ]
   }
 };
 
@@ -1173,19 +1530,19 @@ function getScentOfDay(weather) {
   const daytime = getDaytime();
   let candidateIds = [];
 
-  // High humidity + hot → only Fakhar
+  // High humidity + hot → fresh only
   if (weather.humidity === 'high' && score >= 2) {
-    candidateIds = ['fakhar'];
+    candidateIds = ['fakhar', 'pacific-aura'];
   } else if (score <= -2) {
-    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share'];
+    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'opulent-dubai'];
   } else if (score === -1) {
-    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm'];
+    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai'];
   } else if (score === 0) {
-    candidateIds = ['encelade', 'ninepm', 'fursan', 'angels-share'];
+    candidateIds = ['encelade', 'ninepm', 'fursan', 'angels-share', 'opulent-dubai', 'pacific-aura'];
   } else if (score === 1) {
-    candidateIds = ['ninepm', 'fursan', 'fakhar'];
+    candidateIds = ['ninepm', 'fursan', 'fakhar', 'opulent-dubai', 'pacific-aura'];
   } else {
-    candidateIds = ['fursan', 'fakhar'];
+    candidateIds = ['fursan', 'fakhar', 'pacific-aura', 'opulent-dubai'];
   }
 
   // Filter out fragrances that are forbidden in current season/time
