@@ -95,11 +95,10 @@
   <!-- AI PROMPT -->
   <section class="section ai-prompt-section">
     <div class="ai-prompt-card">
-      <div class="ai-prompt-header">
-        <span class="label-upper" style="margin:0">AI · Узнать погоду в Ольтене</span>
-      </div>
-      <button class="btn-black" id="copyPrompt">Скопировать промпт</button>
-      <p class="ai-prompt-hint">Скопируй → вставь в ChatGPT → получи погоду → выбери выше</p>
+      <span class="label-upper" style="margin:0">AI · Узнать погоду в Ольтене</span>
+      <button class="copy-icon-btn" id="copyPrompt" aria-label="Скопировать промпт">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
     </div>
   </section>
 
@@ -128,10 +127,8 @@
   </section>
 
   <!-- QUOTES -->
-  <section class="section quotes-section">
-    <div class="quote-dash">—</div>
+  <section class="quotes-section">
     <p class="quote-text" id="quoteText"></p>
-    <p class="quote-author" id="quoteAuthor"></p>
   </section>
 
 </div>

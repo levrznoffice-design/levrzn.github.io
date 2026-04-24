@@ -962,6 +962,70 @@ const FRAGRANCES = [
   }
 ];
 
+/* ===== NOTE IMAGE MAP ===== */
+
+const NOTE_MAP = {
+  'Амбра': 'amber', 'Серая амбра': 'ambergris', 'Амбровуд': 'amberwood', 'Амброксан': 'ambroxan',
+  'Яблоко': 'apple', 'Абрикос': 'apricot', 'Артемизия': 'artemisia', 'Базилик': 'basil',
+  'Бензоин': 'benzoin', 'Бергамот': 'bergamot', 'Чёрный перец': 'black-pepper', 'Кардамон': 'cardamom',
+  'Кедр': 'cedar', 'Корица': 'cinnamon', 'Цитрон': 'citron', 'Гвоздика': 'clove',
+  'Коньяк': 'cognac', 'Смородина': 'currant', 'Финики': 'dates', 'Инжир': 'fig',
+  'Герань': 'geranium', 'Грейпфрут': 'grapefruit', 'Ирис': 'iris', 'Жасмин': 'jasmine',
+  'Лаванда': 'lavender', 'Лимон': 'lemon', 'Манго': 'mango', 'Майский цветок': 'may_flower',
+  'Металлик-аккорд': 'metallic_accords', 'Мята': 'mint', 'Мускус': 'musk', 'Мирра': 'myrrh',
+  'Мускатный орех': 'nutmeg', 'Дуб': 'oak', 'Дубовый мох': 'oakmoss', 'Апельсин': 'orange',
+  'Уд': 'oud', 'Пачули': 'patchouli', 'Ананас': 'pineapple', 'Пралине': 'praline',
+  'Красный перец': 'red-pepper', 'Ревень': 'rhubarb', 'Роза': 'rose', 'Шафран': 'saffron',
+  'Шалфей': 'sage', 'Сандал': 'sandalwood', 'Бобы тонка': 'tonka_bean', 'Тонка': 'tonka_bean',
+  'Ваниль': 'vanilla', 'Ветивер': 'vetiver', 'Фиалка': 'violet', 'Древесные ноты': 'wood_notes',
+  'Табак': 'tobacco', 'Имбирь': 'ginger'
+};
+
+const NOTE_FILES = {
+  'amber': 'png', 'ambergris': 'png', 'amberwood': 'png', 'ambroxan': 'png',
+  'apple': 'png', 'apricot': 'png', 'artemisia': 'png', 'basil': 'png',
+  'benzoin': 'png', 'bergamot': 'webp', 'black-pepper': 'png', 'cardamom': 'png',
+  'cedar': 'png', 'cinnamon': 'webp', 'citron': 'webp', 'clove': 'webp',
+  'cognac': 'webp', 'currant': 'png', 'dates': 'png', 'fig': 'webp',
+  'geranium': 'webp', 'grapefruit': 'png', 'iris': 'png', 'jasmine': 'png',
+  'lavender': 'png', 'lemon': 'png', 'mango': 'webp', 'may_flower': 'png',
+  'metallic_accords': 'webp', 'mint': 'png', 'musk': 'webp', 'myrrh': 'png',
+  'nutmeg': 'png', 'oak': 'png', 'oakmoss': 'png', 'orange': 'png',
+  'oud': 'png', 'patchouli': 'webp', 'pineapple': 'png', 'praline': 'webp',
+  'red-pepper': 'png', 'rhubarb': 'png', 'rose': 'png', 'saffron': 'webp',
+  'sage': 'webp', 'sandalwood': 'webp', 'tonka_bean': 'webp',
+  'tobacco': 'png', 'ginger': 'png',
+  'vanilla': 'png', 'vetiver': 'webp', 'violet': 'png', 'wood_notes': 'webp'
+};
+
+function getNoteImage(noteName) {
+  const key = NOTE_MAP[noteName];
+  if (!key) return null;
+  const ext = NOTE_FILES[key];
+  if (!ext) return null;
+  return `levs-scent/assets/notes/${key}.${ext}`;
+}
+
+/* ===== WEATHER BACKGROUNDS ===== */
+
+const WEATHER_BG = {
+  sun: 'levs-scent/assets/weather/sunny.png',
+  clouds: 'levs-scent/assets/weather/cloudy.png',
+  rain: 'levs-scent/assets/weather/rainy.png',
+  snow: 'levs-scent/assets/weather/snowy.png',
+  fog: 'levs-scent/assets/weather/foggy.png'
+};
+
+/* ===== QUOTE BACKGROUNDS ===== */
+
+const QUOTE_IMAGES = [
+  'levs-scent/assets/quotes/quote1.jpg',
+  'levs-scent/assets/quotes/quote2.jpg',
+  'levs-scent/assets/quotes/quote3.jpg',
+  'levs-scent/assets/quotes/quote4.jpg',
+  'levs-scent/assets/quotes/quote5.png'
+];
+
 /* ===== COMBINATIONS ===== */
 
 const COMBINATIONS = [
@@ -1427,14 +1491,12 @@ const REASONS = {
 
 /* ===== WEATHER AI PROMPT ===== */
 
-const AI_PROMPT = `Дай мне прогноз погоды на сегодня в городе Ольтен, Швейцария. Ответ строго в формате без воды:
-Температура днём: [число]°C
-Температура вечером: [число]°C
-Условия: [солнечно / облачно / дождь / снег / туман]
-Ветер: [слабый / средний / сильный]
-Влажность: [низкая / средняя / высокая]
-Вердикт: [одна фраза]
-Без вступлений, без объяснений, только эти 6 строчек.`;
+const AI_PROMPT = `Дай прогноз погоды для города Ольтен, Швейцария. Разбей ответ на блоки: 08:00-12:00, 12:00-17:00, 17:00-22:00. Для каждого блока укажи:
+- Температура: [число]°C
+- Условия: [солнечно / облачно / дождь / снег / туман]
+- Ветер: [слабый / средний / сильный]
+- Влажность: [низкая / средняя / высокая]
+В конце дай общий вердикт одной фразой. Без лишних слов.`;
 
 /* ===== HELPERS ===== */
 
@@ -1656,17 +1718,34 @@ function initWeather() {
   }
 
   // Conditions
+  const weatherSection = $('#weather');
   const condBtns = $$('#conditionRow .cond-btn');
+  function setWeatherBg(val) {
+    if (!weatherSection) return;
+    let bgDiv = weatherSection.querySelector('.weather-bg');
+    if (val && WEATHER_BG[val]) {
+      if (!bgDiv) {
+        bgDiv = document.createElement('div');
+        bgDiv.className = 'weather-bg';
+        weatherSection.insertBefore(bgDiv, weatherSection.firstChild);
+      }
+      bgDiv.style.backgroundImage = `url('${WEATHER_BG[val]}')`;
+    } else if (bgDiv) {
+      bgDiv.remove();
+    }
+  }
   condBtns.forEach(btn => {
     if (btn.dataset.val === state.condition) btn.classList.add('active');
     btn.addEventListener('click', () => {
       condBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       state.condition = btn.dataset.val;
+      setWeatherBg(state.condition);
       saveWeather(state);
       updateScentOfDay();
     });
   });
+  setWeatherBg(state.condition);
 
   // Wind
   initPillRow('#windRow', state.wind, (val) => {
@@ -1712,27 +1791,21 @@ function initCopyPrompt() {
   btn.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(AI_PROMPT);
-      btn.textContent = 'Скопировано \u2713';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = 'Скопировать промпт';
-        btn.classList.remove('copied');
-      }, 2000);
     } catch (e) {
-      // Fallback
       const ta = document.createElement('textarea');
       ta.value = AI_PROMPT;
       document.body.appendChild(ta);
       ta.select();
       document.execCommand('copy');
       document.body.removeChild(ta);
-      btn.textContent = 'Скопировано \u2713';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = 'Скопировать промпт';
-        btn.classList.remove('copied');
-      }, 2000);
     }
+    btn.classList.add('copied');
+    const svg = btn.querySelector('svg');
+    if (svg) svg.style.color = '#22c55e';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      if (svg) svg.style.color = '';
+    }, 2000);
   });
 }
 
@@ -1890,11 +1963,17 @@ function buildFragCard(f) {
     </tr>`;
   }).join('');
 
-  // Notes
+  // Notes with images
   const noteChips = (label, arr) => {
     if (!arr || !arr.length) return '';
-    return `<div class="label-upper" style="margin-top:10px">${label}</div>
-    <div class="notes-row">${arr.map(n => `<span class="note-chip">${n}</span>`).join('')}</div>`;
+    const items = arr.map(n => {
+      const img = getNoteImage(n);
+      if (img) {
+        return `<div class="note-item"><img class="note-icon" src="${img}" alt="${n}" loading="lazy"><span class="note-label">${n}</span></div>`;
+      }
+      return `<div class="note-item"><div class="note-icon note-icon-placeholder">${n.charAt(0)}</div><span class="note-label">${n}</span></div>`;
+    }).join('');
+    return `<div class="label-upper" style="margin-top:14px">${label}</div><div class="notes-row">${items}</div>`;
   };
 
   // Scenarios
@@ -2357,10 +2436,13 @@ function deleteDiaryEntry(id) {
 /* ===== QUOTES ===== */
 
 function initQuote() {
+  const section = document.querySelector('.quotes-section');
   const textEl = $('#quoteText');
-  const authorEl = $('#quoteAuthor');
-  if (textEl && authorEl) {
+  if (textEl && section) {
     textEl.textContent = '\u201C' + randomFrom(QUOTES) + '\u201D';
-    authorEl.textContent = '\u2014 Мастер, 102 года';
+    const img = randomFrom(QUOTE_IMAGES);
+    section.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.6)), url('${img}')`;
+    section.style.backgroundSize = 'cover';
+    section.style.backgroundPosition = 'center';
   }
 }

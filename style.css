@@ -97,6 +97,72 @@ input, select, textarea { font-family: var(--sans); }
 }
 
 /* ===== WEATHER PICKER ===== */
+.weather-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-size: cover; background-position: center;
+}
+#weather { position: relative; overflow: hidden; border-radius: var(--radius); }
+#weather > *:not(.weather-bg) { position: relative; z-index: 1; }
+
+/* Dark frost-glass on each element — white text, dark backdrop */
+#weather .section-title {
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  display: inline-block; padding: 6px 16px; border-radius: 10px;
+  color: #fff; margin-left: 4px;
+}
+#weather .temp-display {
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  display: inline-flex; align-items: baseline;
+  padding: 8px 20px; border-radius: 12px;
+}
+#weather .temp-num,
+#weather .temp-deg { color: #fff; }
+#weather .label-upper {
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  display: inline-block; padding: 3px 10px; border-radius: 6px;
+  color: #fff;
+}
+#weather .temp-slider {
+  background: rgba(0,0,0,0.35);
+  border-radius: 4px;
+}
+#weather .temp-range span {
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  padding: 2px 8px; border-radius: 6px; font-size: 11px;
+  color: #fff;
+}
+#weather .cond-btn {
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-radius: 10px; color: #fff;
+  transition: all var(--transition);
+}
+#weather .cond-btn.active {
+  background: #fff; color: #111;
+  backdrop-filter: none;
+}
+#weather .cond-icon { color: #fff; }
+#weather .cond-btn.active .cond-icon { color: #111; }
+#weather .pill-btn {
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  color: #fff;
+  transition: all var(--transition);
+}
+#weather .pill-btn.active {
+  background: #fff; color: #111;
+  backdrop-filter: none;
+}
+#weather .text-btn {
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  padding: 4px 14px; border-radius: 8px;
+  color: #fff;
+}
 .weather-block { margin-bottom: 28px; }
 .temp-display {
   text-align: center; margin-bottom: 8px;
@@ -181,12 +247,17 @@ input, select, textarea { font-family: var(--sans); }
 .ai-prompt-card {
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 20px; text-align: center;
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
 }
-.ai-prompt-header { margin-bottom: 14px; }
-.ai-prompt-hint {
-  font-size: 11px; color: #bbb; margin-top: 10px;
+.copy-icon-btn {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px; color: var(--text2);
+  transition: all var(--transition);
 }
+.copy-icon-btn:hover { background: rgba(0,0,0,.05); color: var(--text); }
+.copy-icon-btn.copied svg { color: #22c55e !important; }
 
 /* Black button */
 .btn-black {
@@ -452,9 +523,31 @@ input, select, textarea { font-family: var(--sans); }
   background: #fef2f2; display: inline-block; margin: 8px 0;
 }
 
-/* Notes */
+/* Notes pyramid */
 .notes-block { padding: 16px 0; border-top: 1px solid var(--border); }
-.notes-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.notes-row {
+  display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px;
+  justify-content: center;
+}
+.note-item {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 4px; width: 60px;
+}
+.note-icon {
+  width: 50px; height: 50px; object-fit: contain;
+  border-radius: 10px;
+  background: rgba(0,0,0,.03);
+  padding: 4px;
+}
+.note-icon-placeholder {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700; color: var(--text2);
+  border: 1px dashed var(--border);
+}
+.note-label {
+  font-size: 9px; text-align: center; color: var(--text2);
+  line-height: 1.2; font-weight: 500;
+}
 .note-chip {
   font-size: 11px; padding: 4px 10px;
   border-radius: 100px; border: 1px solid var(--border);
@@ -565,22 +658,29 @@ input, select, textarea { font-family: var(--sans); }
 
 /* ===== QUOTES ===== */
 .quotes-section {
-  text-align: center; padding: 48px 0 64px;
-}
-.quote-dash {
-  font-size: 12px; color: #ddd; margin-bottom: 16px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 340px; padding: 48px 28px;
+  border-radius: var(--radius);
+  margin: 8px 0 32px;
+  overflow: hidden;
+  background-color: #1a1a1a;
+  background-size: cover;
+  background-position: center;
 }
 .quote-text {
   font-family: var(--serif);
-  font-size: 14px; font-weight: 700;
+  font-size: 20px; font-weight: 700;
   font-style: italic;
-  color: #999; line-height: 1.7;
-  max-width: 420px; margin: 0 auto;
+  color: #fff; line-height: 1.65;
+  max-width: 500px;
+  text-align: center;
+  text-shadow: 0 2px 16px rgba(0,0,0,.5);
+  position: relative; z-index: 1;
 }
-.quote-author {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: #ccc; margin-top: 12px;
+@media (max-width: 640px) {
+  .quotes-section { min-height: 260px; padding: 32px 20px; }
+  .quote-text { font-size: 16px; }
 }
 
 /* ===== DIARY ===== */
