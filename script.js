@@ -959,6 +959,208 @@ const FRAGRANCES = [
       summer: { day: 'full', night: 'full' },
       autumn: { day: 'full', night: 'full' }
     }
+  },
+
+  /* ---------- AETHER ---------- */
+  {
+    id: 'aether',
+    name: 'French Avenue Aether Extrait De Parfum',
+    house: 'Fragrance World',
+    family: 'Зелёный · Фруктовый · Свежий',
+    image: 'levs-scent/bottles/aether.png',
+    vibe: 'levs-scent/vibes/aether-vibe.png',
+    accent: '#2b5e3d',
+    gradient: 'linear-gradient(135deg, #143021 0%, #1f4a30 55%, #2b5e3d 100%)',
+    total: 10,
+    refreshHours: 4,
+    overspray: false,
+    maxCapped: false,
+    notes: {
+      top: ['Зеленое яблоко', 'Бергамот', 'Мандарин'],
+      heart: ['Кедр', 'Кашмеран', 'Петитгрейн', 'Фиалка'],
+      base: ['Дубовый мох', 'Мускус', 'Амбровуд']
+    },
+    seasons: { winter: 'day', autumn: 'day+night', spring: 'day+night', summer: 'day+night' },
+    vibeCaption: 'Хрустящая чистота дорогого яблочного шампуня с благородной древесной базой.',
+    masterWarning: null,
+    variations: [
+      {
+        label: 'Уличный оверспрей (10 пшиков)',
+        points: [
+          { spot: 'spot-shoulders-clothes.png', n: 4, title: 'Плечи на одежду', detail: 'На одежду — создаёт огромное зелёное облако вокруг тебя при ходьбе' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'На кожу — для диффузности и смешивания с теплом тела' },
+          { spot: 'spot-hair.png', n: 2, title: 'Волосы', detail: 'На волосы — отлично держит фруктовый старт' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'На кожу — главный генератор шлейфа при повороте головы' }
+        ]
+      },
+      {
+        label: 'Легкий шлейф (6 пшиков)',
+        points: [
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь на кожу', detail: 'На кожу — разогревается под рубашкой/футболкой' },
+          { spot: 'spot-inner-elbow.png', n: 2, title: 'Сгиб локтя на кожу', detail: 'На кожу — пульсирует при движении руками' },
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — оставляет приятный шлейф позади' },
+          { spot: 'spot-hair.png', n: 1, title: 'Волосы', detail: 'На волосы — продлевает стойкость свежести' }
+        ]
+      },
+      {
+        label: 'Максимальный режим (12 пшиков)',
+        points: [
+          { spot: 'spot-shoulders-clothes.png', n: 4, title: 'Плечи на одежду', detail: 'На одежду — максимальное закрепление базы' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'На кожу — громкий старт прямо тебе в нос' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь на кожу', detail: 'На кожу — глубокое раскрытие базы' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'На кожу — резкий, мощный шлейф' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — для активной жестикуляции' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: {
+        total: 5,
+        note: 'Хрустящий и чистый, не задушит соседей по парте.',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'На кожу — основной источник аромата' },
+          { spot: 'spot-inner-elbow.png', n: 2, title: 'Сгиб локтя на кожу', detail: 'На кожу — мягкий шлейф при движении руками' },
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — аккуратный хвост' }
+        ]
+      },
+      gym: {
+        total: 3,
+        note: 'Идеален для спорта, даёт вайб геля для душа.',
+        points: [
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь на кожу', detail: 'На кожу — быстро разогреется и даст свежесть' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'Под одежду — сдержит напор, оставив только чистоту' }
+        ]
+      },
+      date: {
+        total: 6,
+        note: 'Пахнет ухоженным и чистым парнем.',
+        points: [
+          { spot: 'spot-neck-front.png', n: 1, title: 'Шея спереди на кожу', detail: 'На кожу — для близкого контакта' },
+          { spot: 'spot-neck-back.png', n: 1, title: 'Шея сзади на кожу', detail: 'На кожу — для шлейфа при прощании' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — при жестикуляции за столом' },
+          { spot: 'spot-hair.png', n: 2, title: 'Волосы', detail: 'На волосы — девушки любят, когда волосы пахнут шампунем' }
+        ]
+      },
+      walk: {
+        total: 10,
+        note: 'Идеальная среда для этого парфюма, ветер разнесёт его на метры.',
+        points: [
+          { spot: 'spot-shoulders-clothes.png', n: 4, title: 'Плечи на одежду', detail: 'На одежду — закрепит шлейф на ветру' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'На кожу — стабильное облако' },
+          { spot: 'spot-hair.png', n: 2, title: 'Волосы', detail: 'На волосы — будет играть на ветру' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'На кожу — дополнительная диффузность' }
+        ]
+      },
+      home: {
+        total: 2,
+        note: 'Для себя, чтобы кайфовать от чистоты.',
+        points: [
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — чтобы периодически ловить носом' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь на кожу', detail: 'На кожу — для уютного кокона' }
+        ]
+      }
+    },
+    seasonTimeMatrix: {
+      winter: { day: 'caution', night: 'forbidden' },
+      spring: { day: 'full', night: 'full' },
+      summer: { day: 'full', night: 'full' },
+      autumn: { day: 'full', night: 'caution' }
+    }
+  },
+
+  /* ---------- TURATHI BLUE ---------- */
+  {
+    id: 'turathi-blue',
+    name: 'Afnan Turathi Blue EDP',
+    house: 'Afnan',
+    family: 'Цитрусовый · Амбровый · Пряный',
+    image: 'levs-scent/bottles/turathi-blue.png',
+    vibe: 'levs-scent/vibes/turathi-blue-vibe.png',
+    accent: '#183c66',
+    gradient: 'linear-gradient(135deg, #0c1e33 0%, #12304d 55%, #183c66 100%)',
+    total: 7,
+    refreshHours: 6,
+    overspray: true,
+    maxCapped: true,
+    notes: {
+      top: ['Грейпфрут', 'Мандарин'],
+      heart: ['Амброксан', 'Древесные ноты'],
+      base: ['Мускус', 'Пачули', 'Специи']
+    },
+    seasons: { winter: 'day', autumn: 'day+night', spring: 'day+night', summer: 'day+night' },
+    vibeCaption: 'Статусный, сочный грейпфрут на мощной и чистой амброксановой подложке.',
+    masterWarning: 'Не пшикай больше 8 — амброксан ослепит твои рецепторы, ты перестанешь его слышать, хотя шлейф будет сбивать с ног окружающих.',
+    variations: [
+      {
+        label: 'Стандарт (7 пшиков)',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'На кожу — классика для шлейфа' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'Под одежду — сдерживает амброксан, не даёт ему стать резким' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — амброксан любит пульсовые зоны' },
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — длиннющий шлейф' }
+        ]
+      },
+      {
+        label: 'Шлейф босса (8 пшиков)',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'На кожу — громкий старт' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На одежду — зацепится за ткань до стирки' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь на кожу', detail: 'На кожу — сердцевина аромата' },
+          { spot: 'spot-hair.png', n: 2, title: 'Волосы', detail: 'На волосы — раскрывает сочность грейпфрута' }
+        ]
+      },
+      {
+        label: 'Близко к телу (4 пшика)',
+        points: [
+          { spot: 'spot-neck-front.png', n: 1, title: 'Шея спереди на кожу', detail: 'На кожу — для тебя и собеседника' },
+          { spot: 'spot-neck-back.png', n: 1, title: 'Шея сзади на кожу', detail: 'На кожу — лёгкий след' },
+          { spot: 'spot-inner-elbow.png', n: 2, title: 'Сгиб локтя на кожу', detail: 'На кожу — мягкое раскрытие специй и дерева' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: {
+        total: 5,
+        note: 'Звучит взросло, собранно и дорого.',
+        points: [
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'Под одежду — строго, но ощутимо' },
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — приятный след в коридорах' },
+          { spot: 'spot-inner-elbow.png', n: 2, title: 'Сгиб локтя на кожу', detail: 'На кожу — ненавязчивая диффузность за партой' }
+        ]
+      },
+      gym: { total: 0, forbidden: true, message: 'Слишком мощный амброксан и специи, в жаре зала может стать едким.' },
+      date: {
+        total: 4,
+        note: 'Притягательно, статусно, но не кричаще.',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'На кожу — идеально при объятиях' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — классика для романтического ужина' }
+        ]
+      },
+      walk: {
+        total: 8,
+        note: 'Оверспрей в пределах нормы, ветер — друг амброксана.',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'На кожу — ловит ветер' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На одежду — мощная база' },
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — двойной удар для длинного шлейфа' },
+          { spot: 'spot-hair.png', n: 2, title: 'Волосы', detail: 'На волосы — свежесть грейпфрута на весь день' }
+        ]
+      },
+      home: {
+        total: 2,
+        note: 'Достаточно для кайфа.',
+        points: [
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь на кожу', detail: 'На кожу — уютная древесно-мускусная база' }
+        ]
+      }
+    },
+    seasonTimeMatrix: {
+      winter: { day: 'caution', night: 'forbidden' },
+      spring: { day: 'full', night: 'full' },
+      summer: { day: 'full', night: 'full' },
+      autumn: { day: 'full', night: 'full' }
+    }
   }
 ];
 
@@ -978,7 +1180,9 @@ const NOTE_MAP = {
   'Красный перец': 'red-pepper', 'Ревень': 'rhubarb', 'Роза': 'rose', 'Шафран': 'saffron',
   'Шалфей': 'sage', 'Сандал': 'sandalwood', 'Бобы тонка': 'tonka_bean', 'Тонка': 'tonka_bean',
   'Ваниль': 'vanilla', 'Ветивер': 'vetiver', 'Фиалка': 'violet', 'Древесные ноты': 'wood_notes',
-  'Табак': 'tobacco', 'Имбирь': 'ginger'
+  'Табак': 'tobacco', 'Имбирь': 'ginger',
+  'Кашмеран': 'cashmeran', 'Петитгрейн': 'petitgrain', 'Специи': 'spices',
+  'Зеленое яблоко': 'apple', 'Мандарин': 'orange'
 };
 
 const NOTE_FILES = {
@@ -994,7 +1198,7 @@ const NOTE_FILES = {
   'oud': 'png', 'patchouli': 'webp', 'pineapple': 'png', 'praline': 'webp',
   'red-pepper': 'png', 'rhubarb': 'png', 'rose': 'png', 'saffron': 'webp',
   'sage': 'webp', 'sandalwood': 'webp', 'tonka_bean': 'webp',
-  'tobacco': 'png', 'ginger': 'png',
+  'tobacco': 'png', 'ginger': 'png', 'cashmeran': 'png', 'petitgrain': 'png', 'spices': 'png',
   'vanilla': 'png', 'vetiver': 'webp', 'violet': 'png', 'wood_notes': 'webp'
 };
 
@@ -1023,7 +1227,17 @@ const QUOTE_IMAGES = [
   'levs-scent/assets/quotes/quote2.jpg',
   'levs-scent/assets/quotes/quote3.jpg',
   'levs-scent/assets/quotes/quote4.jpg',
-  'levs-scent/assets/quotes/quote5.png'
+  'levs-scent/assets/quotes/quote5.png',
+  'levs-scent/assets/quotes/quote6.jpg',
+  'levs-scent/assets/quotes/quote7.jpg',
+  'levs-scent/assets/quotes/quote8.jpg',
+  'levs-scent/assets/quotes/quote9.jpg',
+  'levs-scent/assets/quotes/quote10.jpg',
+  'levs-scent/assets/quotes/quote11.jpg',
+  'levs-scent/assets/quotes/quote12.jpg',
+  'levs-scent/assets/quotes/quote13.jpg',
+  'levs-scent/assets/quotes/quote14.jpg',
+  'levs-scent/assets/quotes/quote15.jpg'
 ];
 
 /* ===== COMBINATIONS ===== */
@@ -1368,6 +1582,68 @@ const COMBINATIONS = [
       }
     ],
     effect: 'Сливочная ваниль и специи превращают тропическое манго в изысканный гурманский десерт.'
+  },
+  {
+    id: 'tropical-waterfall',
+    name: 'Тропический водопад',
+    fragrances: ['aether', 'fursan'],
+    sub: 'Aether Extrait + Qaed Al Fursan',
+    season: 'Весна · Лето (день)',
+    totalSprays: 6,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Aether Extrait',
+        fragId: 'aether',
+        instruction: 'Нанеси первым — зелёная яблочная база',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'На кожу — создаёт зелёную яблочную базу' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На одежду — закрепляет эффект свежести надолго' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Qaed Al Fursan',
+        fragId: 'fursan',
+        instruction: 'Через 30 секунд — ананасовый акцент поверх',
+        points: [
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь на кожу', detail: 'На кожу — ананасовая сладость в центр' },
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — для фруктового шлейфа сзади' }
+        ]
+      }
+    ],
+    effect: 'Яблочно-древесный Aether смешивается с сочным ананасом Al Fursan, создавая вайб супер-дорогого нишевого фруктового коктейля.'
+  },
+  {
+    id: 'ultimate-fresh',
+    name: 'Ультимативный Свежак',
+    fragrances: ['turathi-blue', 'opulent-dubai'],
+    sub: 'Turathi Blue + Opulent Dubai',
+    season: 'Лето (жара)',
+    totalSprays: 7,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Turathi Blue',
+        fragId: 'turathi-blue',
+        instruction: 'Нанеси первым — амброксаново-грейпфрутовая мощь',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'На кожу — амброксановая и грейпфрутовая мощь' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На кожу — диффузность при движении' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Opulent Dubai',
+        fragId: 'opulent-dubai',
+        instruction: 'Через 30 секунд — тропическая свежесть поверх',
+        points: [
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'Под одежду — тропическая свежесть манго' },
+          { spot: 'spot-hair.png', n: 1, title: 'Волосы', detail: 'На волосы — энергичный фруктовый вайб сверху' }
+        ]
+      }
+    ],
+    effect: 'Мощный цитрусово-амбровый скелет Turathi обрастает тропической свежестью Opulent Dubai, идеальная броня против жары.'
   }
 ];
 
@@ -1385,7 +1661,10 @@ const QUOTES = [
   'Оверспрей — это крик. Дозировка — это шёпот. Шёпот громче.',
   'Парфюм без повода — лучший повод.',
   'В помещении — меньше. На улице — средне. На свидании — как всегда.',
-  'Красивый человек в плохом парфюме — грустная история.'
+  'Красивый человек в плохом парфюме — грустная история.',
+  'Аромат — это невидимый аксессуар, который запоминают дольше всего.',
+  'Один пшик на затылок стоит пяти на рубашку.',
+  'Парфюм не меняет тебя. Он показывает ту версию, которую ты выбрал сегодня.'
 ];
 
 /* ===== SCENT-OF-DAY REASONS ===== */
@@ -1485,6 +1764,28 @@ const REASONS = {
     warm: [
       'Настоящее спасение в жару — мята и инжир работают как ледяной душ.',
       'Легкая акватика не душит и создает свежую ауру вокруг.'
+    ]
+  },
+  aether: {
+    cold: [
+      'Зеленое яблоко звучит кристально и звонко на прохладном воздухе.',
+      'Напоминает о лете в серые дни.'
+    ],
+    warm: [
+      'Идеальный эффект свежевымытых волос и дорогого шампуня.',
+      'В жару это как глоток холодного зеленого чая с яблоком.',
+      'Максимальная природная свежесть, которая не душит.'
+    ]
+  },
+  'turathi-blue': {
+    cold: [
+      'Амброксан и специи пробивают холодный воздух мощным шлейфом.',
+      'Солидно звучит с курткой или пальто.'
+    ],
+    warm: [
+      'Сочный, реалистичный грейпфрут идеально освежает в теплый день.',
+      'Звучит дорого, статусно и дарит энергию.',
+      'Амброксан на горячей коже создает невероятную ауру чистоты.'
     ]
   }
 };
@@ -1594,17 +1895,17 @@ function getScentOfDay(weather) {
 
   // High humidity + hot → fresh only
   if (weather.humidity === 'high' && score >= 2) {
-    candidateIds = ['fakhar', 'pacific-aura'];
+    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue'];
   } else if (score <= -2) {
     candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'opulent-dubai'];
   } else if (score === -1) {
-    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai'];
+    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'turathi-blue'];
   } else if (score === 0) {
-    candidateIds = ['encelade', 'ninepm', 'fursan', 'angels-share', 'opulent-dubai', 'pacific-aura'];
+    candidateIds = ['encelade', 'ninepm', 'fursan', 'angels-share', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue'];
   } else if (score === 1) {
-    candidateIds = ['ninepm', 'fursan', 'fakhar', 'opulent-dubai', 'pacific-aura'];
+    candidateIds = ['ninepm', 'fursan', 'fakhar', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue'];
   } else {
-    candidateIds = ['fursan', 'fakhar', 'pacific-aura', 'opulent-dubai'];
+    candidateIds = ['fursan', 'fakhar', 'pacific-aura', 'opulent-dubai', 'aether', 'turathi-blue'];
   }
 
   // Filter out fragrances that are forbidden in current season/time
@@ -1651,6 +1952,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDiary();
   initQuote();
   initNav();
+  initSituationFilter();
   updateScentOfDay();
   initRefreshTimers();
 });
@@ -1811,12 +2113,34 @@ function initCopyPrompt() {
 
 /* ===== SCENT OF THE DAY ===== */
 
+let currentSituation = 'any';
+
+function initSituationFilter() {
+  const btns = $$('#situationRow .pill-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSituation = btn.dataset.situation;
+      updateScentOfDay();
+    });
+  });
+}
+
 function updateScentOfDay() {
   const container = $('#scentOfDayCard');
   if (!container) return;
 
   const weather = getWeatherState();
-  const results = getScentOfDay(weather);
+  let results = getScentOfDay(weather);
+
+  // Filter by situation
+  if (results && currentSituation !== 'any') {
+    results = results.filter(r => {
+      const sc = r.fragrance.scenarios[currentSituation];
+      return sc && !sc.forbidden;
+    });
+  }
 
   if (!results || results.length === 0) {
     container.innerHTML = '<div class="sotd-empty">Выбери погоду выше, чтобы получить рекомендацию</div>';

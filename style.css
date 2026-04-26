@@ -317,6 +317,12 @@ input, select, textarea { font-family: var(--sans); }
 }
 .sotd-btn:hover { background: rgba(255,255,255,.3); }
 
+/* Situation filter */
+.situation-row {
+  display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;
+}
+.situation-row .pill-btn { font-size: 12px; padding: 6px 14px; }
+
 /* Multi-card scent of day */
 .sotd-count {
   font-size: 12px; font-weight: 600;
