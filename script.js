@@ -1242,6 +1242,16 @@ const QUOTE_IMAGES = [
 
 /* ===== COMBINATIONS ===== */
 
+/* Season tabs for combinations — order defines tab order */
+const COMBO_SEASON_TABS = [
+  { key: 'all',       emoji: '🔥', label: 'Все' },
+  { key: 'summer',    emoji: '☀️', label: 'Лето' },
+  { key: 'spring',    emoji: '🌸', label: 'Весна' },
+  { key: 'autumn',    emoji: '🍂', label: 'Осень' },
+  { key: 'winter',    emoji: '❄️', label: 'Зима' },
+  { key: 'universal', emoji: '🌐', label: 'Универсальные' }
+];
+
 const COMBINATIONS = [
   {
     id: 'winter-gourmet',
@@ -1249,6 +1259,7 @@ const COMBINATIONS = [
     fragrances: ['brun', 'fursan'],
     sub: 'Liquid Brun + Qaed Al Fursan',
     season: 'Зима · Осень',
+    seasonGroups: ['winter', 'autumn'],
     totalSprays: 8,
     layers: [
       {
@@ -1280,6 +1291,7 @@ const COMBINATIONS = [
     fragrances: ['qahwa', 'ninepm'],
     sub: 'Khamrah Qahwa + Afnan 9PM',
     season: 'Осень · Зима · Прохладная весна',
+    seasonGroups: ['autumn', 'winter', 'spring'],
     totalSprays: 5,
     layers: [
       {
@@ -1311,6 +1323,7 @@ const COMBINATIONS = [
     fragrances: ['tobacco', 'brun'],
     sub: 'Red Tobacco + Liquid Brun',
     season: 'Зима · Поздняя осень (только вечер)',
+    seasonGroups: ['winter', 'autumn'],
     totalSprays: 5,
     layers: [
       {
@@ -1342,6 +1355,7 @@ const COMBINATIONS = [
     fragrances: ['encelade', 'fursan'],
     sub: 'Encelade + Qaed Al Fursan',
     season: 'Весна · Лето · Тёплая осень',
+    seasonGroups: ['spring', 'summer', 'autumn'],
     totalSprays: 5,
     layers: [
       {
@@ -1372,6 +1386,7 @@ const COMBINATIONS = [
     fragrances: ['fakhar', 'ninepm'],
     sub: 'Fakhar Black + Afnan 9PM',
     season: 'Весь год (кроме жаркого лета)',
+    seasonGroups: ['universal'],
     totalSprays: 5,
     layers: [
       {
@@ -1403,6 +1418,7 @@ const COMBINATIONS = [
     fragrances: ['brun', 'angels-share'],
     sub: "Liquid Brun + Angels' Share",
     season: 'Зима · Осень (вечер)',
+    seasonGroups: ['winter', 'autumn'],
     totalSprays: 4,
     layers: [
       {
@@ -1433,6 +1449,7 @@ const COMBINATIONS = [
     fragrances: ['fakhar', 'angels-share'],
     sub: "Fakhar Black + Angels' Share",
     season: 'Осень · Тёплая зима · Прохладная весна',
+    seasonGroups: ['autumn', 'winter', 'spring'],
     totalSprays: 4,
     layers: [
       {
@@ -1463,6 +1480,7 @@ const COMBINATIONS = [
     fragrances: ['opulent-dubai', 'pacific-aura'],
     sub: 'Opulent Dubai + Pacific Aura',
     season: 'Весна · Лето',
+    seasonGroups: ['spring', 'summer'],
     totalSprays: 9,
     layers: [
       {
@@ -1495,6 +1513,7 @@ const COMBINATIONS = [
     fragrances: ['opulent-dubai', 'fursan'],
     sub: 'Opulent Dubai + Qaed Al Fursan',
     season: 'Лето · Теплая осень',
+    seasonGroups: ['summer', 'autumn'],
     totalSprays: 10,
     layers: [
       {
@@ -1526,6 +1545,7 @@ const COMBINATIONS = [
     fragrances: ['encelade', 'pacific-aura'],
     sub: 'Encelade + Pacific Aura',
     season: 'Весна · Лето',
+    seasonGroups: ['spring', 'summer'],
     totalSprays: 7,
     layers: [
       {
@@ -1558,6 +1578,7 @@ const COMBINATIONS = [
     fragrances: ['brun', 'opulent-dubai'],
     sub: 'Liquid Brun + Opulent Dubai',
     season: 'Осень · Зима · Прохладный вечер',
+    seasonGroups: ['autumn', 'winter'],
     totalSprays: 8,
     layers: [
       {
@@ -1589,6 +1610,7 @@ const COMBINATIONS = [
     fragrances: ['aether', 'fursan'],
     sub: 'Aether Extrait + Qaed Al Fursan',
     season: 'Весна · Лето (день)',
+    seasonGroups: ['spring', 'summer'],
     totalSprays: 6,
     layers: [
       {
@@ -1620,6 +1642,7 @@ const COMBINATIONS = [
     fragrances: ['turathi-blue', 'opulent-dubai'],
     sub: 'Turathi Blue + Opulent Dubai',
     season: 'Лето (жара)',
+    seasonGroups: ['summer'],
     totalSprays: 7,
     layers: [
       {
@@ -2577,60 +2600,103 @@ function resetRefresh(fragId) {
 
 /* ===== COMBINATIONS ===== */
 
+function buildComboCard(c) {
+  const layersHtml = c.layers.map(layer => {
+    const frag = FRAGRANCES.find(f => f.id === layer.fragId);
+    const accent = frag ? frag.accent : '#888';
+    const pointsHtml = layer.points.map(p => `
+      <div class="spray-point">
+        <img class="spray-spot" src="levs-scent/spots/${p.spot}" alt="${p.title}" loading="lazy">
+        <div class="spray-info">
+          <span class="spray-n">${p.n}</span><span class="spray-title">${p.title}</span>
+          <div class="spray-detail">${p.detail}</div>
+        </div>
+      </div>
+    `).join('');
+    return `
+      <div class="combo-layer">
+        <div class="combo-layer-header">
+          <div class="combo-layer-badge" style="background:${accent}">${layer.order}</div>
+          <div>
+            <div class="combo-layer-name">${layer.fragName}</div>
+            <div class="combo-layer-instruction">${layer.instruction}</div>
+          </div>
+        </div>
+        <div class="var-list">${pointsHtml}</div>
+      </div>
+    `;
+  }).join(`<div class="combo-pause">\u23F1 Подожди 30 секунд</div>`);
+
+  const groups = (c.seasonGroups || []).join(' ');
+  return `
+    <div class="combo-card" data-seasons="${groups}">
+      <div class="combo-header">
+        <div>
+          <div class="combo-name">${c.name}</div>
+          <div class="combo-sub">${c.sub}</div>
+          <div class="combo-season">${c.season}</div>
+        </div>
+        <div class="combo-chevron">\u25BC</div>
+      </div>
+      <div class="combo-body">
+        <div class="combo-inner">
+          ${layersHtml}
+          <div class="combo-effect">${c.effect}</div>
+          <div class="combo-total">Итого: ${c.totalSprays} ${sprayWord(c.totalSprays)}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
 function initCombinations() {
   const grid = $('#combosGrid');
   if (!grid) return;
 
-  grid.innerHTML = COMBINATIONS.map(c => {
-    const layersHtml = c.layers.map(layer => {
-      const frag = FRAGRANCES.find(f => f.id === layer.fragId);
-      const accent = frag ? frag.accent : '#888';
-      const pointsHtml = layer.points.map(p => `
-        <div class="spray-point">
-          <img class="spray-spot" src="levs-scent/spots/${p.spot}" alt="${p.title}" loading="lazy">
-          <div class="spray-info">
-            <span class="spray-n">${p.n}</span><span class="spray-title">${p.title}</span>
-            <div class="spray-detail">${p.detail}</div>
-          </div>
-        </div>
-      `).join('');
-      return `
-        <div class="combo-layer">
-          <div class="combo-layer-header">
-            <div class="combo-layer-badge" style="background:${accent}">${layer.order}</div>
-            <div>
-              <div class="combo-layer-name">${layer.fragName}</div>
-              <div class="combo-layer-instruction">${layer.instruction}</div>
-            </div>
-          </div>
-          <div class="var-list">${pointsHtml}</div>
-        </div>
-      `;
-    }).join(`<div class="combo-pause">\u23F1 Подожди 30 секунд</div>`);
-
-    return `
-      <div class="combo-card">
-        <div class="combo-header">
-          <div>
-            <div class="combo-name">${c.name}</div>
-            <div class="combo-sub">${c.sub}</div>
-            <div class="combo-season">${c.season}</div>
-          </div>
-          <div class="combo-chevron">\u25BC</div>
-        </div>
-        <div class="combo-body">
-          <div class="combo-inner">
-            ${layersHtml}
-            <div class="combo-effect">${c.effect}</div>
-            <div class="combo-total">Итого: ${c.totalSprays} ${sprayWord(c.totalSprays)}</div>
-          </div>
-        </div>
-      </div>
-    `;
+  /* — Build tab buttons — */
+  const tabsHtml = COMBO_SEASON_TABS.map(t => {
+    const count = t.key === 'all'
+      ? COMBINATIONS.length
+      : COMBINATIONS.filter(c => (c.seasonGroups || []).includes(t.key)).length;
+    return `<button class="combo-tab${t.key === 'all' ? ' active' : ''}" data-season="${t.key}">
+      <span class="combo-tab-emoji">${t.emoji}</span>${t.label}<span class="combo-tab-count">${count}</span>
+    </button>`;
   }).join('');
 
-  // Toggle
-  $$('.combo-header').forEach(header => {
+  /* — Build all cards — */
+  const cardsHtml = COMBINATIONS.map(buildComboCard).join('');
+
+  grid.innerHTML = `
+    <div class="combo-tabs" id="comboTabs">${tabsHtml}</div>
+    <div class="combo-cards-list" id="comboCardsList">${cardsHtml}</div>
+  `;
+
+  /* — Tab switching — */
+  const tabs = grid.querySelectorAll('.combo-tab');
+  const cards = grid.querySelectorAll('.combo-card');
+
+  function filterCombos(seasonKey) {
+    cards.forEach(card => {
+      const seasons = card.dataset.seasons.split(' ');
+      if (seasonKey === 'all' || seasons.includes(seasonKey)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+        card.classList.remove('open');
+      }
+    });
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      filterCombos(tab.dataset.season);
+    });
+  });
+
+  /* — Card toggle — */
+  grid.querySelectorAll('.combo-header').forEach(header => {
     header.addEventListener('click', () => {
       header.closest('.combo-card').classList.toggle('open');
     });

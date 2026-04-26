@@ -591,6 +591,45 @@ input, select, textarea { font-family: var(--sans); }
 .master-warning-text { font-size: 13px; color: #991b1b; line-height: 1.5; }
 
 /* ===== COMBINATIONS ===== */
+/* Combo season tabs */
+.combo-tabs {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 18px;
+}
+.combo-tab {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  font-family: var(--sans);
+  font-size: 13px; font-weight: 600;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.combo-tab:hover { background: rgba(0,0,0,.03); color: var(--text); }
+.combo-tab.active {
+  background: var(--text);
+  color: #fff;
+  border-color: var(--text);
+}
+.combo-tab-emoji { font-size: 16px; line-height: 1; }
+.combo-tab-count {
+  font-size: 10px; font-weight: 700;
+  background: rgba(0,0,0,.08);
+  padding: 1px 6px; border-radius: 8px;
+  color: var(--text2);
+}
+.combo-tab.active .combo-tab-count {
+  background: rgba(255,255,255,.2);
+  color: rgba(255,255,255,.8);
+}
+@media (max-width: 640px) {
+  .combo-tabs { gap: 6px; }
+  .combo-tab { padding: 6px 10px; font-size: 12px; }
+  .combo-tab-emoji { font-size: 14px; }
+}
+
 .combo-card {
   border: 1px solid var(--border);
   border-radius: var(--radius);
