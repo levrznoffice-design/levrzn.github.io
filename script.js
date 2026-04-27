@@ -1927,7 +1927,19 @@ function getWeatherState() {
   };
 }
 
-/* ===== SCENT OF THE DAY ALGORITHM ===== */
+/* ===== SCENT OF THE DAY ALGORITHM v2 (Revolution Update) ===== */
+
+/*
+ * Сезон определяется по warmthScore, НЕ по календарю.
+ * score <= -1  → 'winter'  (холодная погода)
+ * score >= 1   → 'summer'  (тёплая/жаркая погода)
+ * score === 0  → 'spring' или 'autumn' (берём лучший из двух для каждого аромата)
+ */
+function getSeasonFromScore(score) {
+  if (score <= -1) return 'winter';
+  if (score >= 1) return 'summer';
+  return 'transitional'; // spring/autumn — выберем лучший вариант для каждого аромата
+}
 
 function computeWarmthScore(weather) {
   let score = 0;
@@ -1946,46 +1958,98 @@ function computeWarmthScore(weather) {
   return score;
 }
 
+/*
+ * Ароматы, которые "удушливы" при высокой влажности + тепле (>20°C).
+ * Доминирующие ноты: ваниль, табак, тяжёлая сладость, гурманские.
+ * При высокой влажности + score >= 1 эти ароматы принудительно исключаются.
+ */
+const HUMIDITY_HEAVY_IDS = ['qahwa', 'brun', 'tobacco', 'ninepm', 'angels-share'];
+
+/*
+ * Получить статус матрицы сезон/время для аромата.
+ * При transitional (score=0) берём лучший статус из spring и autumn.
+ * Приоритет: full > caution > forbidden
+ */
+function getMatrixStatus(frag, weatherSeason, daytime) {
+  const m = frag.seasonTimeMatrix;
+  if (!m) return 'forbidden';
+
+  if (weatherSeason === 'transitional') {
+    const statusSpring = m.spring ? m.spring[daytime] : 'forbidden';
+    const statusAutumn = m.autumn ? m.autumn[daytime] : 'forbidden';
+    const rank = { full: 2, caution: 1, forbidden: 0 };
+    return (rank[statusSpring] || 0) >= (rank[statusAutumn] || 0) ? statusSpring : statusAutumn;
+  }
+
+  const row = m[weatherSeason];
+  return row ? row[daytime] : 'forbidden';
+}
+
 function getScentOfDay(weather) {
   if (!weather.condition) return null;
 
   const score = computeWarmthScore(weather);
-  const season = getCurrentSeason();
+  const weatherSeason = getSeasonFromScore(score);
   const daytime = getDaytime();
   let candidateIds = [];
 
-  // High humidity + hot → fresh only
-  if (weather.humidity === 'high' && score >= 2) {
-    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue'];
-  } else if (score <= -2) {
-    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'opulent-dubai'];
+  /* --- Подбор кандидатов по warmth score --- */
+  if (score <= -3) {
+    // Экстремальный холод: только самые тяжёлые
+    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share'];
+  } else if (score === -2) {
+    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'ninepm', 'opulent-dubai'];
   } else if (score === -1) {
-    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'turathi-blue'];
+    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'fursan'];
   } else if (score === 0) {
-    candidateIds = ['encelade', 'ninepm', 'fursan', 'angels-share', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue'];
+    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue'];
   } else if (score === 1) {
-    candidateIds = ['ninepm', 'fursan', 'fakhar', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue'];
+    candidateIds = ['fursan', 'fakhar', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue'];
+  } else if (score === 2) {
+    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue', 'fursan'];
   } else {
-    candidateIds = ['fursan', 'fakhar', 'pacific-aura', 'opulent-dubai', 'aether', 'turathi-blue'];
+    // score >= 3: экстремальная жара — только свежаки
+    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue'];
   }
 
-  // Filter out fragrances that are forbidden in current season/time
-  const filtered = candidateIds
-    .map(id => FRAGRANCES.find(f => f.id === id))
-    .filter(f => {
-      if (!f) return false;
-      const m = f.seasonTimeMatrix[season];
-      return m && m[daytime] !== 'forbidden';
+  /* --- Фильтр влажности: высокая + тепло → убрать тяжёлые --- */
+  if (weather.humidity === 'high' && weather.temp > 20) {
+    candidateIds = candidateIds.filter(id => !HUMIDITY_HEAVY_IDS.includes(id));
+  }
+
+  /* --- Классифицируем каждого кандидата по матрице --- */
+  const perfect = [];   // status = 'full'
+  const caution = [];   // status = 'caution'
+
+  candidateIds.forEach(id => {
+    const frag = FRAGRANCES.find(f => f.id === id);
+    if (!frag) return;
+    const status = getMatrixStatus(frag, weatherSeason, daytime);
+    if (status === 'full') perfect.push(frag);
+    else if (status === 'caution') caution.push(frag);
+    // forbidden — не добавляем вообще
+  });
+
+  if (perfect.length === 0 && caution.length === 0) return null;
+
+  /* --- Приоритезация: "универсальные солдаты" вниз при жаре --- */
+  if (score >= 2) {
+    // В жару свежие ароматы важнее универсальных
+    const freshIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue'];
+    perfect.sort((a, b) => {
+      const aFresh = freshIds.includes(a.id) ? 0 : 1;
+      const bFresh = freshIds.includes(b.id) ? 0 : 1;
+      return aFresh - bFresh;
     });
+  }
 
-  if (filtered.length === 0) return null;
-
+  /* --- Формируем результат --- */
   const condLabels = { sun: 'солнечно', clouds: 'облачно', rain: 'дождь', snow: 'снег', fog: 'туман' };
   const condText = condLabels[weather.condition] || '';
   const summary = `${condText}, ${weather.temp > 0 ? '+' : ''}${weather.temp}°C`;
   const isWarm = score >= 0;
 
-  return filtered.map(frag => {
+  function buildResult(frag) {
     const reasonsObj = REASONS[frag.id];
     let reason = frag.vibeCaption;
     if (reasonsObj) {
@@ -1994,7 +2058,12 @@ function getScentOfDay(weather) {
       reason = pool.length > 0 ? randomFrom(pool) : (all.length > 0 ? randomFrom(all) : frag.vibeCaption);
     }
     return { fragrance: frag, reason, summary };
-  });
+  }
+
+  return {
+    perfect: perfect.map(buildResult),
+    caution: caution.map(buildResult)
+  };
 }
 
 /* ===== DOM ELEMENTS ===== */
@@ -2193,46 +2262,68 @@ function updateScentOfDay() {
   if (!container) return;
 
   const weather = getWeatherState();
-  let results = getScentOfDay(weather);
+  const result = getScentOfDay(weather);
 
-  // Filter by situation
-  if (results && currentSituation !== 'any') {
-    results = results.filter(r => {
-      const sc = r.fragrance.scenarios[currentSituation];
-      return sc && !sc.forbidden;
-    });
-  }
-
-  if (!results || results.length === 0) {
+  if (!result) {
     container.innerHTML = '<div class="sotd-empty">Выбери погоду выше, чтобы получить рекомендацию</div>';
     return;
   }
 
-  const cards = results.map((r, i) => {
-    const f = r.fragrance;
-    return `
-      <div class="sotd-slide fade-in" style="animation-delay:${i * 0.08}s">
-        <div class="sotd-card">
-          <div class="sotd-vibe" style="background-image:url('${f.vibe}')"></div>
-          <div class="sotd-content">
-            <div class="sotd-house">${f.house}</div>
-            <div class="sotd-name">${f.name}</div>
-            <div class="sotd-reason">${r.summary} — ${r.reason}</div>
-            <button class="sotd-btn" onclick="openFragCard('${f.id}')">Открыть инструкцию</button>
+  let { perfect, caution } = result;
+
+  // Filter by situation
+  if (currentSituation !== 'any') {
+    const sitFilter = r => {
+      const sc = r.fragrance.scenarios[currentSituation];
+      return sc && !sc.forbidden;
+    };
+    perfect = perfect.filter(sitFilter);
+    caution = caution.filter(sitFilter);
+  }
+
+  if (perfect.length === 0 && caution.length === 0) {
+    container.innerHTML = '<div class="sotd-empty">Нет подходящих ароматов для этой комбинации погоды и ситуации</div>';
+    return;
+  }
+
+  function buildCards(arr, delay0) {
+    return arr.map((r, i) => {
+      const f = r.fragrance;
+      return `
+        <div class="sotd-slide fade-in" style="animation-delay:${(delay0 + i) * 0.08}s">
+          <div class="sotd-card">
+            <div class="sotd-vibe" style="background-image:url('${f.vibe}')"></div>
+            <div class="sotd-content">
+              <div class="sotd-house">${f.house}</div>
+              <div class="sotd-name">${f.name}</div>
+              <div class="sotd-reason">${r.summary} — ${r.reason}</div>
+              <button class="sotd-btn" onclick="openFragCard('${f.id}')">Открыть инструкцию</button>
+            </div>
           </div>
         </div>
-      </div>
+      `;
+    }).join('');
+  }
+
+  let html = '';
+
+  /* Perfect Match block */
+  if (perfect.length > 0) {
+    const label = perfect.length > 1
+      ? `<div class="sotd-count">Perfect Match · ${perfect.length} ${pluralize(perfect.length, 'аромат', 'аромата', 'ароматов')}</div>`
+      : `<div class="sotd-count">Perfect Match</div>`;
+    html += `${label}<div class="sotd-scroll">${buildCards(perfect, 0)}</div>`;
+  }
+
+  /* Caution block */
+  if (caution.length > 0) {
+    html += `
+      <div class="sotd-caution-divider">⚠️ Можно, но с осторожностью</div>
+      <div class="sotd-scroll sotd-scroll-caution">${buildCards(caution, perfect.length)}</div>
     `;
-  }).join('');
+  }
 
-  const countLabel = results.length > 1
-    ? `<div class="sotd-count">${results.length} ${pluralize(results.length, 'вариант', 'варианта', 'вариантов')} на сегодня</div>`
-    : '';
-
-  container.innerHTML = `
-    ${countLabel}
-    <div class="sotd-scroll">${cards}</div>
-  `;
+  container.innerHTML = html;
 }
 
 function openFragCard(id) {
