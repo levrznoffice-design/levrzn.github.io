@@ -1341,6 +1341,88 @@ const FRAGRANCES = [
       summer: { day: 'forbidden', night: 'forbidden' },
       autumn: { day: 'caution', night: 'full' }
     }
+  },
+  {
+    id: 'asad-bourbon',
+    name: 'Lattafa Asad Bourbon',
+    house: 'Lattafa',
+    family: 'Пряный · Ванильный · Алкогольный',
+    image: 'levs-scent/bottles/asad-bourbon.png',
+    vibe: 'levs-scent/vibes/asad-bourbon-vibe.png',
+    accent: '#C67139',
+    gradient: 'linear-gradient(135deg, #1f1412 0%, #5c3a21 55%, #a46036 100%)',
+    total: 5,
+    refreshHours: null,
+    overspray: false,
+    maxCapped: true,
+    notes: {
+      top: ['Чёрный перец', 'Бурбон', 'Специи'],
+      heart: ['Табак', 'Кедр', 'Пачули'],
+      base: ['Ваниль', 'Амбра', 'Древесные ноты']
+    },
+    seasons: { winter: 'day+night', spring: 'night-only', summer: 'forbidden', autumn: 'day+night' },
+    vibeCaption: 'Терпкий бурбон, черная ваниль и табак. Согревающий и статусный вечерний аромат.',
+    variations: [
+      {
+        label: 'Деловой вечер (3 пшика)',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'База для ненавязчивого шлейфа' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под одежду', detail: 'Для теплой ванильной ауры вокруг себя' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястья на кожу', detail: 'Распределить на оба запястья' }
+        ]
+      },
+      {
+        label: 'Статусный выход (5 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Уверенный и густой шлейф' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Фиксация алкогольных нот на ткани' },
+          { spot: 'spot-neck-front.png', n: 1, title: 'Шея спереди на кожу', detail: 'Контрольный пшик' }
+        ]
+      },
+      {
+        label: 'Холодная улица (6 пшиков — максимум)',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Пробивать морозный воздух' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Для максимальной стойкости на куртке' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'По одному за каждое ухо' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: { total: 0, forbidden: true, message: 'Слишком алкогольно и тяжело для учебного заведения.' },
+      gym: { total: 0, forbidden: true, message: 'Удушит всех ванилью и специями.' },
+      date: {
+        total: 4,
+        note: 'Отлично подходит для вечернего свидания в ресторане.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'Тонкий шлейф' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под одежду', detail: 'Загадочная аура' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'Для близкого контакта' }
+        ]
+      },
+      walk: {
+        total: 5,
+        note: 'Идеально для холодной осени или зимы.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Хвост на ветру' },
+          { spot: 'spot-shoulders-clothes.png', n: 3, title: 'Плечи на одежду', detail: 'Зацепится за ткань' }
+        ]
+      },
+      home: {
+        total: 2,
+        note: 'Уютный вечер за книгой или фильмом.',
+        points: [
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'По одному на каждую руку' }
+        ]
+      }
+    },
+    masterWarning: 'Аромат очень плотный и стойкий. Не рекомендуется наносить более 5 пшиков, чтобы не задушить окружающих.',
+    seasonTimeMatrix: {
+      winter: { day: 'full', night: 'full' },
+      spring: { day: 'caution', night: 'full' },
+      summer: { day: 'forbidden', night: 'forbidden' },
+      autumn: { day: 'full', night: 'full' }
+    }
   }
 ];
 
@@ -1363,7 +1445,8 @@ const NOTE_MAP = {
   'Табак': 'tobacco', 'Имбирь': 'ginger',
   'Кашмеран': 'cashmeran', 'Петитгрейн': 'petitgrain', 'Специи': 'spices',
   'Зеленое яблоко': 'apple', 'Мандарин': 'orange',
-  'Черный чай': 'black_tea', 'Нероли': 'neroli', 'Тубероза': 'tuberose'
+  'Черный чай': 'black_tea', 'Нероли': 'neroli', 'Тубероза': 'tuberose',
+  'Бурбон': 'bourbon'
 };
 
 const NOTE_FILES = {
@@ -1381,7 +1464,8 @@ const NOTE_FILES = {
   'sage': 'webp', 'sandalwood': 'webp', 'tonka_bean': 'webp',
   'tobacco': 'png', 'ginger': 'png', 'cashmeran': 'png', 'petitgrain': 'png', 'spices': 'png',
   'vanilla': 'png', 'vetiver': 'webp', 'violet': 'png', 'wood_notes': 'webp',
-  'black_tea': 'webp', 'neroli': 'webp', 'tuberose': 'png'
+  'black_tea': 'webp', 'neroli': 'webp', 'tuberose': 'png',
+  'bourbon': 'webp'
 };
 
 function getNoteImage(noteName) {
@@ -1979,6 +2063,69 @@ const COMBINATIONS = [
       }
     ],
     effect: 'Два зимних короля вместе: амбровая сладость Blonde Amber смягчает агрессию Red Tobacco. Результат — дымный, бархатный, невероятно дорогой шлейф. Только для мороза.'
+  },
+  {
+    id: 'spiced-bourbon-apple',
+    name: 'Пряный Яблочный Бурбон',
+    fragrances: ['asad-bourbon', 'ninepm'],
+    sub: 'Asad Bourbon + Afnan 9PM',
+    season: 'Осень · Зима',
+    seasonGroups: ['autumn', 'winter'],
+    totalSprays: 6,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Lattafa Asad Bourbon',
+        fragId: 'asad-bourbon',
+        instruction: 'Нанеси первым как темную, алкогольную и пряную базу.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Глубокий шлейф' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под одежду', detail: 'Сердцевина комбинации' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Afnan 9PM',
+        fragId: 'ninepm',
+        instruction: 'Добавь сверху для яркой, сладкой яблочной свежести.',
+        points: [
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Диффузная сладость' },
+          { spot: 'spot-neck-front.png', n: 1, title: 'Шея спереди на кожу', detail: 'Для собственного шлейфа' }
+        ]
+      }
+    ],
+    effect: 'Напоминает дорогой зимний коктейль — бурбон с запеченным яблоком, корицей и ванилью.'
+  },
+  {
+    id: 'billionaire-club',
+    name: 'Клуб Миллиардеров',
+    fragrances: ['blonde-amber', 'asad-bourbon'],
+    sub: 'Blonde Amber + Asad Bourbon',
+    season: 'Зима (только вечер)',
+    seasonGroups: ['winter'],
+    totalSprays: 4,
+    layers: [
+      {
+        order: 1,
+        fragName: 'XXI Art Deco Blonde Amber',
+        fragId: 'blonde-amber',
+        instruction: 'Всего два пшика этого эликсира создадут роскошную амбровую базу.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'Роскошный хвост' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под одежду', detail: 'Долгоиграющая база' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Lattafa Asad Bourbon',
+        fragId: 'asad-bourbon',
+        instruction: 'Дополни сверху для добавления брутальных алкогольных и пряных нот.',
+        points: [
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Пряный алкогольный акцент' }
+        ]
+      }
+    ],
+    effect: 'Абсолютно бескомпромиссный, тяжелый и дорогой шлейф, который заполнит собой любую комнату.'
   }
 ];
 
@@ -2180,6 +2327,16 @@ const REASONS = {
     warm: [
       'Вечером в тёплую погоду Blonde Amber звучит мягко и соблазнительно.'
     ]
+  },
+  'asad-bourbon': {
+    cold: [
+      'Бурбон и ваниль идеально согревают.',
+      'Пряности раскрываются максимально богато на морозе.'
+    ],
+    warm: [
+      'Слишком плотный и сладкий для тепла.',
+      'Специи могут звучать тяжело и удушливо.'
+    ]
   }
 };
 
@@ -2295,7 +2452,7 @@ function computeWarmthScore(weather) {
  * Доминирующие ноты: ваниль, табак, тяжёлая сладость, гурманские.
  * При высокой влажности + score >= 1 эти ароматы принудительно исключаются.
  */
-const HUMIDITY_HEAVY_IDS = ['qahwa', 'brun', 'tobacco', 'ninepm', 'angels-share', 'blonde-amber'];
+const HUMIDITY_HEAVY_IDS = ['qahwa', 'brun', 'tobacco', 'ninepm', 'angels-share', 'blonde-amber', 'asad-bourbon'];
 
 /*
  * Получить статус матрицы сезон/время для аромата.
@@ -2328,13 +2485,13 @@ function getScentOfDay(weather) {
   /* --- Подбор кандидатов по warmth score --- */
   if (score <= -3) {
     // Экстремальный холод: только самые тяжёлые
-    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'blonde-amber'];
+    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'blonde-amber', 'asad-bourbon'];
   } else if (score === -2) {
-    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'ninepm', 'opulent-dubai', 'blonde-amber'];
+    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'ninepm', 'opulent-dubai', 'blonde-amber', 'asad-bourbon'];
   } else if (score === -1) {
-    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'fursan', 'blonde-amber'];
+    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'fursan', 'blonde-amber', 'asad-bourbon'];
   } else if (score === 0) {
-    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue', 'marwa'];
+    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue', 'marwa', 'asad-bourbon'];
   } else if (score === 1) {
     candidateIds = ['fursan', 'fakhar', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue', 'marwa'];
   } else if (score === 2) {
@@ -3483,6 +3640,3 @@ function deleteMacEntry(id) {
   saveMacerationData(data);
   renderMaceration();
 }
-
-/* ===== HEAVY SCROLL (mobile viscous inertia) ===== */
-
