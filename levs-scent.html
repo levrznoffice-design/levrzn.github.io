@@ -16,6 +16,7 @@
   <div class="nav-inner">
     <button class="nav-btn active" data-view="main" data-scroll="collection">Коллекция</button>
     <button class="nav-btn" data-view="main" data-scroll="combinations">Комбинации</button>
+    <button class="nav-btn" data-view="maceration">Maceration</button>
     <button class="nav-btn" data-view="diary">Дневник</button>
   </div>
 </nav>
@@ -102,6 +103,9 @@
     </div>
   </section>
 
+  <!-- ACTIVE FRAGRANCE STATUS -->
+  <div id="activeFragStatus" class="active-frag-status hidden"></div>
+
   <!-- SCENT OF THE DAY -->
   <section class="section" id="scentOfDay">
     <div class="label-upper" style="margin-bottom:12px">Аромат дня</div>
@@ -118,18 +122,21 @@
 
   <!-- COLLECTION -->
   <section class="section" id="collection">
-    <h2 class="section-title">Коллекция · 12 ароматов</h2>
-    <div class="sort-row">
-      <button class="sort-btn active" data-sort="season">По сезону</button>
-      <button class="sort-btn" data-sort="dose">По дозе</button>
-      <button class="sort-btn" data-sort="alpha">По алфавиту</button>
+    <h2 class="section-title">Коллекция · 14 ароматов</h2>
+    <div class="view-toggle-row" id="viewToggleRow">
+      <button class="view-toggle-btn active" data-mode="normal" aria-label="Стандартный вид">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      </button>
+      <button class="view-toggle-btn" data-mode="showcase" aria-label="Showcase">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="4" rx="1"/><rect x="2" y="10" width="20" height="4" rx="1"/><rect x="2" y="17" width="20" height="4" rx="1"/></svg>
+      </button>
     </div>
     <div class="collection-grid" id="collectionGrid"></div>
   </section>
 
   <!-- COMBINATIONS -->
   <section class="section" id="combinations">
-    <h2 class="section-title">Комбинации · 13 Layering</h2>
+    <h2 class="section-title">Комбинации · 17 Layering</h2>
     <p class="section-sub">Проверенные сочетания двух ароматов · по сезонам</p>
     <div id="combosGrid"></div>
   </section>
@@ -202,6 +209,47 @@
     <div id="diaryEntries"></div>
   </section>
 
+</div>
+</div>
+
+<!-- MACERATION VIEW -->
+<div class="maceration-view" id="macerationView">
+<div class="container">
+  <section class="section">
+    <h2 class="section-title">Maceration</h2>
+    <p class="section-sub">Отслеживай созревание новых флаконов</p>
+
+    <div class="mac-form" id="macForm">
+      <div class="form-group">
+        <label class="label-upper">Аромат</label>
+        <select class="form-input" id="macFragrance"></select>
+      </div>
+      <div class="form-group">
+        <label class="label-upper">Дата начала</label>
+        <input type="date" class="form-input" id="macStartDate">
+      </div>
+      <div class="form-group">
+        <label class="label-upper">Срок (недель)</label>
+        <input type="number" class="form-input" id="macWeeks" min="1" max="52" value="4">
+      </div>
+      <button class="btn-black" id="macAddBtn">+ Добавить</button>
+    </div>
+
+    <div id="macEntries"></div>
+
+    <!-- Tips (collapsible) -->
+    <div class="mac-tips-toggle" id="macTipsToggle">
+      <span class="label-upper" style="margin:0;cursor:pointer">Советы по мацерации</span>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg>
+    </div>
+    <div class="mac-tips hidden" id="macTips">
+      <div class="mac-tip">При получении нового флакона сделай 8-10 пшиков в воздух, чтобы выпустить верхний слой спирта. После этого убери в шкаф.</div>
+      <div class="mac-tip">Раз в неделю переверни флакон 2-3 раза (не тряси!), чтобы масла равномерно перемешались.</div>
+      <div class="mac-tip">Храни при 15-22 °C, вдали от прямого света. Ванная — худшее место для парфюма.</div>
+      <div class="mac-tip">Минимум 3-4 недели, оптимум 6-8. Тяжёлые амбровые и удовые ароматы раскрываются дольше — 8+ недель.</div>
+      <div class="mac-tip">Не открывай крышку без надобности. Каждое открытие окисляет верхние ноты.</div>
+    </div>
+  </section>
 </div>
 </div>
 

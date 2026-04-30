@@ -1161,6 +1161,186 @@ const FRAGRANCES = [
       summer: { day: 'full', night: 'full' },
       autumn: { day: 'full', night: 'full' }
     }
+  },
+  {
+    id: 'marwa',
+    name: 'Arabiyat Prestige Marwa',
+    house: 'Arabiyat Prestige',
+    family: 'Цитрусовый · Чайный · Свежий',
+    image: 'levs-scent/bottles/marwa.png',
+    vibe: 'levs-scent/vibes/marwa-vibe.png',
+    accent: '#D4AF37',
+    gradient: 'linear-gradient(135deg, #8B7D3C 0%, #C4A84D 55%, #D4AF37 100%)',
+    total: 8,
+    refreshHours: 4,
+    overspray: true,
+    maxCapped: false,
+    notes: {
+      top: ['Бергамот', 'Апельсин', 'Лимон'],
+      heart: ['Черный чай', 'Имбирь', 'Нероли'],
+      base: ['Амброксан', 'Кедр', 'Древесные ноты']
+    },
+    seasons: { winter: 'night-only', autumn: 'day+night', spring: 'day+night', summer: 'day+night' },
+    vibeCaption: 'Запах абсолютной ухоженности, дорогого мыла и прохладного чая, вдохновленный эстетикой LV Imagination.',
+    variations: [
+      {
+        label: 'Чистая эстетика (6 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'База для шлейфа' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Для стойкости' },
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'Для собственного удовольствия' }
+        ]
+      },
+      {
+        label: 'Оверспрей бро (8 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок на кожу', detail: 'Максимальный шлейф назад' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На плечи худи/футболки' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На оба запястья' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 1, title: 'Ключицы под одежду', detail: 'Для интимной ауры' }
+        ]
+      },
+      {
+        label: 'Громкий старт (10 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок на кожу', detail: 'Мощный хвост' },
+          { spot: 'spot-shoulders-clothes.png', n: 4, title: 'Плечи на одежду', detail: 'Жесткая фиксация на ткани' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'По одному за каждое ухо' },
+          { spot: 'spot-neck-front.png', n: 1, title: 'Шея спереди на кожу', detail: 'Контрольный выстрел' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: {
+        total: 6,
+        note: 'Идеально. Пахнет чисто, никого не задушит, создаст образ опрятного парня.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Шлейф в коридорах' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Долгая жизнь аромата' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'На пульсирующие точки' }
+        ]
+      },
+      gym: {
+        total: 4,
+        note: 'Отличный свежак для тренировки, не химозит.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Шлейф позади тебя на беговой дорожке' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Легкая свежесть для себя' }
+        ]
+      },
+      date: {
+        total: 8,
+        note: 'Девочки обожают этот запах "дорогого чистого парня".',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'База для шлейфа' },
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'Для близкого контакта' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Уверенная стойкость' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'Будет слышно при жестикуляции' }
+        ]
+      },
+      walk: {
+        total: 8,
+        note: 'Ветер отлично разносит чайные и цитрусовые ноты.',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок на кожу', detail: 'Для длинного хвоста на ветру' },
+          { spot: 'spot-shoulders-clothes.png', n: 3, title: 'Плечи на одежду', detail: 'Чтобы ветер не сдул быстро' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'По одному за ухо для диффузности' }
+        ]
+      },
+      home: {
+        total: 3,
+        note: 'Для релакса и ощущения свежести после душа.',
+        points: [
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь на кожу', detail: 'Уютно для себя' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'По одному на каждую руку' }
+        ]
+      }
+    },
+    masterWarning: null,
+    seasonTimeMatrix: {
+      winter: { day: 'caution', night: 'forbidden' },
+      spring: { day: 'full', night: 'caution' },
+      summer: { day: 'full', night: 'full' },
+      autumn: { day: 'full', night: 'caution' }
+    }
+  },
+  {
+    id: 'blonde-amber',
+    name: 'XXI Art Deco Blonde Amber',
+    house: 'Clive Christian',
+    family: 'Амбровый · Сладкий · Табачный',
+    image: 'levs-scent/bottles/blonde-amber.png',
+    vibe: 'levs-scent/vibes/blonde-amber-vibe.png',
+    accent: '#D27D2D',
+    gradient: 'linear-gradient(135deg, #5C3A1E 0%, #A0632A 55%, #D27D2D 100%)',
+    total: 4,
+    refreshHours: null,
+    overspray: false,
+    maxCapped: true,
+    notes: {
+      top: ['Апельсин', 'Имбирь', 'Красный перец'],
+      heart: ['Тубероза', 'Табак', 'Жасмин'],
+      base: ['Амбра', 'Тонка', 'Ваниль', 'Мирра']
+    },
+    seasons: { winter: 'day+night', autumn: 'night', spring: 'night', summer: 'forbidden' },
+    vibeCaption: 'Экстремально роскошный, густой и дурманящий амброво-табачный эликсир. Король зимних вечеров.',
+    variations: [
+      {
+        label: 'Богатая аура (2 пшика)',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'Достаточно для плотного шлейфа' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под одежду', detail: 'Будет греть весь день' }
+        ]
+      },
+      {
+        label: 'Королевский выход (3 пшика)',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'Шлейф' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'По одному за каждое ухо' }
+        ]
+      },
+      {
+        label: 'Максимальный лимит (4 пшика)',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Только для открытого морозного воздуха' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Останется на ткани на неделю' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: { total: 0, forbidden: true, message: 'Слишком дорого, тяжело и роскошно для парты.' },
+      gym: { total: 0, forbidden: true, message: 'Удушит весь зал мгновенно.' },
+      date: {
+        total: 3,
+        note: 'Шикарно для вечернего свидания в дорогом месте.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'Тонкий шлейф' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'По одному пшику за ухо для близкого контакта' }
+        ]
+      },
+      walk: {
+        total: 4,
+        note: 'В морозную погоду раскроется божественно.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Плотный хвост на морозе' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Зацепится за куртку/пальто намертво' }
+        ]
+      },
+      home: {
+        total: 1,
+        note: 'Капля на запястье для медитации.',
+        points: [
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На одно запястье, чтобы наслаждаться базой' }
+        ]
+      }
+    },
+    masterWarning: 'СТРОГО БЕЗ ОВЕРСПРЕЯ! Аромат невероятной плотности и стойкости, максимум 4 пшика.',
+    seasonTimeMatrix: {
+      winter: { day: 'full', night: 'full' },
+      spring: { day: 'caution', night: 'full' },
+      summer: { day: 'forbidden', night: 'forbidden' },
+      autumn: { day: 'caution', night: 'full' }
+    }
   }
 ];
 
@@ -1182,7 +1362,8 @@ const NOTE_MAP = {
   'Ваниль': 'vanilla', 'Ветивер': 'vetiver', 'Фиалка': 'violet', 'Древесные ноты': 'wood_notes',
   'Табак': 'tobacco', 'Имбирь': 'ginger',
   'Кашмеран': 'cashmeran', 'Петитгрейн': 'petitgrain', 'Специи': 'spices',
-  'Зеленое яблоко': 'apple', 'Мандарин': 'orange'
+  'Зеленое яблоко': 'apple', 'Мандарин': 'orange',
+  'Черный чай': 'black_tea', 'Нероли': 'neroli', 'Тубероза': 'tuberose'
 };
 
 const NOTE_FILES = {
@@ -1199,7 +1380,8 @@ const NOTE_FILES = {
   'red-pepper': 'png', 'rhubarb': 'png', 'rose': 'png', 'saffron': 'webp',
   'sage': 'webp', 'sandalwood': 'webp', 'tonka_bean': 'webp',
   'tobacco': 'png', 'ginger': 'png', 'cashmeran': 'png', 'petitgrain': 'png', 'spices': 'png',
-  'vanilla': 'png', 'vetiver': 'webp', 'violet': 'png', 'wood_notes': 'webp'
+  'vanilla': 'png', 'vetiver': 'webp', 'violet': 'png', 'wood_notes': 'webp',
+  'black_tea': 'webp', 'neroli': 'webp', 'tuberose': 'png'
 };
 
 function getNoteImage(noteName) {
@@ -1667,6 +1849,136 @@ const COMBINATIONS = [
       }
     ],
     effect: 'Мощный цитрусово-амбровый скелет Turathi обрастает тропической свежестью Opulent Dubai, идеальная броня против жары.'
+  },
+  {
+    id: 'green-tea-ceremony',
+    name: 'Чайная церемония',
+    fragrances: ['marwa', 'encelade'],
+    sub: 'Marwa + Encelade',
+    season: 'Весна · Осень (день)',
+    seasonGroups: ['spring', 'autumn'],
+    totalSprays: 7,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Encelade',
+        fragId: 'encelade',
+        instruction: 'Нанеси первым — зелёная металлическая база (минимум!)',
+        points: [
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под одежду', detail: 'На кожу — ОДИН пшик. Зелёный ирис как скрытый фундамент' },
+          { spot: 'spot-lower-back.png', n: 1, title: 'Поясница на кожу', detail: 'На кожу — металлика будет проступать снизу через час' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Arabiyat Prestige Marwa',
+        fragId: 'marwa',
+        instruction: 'Через 30 секунд — чайная свежесть поверх',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — чёрный чай и бергамот создают шлейф' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань — цитрусы держатся дольше на ткани' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — нероли при жестикуляции' }
+        ]
+      }
+    ],
+    effect: 'Зелёный металлик Encelade придаёт чайной свежести Marwa нишевую глубину. Два зелёных характера, но совершенно разные текстуры.'
+  },
+  {
+    id: 'citrus-ambroxan',
+    name: 'Цитрусовый амброксан',
+    fragrances: ['marwa', 'turathi-blue'],
+    sub: 'Marwa + Turathi Blue',
+    season: 'Весь год',
+    seasonGroups: ['universal'],
+    totalSprays: 8,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Turathi Blue',
+        fragId: 'turathi-blue',
+        instruction: 'Нанеси первым — амброксановый скелет',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'На кожу — грейпфрут и амброксан как мощная база проекции' },
+          { spot: 'spot-collarbones-skin.png', n: 1, title: 'Ключица на кожу', detail: 'На кожу — специи Turathi создают глубину' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Arabiyat Prestige Marwa',
+        fragId: 'marwa',
+        instruction: 'Через 30 секунд — чайная мягкость поверх',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'На кожу — бергамот и чёрный чай смягчают агрессию Turathi' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'На ткань — нероли и кедр на ткани для стойкости' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — лимон при жестикуляции' }
+        ]
+      }
+    ],
+    effect: 'Два амброксановых аромата усиливают друг друга: Turathi даёт мощь и статус, Marwa — чайную элегантность. Универсальная комбинация на каждый день.'
+  },
+  {
+    id: 'amber-cognac',
+    name: 'Амбровый коньяк',
+    fragrances: ['blonde-amber', 'angels-share'],
+    sub: "Blonde Amber + Angels' Share",
+    season: 'Зима · Холодная осень (вечер)',
+    seasonGroups: ['winter', 'autumn'],
+    totalSprays: 4,
+    layers: [
+      {
+        order: 1,
+        fragName: "Angels' Share",
+        fragId: 'angels-share',
+        instruction: 'Нанеси первым — коньячная база',
+        points: [
+          { spot: 'spot-collarbones-under-clothes.png', n: 1, title: 'Ключица под одежду', detail: 'На кожу — коньяк и корица как тёплая подложка' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'На кожу — пралине при близком контакте' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Blonde Amber',
+        fragId: 'blonde-amber',
+        instruction: 'Через 30 секунд — ОДИН пшик амбры! Больше не нужно.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — амбра и тубероза превращают коньяк в роскошный десерт' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под одежду', detail: 'На кожу, под куртку — ваниль и мирра будут греть весь вечер' }
+        ]
+      }
+    ],
+    effect: "Коньяк Angels' Share + густая амбра Blonde Amber = дурманящий зимний эликсир. Два пшика Blonde Amber достаточно — он невероятно плотный."
+  },
+  {
+    id: 'tobacco-amber',
+    name: 'Табак и амбра',
+    fragrances: ['blonde-amber', 'tobacco'],
+    sub: 'Blonde Amber + Red Tobacco',
+    season: 'Зима (вечер, мороз)',
+    seasonGroups: ['winter'],
+    totalSprays: 4,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Blonde Amber',
+        fragId: 'blonde-amber',
+        instruction: 'Нанеси первым — амбровая сладкая база',
+        points: [
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под одежду', detail: 'На кожу — амбра и тубероза как бархатный фундамент для табака' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Сгиб локтя на кожу', detail: 'На кожу — ваниль и тонка при движении руки' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Red Tobacco',
+        fragId: 'tobacco',
+        instruction: 'Через 30 секунд — табак поверх, СТРОГО 2 пшика!',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'На кожу — табак и красный перец как дымный шлейф' },
+          { spot: 'spot-shoulder-blades.png', n: 1, title: 'Лопатка на одежду', detail: 'На ткань — табак на ткани держится сутками' }
+        ]
+      }
+    ],
+    effect: 'Два зимних короля вместе: амбровая сладость Blonde Amber смягчает агрессию Red Tobacco. Результат — дымный, бархатный, невероятно дорогой шлейф. Только для мороза.'
   }
 ];
 
@@ -1848,6 +2160,26 @@ const REASONS = {
       'Звучит дорого, статусно и дарит энергию.',
       'Амброксан на горячей коже создает невероятную ауру чистоты.'
     ]
+  },
+  marwa: {
+    cold: [
+      'Зелёный чай и нероли Marwa звучат свежо даже в прохладе.'
+    ],
+    warm: [
+      'Лёгкий зелёный аромат идеально ложится на тёплую кожу.',
+      'Чёрный чай и мускус создают ощущение чистоты и спокойствия.',
+      'Marwa в жару — это стиль без усилий, свежесть без приторности.'
+    ]
+  },
+  'blonde-amber': {
+    cold: [
+      'Тубероза и ваниль Blonde Amber — уютный шлейф в холодный вечер.',
+      'Амбровая база идеально раскрывается в морозном воздухе.',
+      'Сладкий, но не приторный — тонка и пачули звучат благородно на холоде.'
+    ],
+    warm: [
+      'Вечером в тёплую погоду Blonde Amber звучит мягко и соблазнительно.'
+    ]
   }
 };
 
@@ -1963,7 +2295,7 @@ function computeWarmthScore(weather) {
  * Доминирующие ноты: ваниль, табак, тяжёлая сладость, гурманские.
  * При высокой влажности + score >= 1 эти ароматы принудительно исключаются.
  */
-const HUMIDITY_HEAVY_IDS = ['qahwa', 'brun', 'tobacco', 'ninepm', 'angels-share'];
+const HUMIDITY_HEAVY_IDS = ['qahwa', 'brun', 'tobacco', 'ninepm', 'angels-share', 'blonde-amber'];
 
 /*
  * Получить статус матрицы сезон/время для аромата.
@@ -1996,20 +2328,20 @@ function getScentOfDay(weather) {
   /* --- Подбор кандидатов по warmth score --- */
   if (score <= -3) {
     // Экстремальный холод: только самые тяжёлые
-    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share'];
+    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'blonde-amber'];
   } else if (score === -2) {
-    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'ninepm', 'opulent-dubai'];
+    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'ninepm', 'opulent-dubai', 'blonde-amber'];
   } else if (score === -1) {
-    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'fursan'];
+    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'fursan', 'blonde-amber'];
   } else if (score === 0) {
-    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue'];
+    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue', 'marwa'];
   } else if (score === 1) {
-    candidateIds = ['fursan', 'fakhar', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue'];
+    candidateIds = ['fursan', 'fakhar', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue', 'marwa'];
   } else if (score === 2) {
-    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue', 'fursan'];
+    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue', 'fursan', 'marwa'];
   } else {
     // score >= 3: экстремальная жара — только свежаки
-    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue'];
+    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue', 'marwa'];
   }
 
   /* --- Фильтр влажности: высокая + тепло → убрать тяжёлые --- */
@@ -2085,6 +2417,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initSituationFilter();
   updateScentOfDay();
   initRefreshTimers();
+  initMaceration();
+  initHeavyScroll();
 });
 
 /* ===== HERO ===== */
@@ -2102,6 +2436,18 @@ function initHero() {
 
 function initNav() {
   const btns = $$('.nav-btn');
+  const views = ['mainView', 'diaryView', 'macerationView'];
+
+  function hideAll() {
+    views.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.classList.add('hidden');
+        el.classList.remove('visible');
+      }
+    });
+  }
+
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
       const view = btn.dataset.view;
@@ -2110,14 +2456,20 @@ function initNav() {
       btns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
+      hideAll();
+
       if (view === 'diary') {
-        $('#mainView').classList.add('hidden');
         $('#diaryView').classList.remove('hidden');
         window.scrollTo({ top: 0, behavior: 'smooth' });
         renderDiary();
+      } else if (view === 'maceration') {
+        const macView = $('#macerationView');
+        macView.classList.remove('hidden');
+        macView.classList.add('visible');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        renderMaceration();
       } else {
         $('#mainView').classList.remove('hidden');
-        $('#diaryView').classList.add('hidden');
         if (scroll) {
           setTimeout(() => {
             const target = document.getElementById(scroll);
@@ -2349,58 +2701,59 @@ function openFragCard(id) {
 /* ===== COLLECTION ===== */
 
 function initCollection() {
-  renderCollection(getSortPref());
-  initSortButtons();
+  renderCollection();
+  initViewToggle();
 }
 
-function getSortPref() {
-  return localStorage.getItem('levs-sort-pref') || 'season';
+function sortFragrances() {
+  // Always alphabetical
+  const list = [...FRAGRANCES];
+  list.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+  return list;
 }
 
-function initSortButtons() {
-  $$('.sort-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.sort === getSortPref());
+function initViewToggle() {
+  const mode = localStorage.getItem('levs-view-mode') || 'normal';
+  applyViewMode(mode);
+
+  $$('.view-toggle-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
     btn.addEventListener('click', () => {
-      $$('.sort-btn').forEach(b => b.classList.remove('active'));
+      $$('.view-toggle-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      localStorage.setItem('levs-sort-pref', btn.dataset.sort);
-      renderCollection(btn.dataset.sort);
+      const m = btn.dataset.mode;
+      localStorage.setItem('levs-view-mode', m);
+      applyViewMode(m);
     });
   });
 }
 
-function sortFragrances(sortBy) {
-  const list = [...FRAGRANCES];
-  const season = getCurrentSeason();
-  const seasonOrder = { winter: 0, autumn: 1, spring: 2, summer: 3 };
-
-  switch (sortBy) {
-    case 'season':
-      // Sort by current season compatibility (full > caution > forbidden)
-      const matrixScore = (f) => {
-        const m = f.seasonTimeMatrix[season];
-        const dt = getDaytime();
-        const val = m ? m[dt] : 'caution';
-        return val === 'full' ? 0 : val === 'caution' ? 1 : 2;
-      };
-      list.sort((a, b) => matrixScore(a) - matrixScore(b));
-      break;
-    case 'dose':
-      list.sort((a, b) => b.total - a.total);
-      break;
-    case 'alpha':
-      list.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
-      break;
-  }
-  return list;
-}
-
-function renderCollection(sortBy) {
+function applyViewMode(mode) {
   const grid = $('#collectionGrid');
   if (!grid) return;
-  const sorted = sortFragrances(sortBy);
+  if (mode === 'showcase') {
+    grid.classList.add('showcase');
+    // Block clicks on cards in showcase mode
+    grid.querySelectorAll('.frag-card').forEach(card => {
+      card.style.pointerEvents = 'none';
+    });
+  } else {
+    grid.classList.remove('showcase');
+    grid.querySelectorAll('.frag-card').forEach(card => {
+      card.style.pointerEvents = '';
+    });
+  }
+}
+
+function renderCollection() {
+  const grid = $('#collectionGrid');
+  if (!grid) return;
+  const sorted = sortFragrances();
   grid.innerHTML = sorted.map(f => buildFragCard(f)).join('');
   attachFragListeners();
+  // Re-apply view mode after render
+  const mode = localStorage.getItem('levs-view-mode') || 'normal';
+  applyViewMode(mode);
 }
 
 function buildScenarioPoints(sc) {
@@ -2471,7 +2824,7 @@ function buildFragCard(f) {
     return `<div class="var-content${i === 0 ? '' : ' hidden'}" data-var="${i}">${points}</div>`;
   }).join('');
 
-  // Refresh block
+  // Refresh block with freshness bar
   let refreshBlock = '';
   if (f.refreshHours !== null) {
     refreshBlock = `
@@ -2479,6 +2832,9 @@ function buildFragCard(f) {
         <div class="label-upper">Когда обновлять</div>
         <div class="refresh-timer" data-frag="${f.id}"></div>
         <button class="btn-black" onclick="markApplied('${f.id}', ${f.refreshHours})">Я только что нанёс</button>
+        <div class="freshness-bar-wrap" data-frag="${f.id}">
+          <div class="freshness-bar" data-frag="${f.id}" style="width:0%;background:linear-gradient(90deg,transparent,${f.accent})"></div>
+        </div>
         <div style="margin-top:8px">
           <button class="text-btn" onclick="resetRefresh('${f.id}')">Сбросить таймер</button>
         </div>
@@ -2649,16 +3005,22 @@ function initRefreshTimers() {
 }
 
 function updateAllTimers() {
+  const activeFrags = [];
+
   FRAGRANCES.forEach(f => {
     if (f.refreshHours === null) return;
     const timerEl = document.querySelector(`.refresh-timer[data-frag="${f.id}"]`);
-    if (!timerEl) return;
+    const barEl = document.querySelector(`.freshness-bar[data-frag="${f.id}"]`);
 
     const key = `levs-refresh-${f.id}`;
     const ts = localStorage.getItem(key);
+
     if (!ts) {
-      timerEl.textContent = 'Таймер не запущен';
-      timerEl.classList.remove('expired');
+      if (timerEl) {
+        timerEl.textContent = 'Таймер не запущен';
+        timerEl.classList.remove('expired');
+      }
+      if (barEl) barEl.style.width = '0%';
       return;
     }
 
@@ -2666,17 +3028,66 @@ function updateAllTimers() {
     const expiry = applied + f.refreshHours * 3600000;
     const now = Date.now();
     const diff = expiry - now;
+    const total = f.refreshHours * 3600000;
 
     if (diff <= 0) {
-      timerEl.classList.add('expired');
-      timerEl.innerHTML = '<div class="refresh-expired-msg">Пора обновить: 1 пшик на затылок</div>';
+      if (timerEl) {
+        timerEl.classList.add('expired');
+        timerEl.innerHTML = '<div class="refresh-expired-msg">Пора обновить: 1 пшик на затылок</div>';
+      }
+      if (barEl) barEl.style.width = '0%';
+      activeFrags.push({ frag: f, percent: 0, expired: true, diff: 0, total });
     } else {
-      timerEl.classList.remove('expired');
-      const h = Math.floor(diff / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      timerEl.textContent = `Обновить через: ${h}ч ${m}мин`;
+      const pct = Math.round((diff / total) * 100);
+      if (timerEl) {
+        timerEl.classList.remove('expired');
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        timerEl.textContent = `Обновить через: ${h}ч ${m}мин`;
+      }
+      if (barEl) barEl.style.width = pct + '%';
+      activeFrags.push({ frag: f, percent: pct, expired: false, diff, total });
     }
   });
+
+  updateActiveFragStatus(activeFrags);
+}
+
+function updateActiveFragStatus(activeFrags) {
+  const container = document.getElementById('activeFragStatus');
+  if (!container) return;
+
+  if (!activeFrags.length) {
+    container.classList.add('hidden');
+    container.innerHTML = '';
+    return;
+  }
+
+  container.classList.remove('hidden');
+  container.innerHTML = '<div class="label-upper" style="margin-bottom:8px">Активные ароматы</div>' +
+    activeFrags.map(({ frag, percent, expired, diff }) => {
+      let timeText;
+      if (expired) {
+        timeText = '<span class="active-frag-status-time expired">Пора обновить</span>';
+      } else {
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        timeText = `<span class="active-frag-status-time">${h}ч ${m}мин</span>`;
+      }
+      return `
+        <div class="active-frag-status-item">
+          <img class="active-frag-status-bottle" src="${frag.image}" alt="${frag.name}" loading="lazy">
+          <div class="active-frag-status-info">
+            <div class="active-frag-status-name">${frag.name}</div>
+            ${timeText}
+            <div class="active-frag-bar-wrap">
+              <div class="active-frag-bar" style="width:${percent}%;background:linear-gradient(90deg,transparent,${frag.accent})"></div>
+            </div>
+          </div>
+          <span class="active-frag-reset" onclick="resetRefresh('${frag.id}')">Сброс</span>
+        </div>
+      `;
+    }).join('');
 }
 
 function markApplied(fragId, hours) {
@@ -2964,4 +3375,142 @@ function initQuote() {
     section.style.backgroundSize = 'cover';
     section.style.backgroundPosition = 'center';
   }
+}
+
+/* ===== MACERATION ===== */
+
+function getMacerationData() {
+  try { return JSON.parse(localStorage.getItem('levs-maceration') || '[]'); }
+  catch { return []; }
+}
+
+function saveMacerationData(data) {
+  localStorage.setItem('levs-maceration', JSON.stringify(data));
+}
+
+function initMaceration() {
+  // Tips toggle
+  const tipsToggle = $('#macTipsToggle');
+  const tipsEl = $('#macTips');
+  if (tipsToggle && tipsEl) {
+    tipsToggle.addEventListener('click', () => {
+      tipsToggle.classList.toggle('open');
+      tipsEl.classList.toggle('hidden');
+    });
+  }
+
+  const sel = $('#macFragrance');
+  if (!sel) return;
+  sel.innerHTML = sortFragrances().map(f =>
+    `<option value="${f.id}">${f.name}</option>`
+  ).join('');
+
+  const dateInput = $('#macStartDate');
+  if (dateInput) dateInput.value = todayKey();
+
+  const addBtn = $('#macAddBtn');
+  if (addBtn) {
+    addBtn.addEventListener('click', () => {
+      const fragId = sel.value;
+      const start = dateInput.value;
+      const weeks = parseInt($('#macWeeks').value) || 4;
+      if (!fragId || !start) return;
+
+      const data = getMacerationData();
+      data.push({
+        id: Date.now(),
+        fragId,
+        startDate: start,
+        weeks
+      });
+      saveMacerationData(data);
+      renderMaceration();
+    });
+  }
+}
+
+function renderMaceration() {
+  const container = $('#macEntries');
+  if (!container) return;
+  const data = getMacerationData();
+  if (!data.length) {
+    container.innerHTML = '<div style="text-align:center;color:var(--text2);padding:24px;font-size:13px">Нет активных мацераций</div>';
+    return;
+  }
+
+  const now = new Date();
+  container.innerHTML = data.map(entry => {
+    const frag = FRAGRANCES.find(f => f.id === entry.fragId);
+    if (!frag) return '';
+    const start = new Date(entry.startDate);
+    const endDate = new Date(start.getTime() + entry.weeks * 7 * 86400000);
+    const totalMs = entry.weeks * 7 * 86400000;
+    const elapsedMs = now.getTime() - start.getTime();
+    const progress = Math.min(100, Math.max(0, Math.round((elapsedMs / totalMs) * 100)));
+    const done = progress >= 100;
+    const daysLeft = done ? 0 : Math.max(0, Math.ceil((endDate.getTime() - now.getTime()) / 86400000));
+
+    const startStr = start.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric' });
+    const endStr = endDate.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric' });
+
+    return `
+      <div class="mac-card${done ? ' done' : ''}">
+        <span class="mac-card-del" onclick="deleteMacEntry(${entry.id})">x</span>
+        <div class="mac-card-header">
+          <img class="mac-card-bottle" src="${frag.image}" alt="${frag.name}" loading="lazy">
+          <div class="mac-card-info">
+            <div class="mac-card-name">${frag.name}</div>
+            <div class="mac-card-dates">${startStr} → ${endStr} · ${entry.weeks} нед.</div>
+          </div>
+        </div>
+        <div class="mac-progress-wrap">
+          <div class="mac-progress-bar" style="width:${progress}%"></div>
+        </div>
+        ${done
+          ? '<div class="mac-done-label">Мацерация завершена</div>'
+          : `<div class="mac-progress-text">${progress}% · ${daysLeft} дн. осталось</div>`
+        }
+      </div>
+    `;
+  }).join('');
+}
+
+function deleteMacEntry(id) {
+  if (!confirm('Удалить запись мацерации?')) return;
+  const data = getMacerationData().filter(e => e.id !== id);
+  saveMacerationData(data);
+  renderMaceration();
+}
+
+/* ===== HEAVY SCROLL (mobile viscous inertia) ===== */
+
+function initHeavyScroll() {
+  if (window.innerWidth > 768) return;
+  let lastY = 0;
+  let velocity = 0;
+  let ticking = false;
+
+  document.addEventListener('touchmove', (e) => {
+    const y = e.touches[0].clientY;
+    velocity = (y - lastY) * 0.4;
+    lastY = y;
+  }, { passive: true });
+
+  document.addEventListener('touchend', () => {
+    if (ticking) return;
+    ticking = true;
+    function decel() {
+      if (Math.abs(velocity) < 0.5) { ticking = false; return; }
+      velocity *= 0.92;
+      window.scrollBy(0, -velocity);
+      requestAnimationFrame(decel);
+    }
+    decel();
+  }, { passive: true });
+
+  document.addEventListener('touchstart', (e) => {
+    lastY = e.touches[0].clientY;
+    velocity = 0;
+    ticking = false;
+  }, { passive: true });
 }

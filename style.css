@@ -817,6 +817,188 @@ input, select, textarea { font-family: var(--sans); }
 }
 .fade-in { animation: fadeIn 0.4s ease forwards; }
 
+/* ===== ACTIVE FRAGRANCE STATUS (top bar) ===== */
+.active-frag-status {
+  margin: 0 0 16px; padding: 12px 16px; border-radius: 14px;
+  background: var(--glass); border: 1px solid var(--border);
+}
+.active-frag-status.hidden { display: none; }
+.active-frag-status-item {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 8px;
+}
+.active-frag-status-item:last-child { margin-bottom: 0; }
+.active-frag-status-bottle {
+  width: 32px; height: 32px; object-fit: contain; flex-shrink: 0;
+}
+.active-frag-status-info { flex: 1; min-width: 0; }
+.active-frag-status-name {
+  font-size: 12px; font-weight: 600; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.active-frag-status-time {
+  font-size: 11px; color: var(--text2); margin-top: 1px;
+}
+.active-frag-status-time.expired { color: #ef4444; font-weight: 500; }
+.active-frag-bar-wrap {
+  height: 4px; background: rgba(0,0,0,0.06); border-radius: 2px;
+  overflow: hidden; margin-top: 4px;
+}
+.active-frag-bar {
+  height: 100%; border-radius: 2px; transition: width 1s ease;
+}
+.active-frag-reset {
+  font-size: 11px; color: var(--text2); cursor: pointer;
+  flex-shrink: 0; padding: 2px 6px; border-radius: 6px;
+  background: rgba(0,0,0,0.04); transition: all var(--transition);
+}
+.active-frag-reset:hover { background: rgba(0,0,0,0.08); color: var(--text); }
+
+/* ===== FRESHNESS TIMER BAR (inside card) ===== */
+.freshness-bar-wrap {
+  position: relative; margin-top: 8px; height: 3px;
+  background: rgba(0,0,0,0.06); border-radius: 2px; overflow: hidden;
+}
+.freshness-bar {
+  height: 100%; border-radius: 2px;
+  transition: width 1s ease;
+}
+.freshness-reset-btn {
+  position: absolute; right: -6px; top: -10px;
+  width: 20px; height: 20px; cursor: pointer; opacity: 0.35;
+  transition: opacity var(--transition);
+}
+.freshness-reset-btn:hover { opacity: 0.7; }
+
+/* ===== MACERATION VIEW ===== */
+.maceration-view { display: none; }
+.maceration-view.visible { display: block; }
+
+.mac-form {
+  background: var(--glass); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px; margin-bottom: 20px;
+}
+.mac-form .form-group { margin-bottom: 14px; }
+
+.mac-card {
+  background: var(--glass); border: 1px solid var(--border);
+  border-radius: 14px; padding: 16px; margin-bottom: 12px;
+  position: relative;
+}
+.mac-card-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+}
+.mac-card-bottle {
+  width: 48px; height: 48px; object-fit: contain;
+}
+.mac-card-info { flex: 1; }
+.mac-card-name {
+  font-weight: 600; font-size: 14px; color: var(--text);
+}
+.mac-card-dates {
+  font-size: 12px; color: var(--text2); margin-top: 2px;
+}
+.mac-progress-wrap {
+  height: 6px; background: rgba(0,0,0,0.06); border-radius: 3px;
+  overflow: hidden; margin-bottom: 8px;
+}
+.mac-progress-bar {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, #222, #666);
+  transition: width 0.6s ease;
+}
+.mac-progress-text {
+  font-size: 12px; color: var(--text2); text-align: right;
+}
+.mac-card-del {
+  position: absolute; top: 12px; right: 12px;
+  font-size: 16px; color: #ccc; cursor: pointer;
+  transition: color var(--transition);
+}
+.mac-card-del:hover { color: #ef4444; }
+.mac-card.done .mac-progress-bar {
+  background: linear-gradient(90deg, #2ecc71, #27ae60);
+}
+.mac-done-label {
+  font-size: 12px; color: #2ecc71; font-weight: 600; text-align: center;
+  margin-top: 4px; letter-spacing: 0.5px; text-transform: uppercase;
+}
+
+/* Maceration tips */
+.mac-tips-toggle {
+  display: flex; align-items: center; gap: 6px;
+  margin-top: 24px; padding: 10px 0; cursor: pointer;
+  border-top: 1px solid var(--border);
+}
+.mac-tips-toggle svg { transition: transform 0.3s ease; }
+.mac-tips-toggle.open svg { transform: rotate(180deg); }
+.mac-tips { padding: 0 0 8px; }
+.mac-tips.hidden { display: none; }
+.mac-tip {
+  font-size: 12px; color: var(--text2); line-height: 1.5;
+  padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.mac-tip:last-child { border-bottom: none; }
+
+/* ===== SHOWCASE MODE ===== */
+.view-toggle-row {
+  display: flex; gap: 8px; justify-content: flex-end; margin-bottom: 12px;
+}
+.view-toggle-btn {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--glass); border: 1px solid var(--border);
+  cursor: pointer; transition: all var(--transition);
+}
+.view-toggle-btn svg { width: 18px; height: 18px; color: var(--text2); }
+.view-toggle-btn.active {
+  background: #111; border-color: #333;
+}
+.view-toggle-btn.active svg { color: #fff; }
+
+.collection-grid.showcase {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.collection-grid.showcase .frag-card {
+  border-radius: 10px; cursor: default; overflow: hidden;
+  padding: 0; background: var(--glass); border: 1px solid var(--border);
+}
+.collection-grid.showcase .frag-card-header {
+  flex-direction: column; align-items: center; text-align: center;
+  padding: 10px 4px 8px; gap: 4px;
+}
+.collection-grid.showcase .frag-bottle {
+  width: 44px; height: 44px;
+}
+.collection-grid.showcase .frag-info { width: 100%; }
+.collection-grid.showcase .frag-name {
+  font-size: 10px; line-height: 1.2; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+.collection-grid.showcase .frag-house,
+.collection-grid.showcase .frag-family,
+.collection-grid.showcase .frag-dose-chip,
+.collection-grid.showcase .frag-chips,
+.collection-grid.showcase .frag-season-grid,
+.collection-grid.showcase .frag-card-body {
+  display: none !important;
+}
+@media (min-width: 768px) {
+  .collection-grid.showcase {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+/* ===== HEAVY SCROLL (mobile) ===== */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+  }
+}
+
 /* ===== DESKTOP ===== */
 @media (min-width: 768px) {
   .hero-title { font-size: 64px; }
