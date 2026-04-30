@@ -3495,7 +3495,7 @@ function initHeavyScroll() {
 
   document.addEventListener('touchmove', (e) => {
     const y = e.touches[0].clientY;
-    velocity = (y - lastY) * 0.75; // мягкое демпфирование, почти обычный скролл
+    velocity = (y - lastY) * 0.92; // едва заметное демпфирование
     lastY = y;
   }, { passive: true });
 
@@ -3503,8 +3503,8 @@ function initHeavyScroll() {
     if (ticking) return;
     ticking = true;
     function decel() {
-      if (Math.abs(velocity) < 0.3) { ticking = false; return; }
-      velocity *= 0.96; // мягкое затухание — чуть тяжелее обычного
+      if (Math.abs(velocity) < 0.5) { ticking = false; return; }
+      velocity *= 0.985; // минимальное затухание — почти как обычный скролл
       window.scrollBy(0, -velocity);
       requestAnimationFrame(decel);
     }
