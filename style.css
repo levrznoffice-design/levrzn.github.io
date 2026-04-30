@@ -991,14 +991,6 @@ input, select, textarea { font-family: var(--sans); }
   }
 }
 
-/* ===== HEAVY SCROLL (mobile) ===== */
-@media (max-width: 768px) {
-  html {
-    scroll-behavior: smooth;
-    overscroll-behavior: contain;
-  }
-}
-
 /* ===== DESKTOP ===== */
 @media (min-width: 768px) {
   .hero-title { font-size: 64px; }

@@ -2418,7 +2418,6 @@ document.addEventListener('DOMContentLoaded', () => {
   updateScentOfDay();
   initRefreshTimers();
   initMaceration();
-  initHeavyScroll();
 });
 
 /* ===== HERO ===== */
@@ -3487,33 +3486,3 @@ function deleteMacEntry(id) {
 
 /* ===== HEAVY SCROLL (mobile viscous inertia) ===== */
 
-function initHeavyScroll() {
-  if (window.innerWidth > 768) return;
-  let lastY = 0;
-  let velocity = 0;
-  let ticking = false;
-
-  document.addEventListener('touchmove', (e) => {
-    const y = e.touches[0].clientY;
-    velocity = (y - lastY) * 0.92; // едва заметное демпфирование
-    lastY = y;
-  }, { passive: true });
-
-  document.addEventListener('touchend', () => {
-    if (ticking) return;
-    ticking = true;
-    function decel() {
-      if (Math.abs(velocity) < 0.5) { ticking = false; return; }
-      velocity *= 0.985; // минимальное затухание — почти как обычный скролл
-      window.scrollBy(0, -velocity);
-      requestAnimationFrame(decel);
-    }
-    decel();
-  }, { passive: true });
-
-  document.addEventListener('touchstart', (e) => {
-    lastY = e.touches[0].clientY;
-    velocity = 0;
-    ticking = false;
-  }, { passive: true });
-}
