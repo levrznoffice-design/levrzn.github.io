@@ -3438,6 +3438,9 @@ function renderMaceration() {
     return;
   }
 
+  // Сортировка: самые свежие (недавно добавленные) сверху
+  data.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+
   const now = new Date();
   container.innerHTML = data.map(entry => {
     const frag = FRAGRANCES.find(f => f.id === entry.fragId);
@@ -3492,7 +3495,7 @@ function initHeavyScroll() {
 
   document.addEventListener('touchmove', (e) => {
     const y = e.touches[0].clientY;
-    velocity = (y - lastY) * 0.4;
+    velocity = (y - lastY) * 0.75; // мягкое демпфирование, почти обычный скролл
     lastY = y;
   }, { passive: true });
 
@@ -3500,8 +3503,8 @@ function initHeavyScroll() {
     if (ticking) return;
     ticking = true;
     function decel() {
-      if (Math.abs(velocity) < 0.5) { ticking = false; return; }
-      velocity *= 0.92;
+      if (Math.abs(velocity) < 0.3) { ticking = false; return; }
+      velocity *= 0.96; // мягкое затухание — чуть тяжелее обычного
       window.scrollBy(0, -velocity);
       requestAnimationFrame(decel);
     }
