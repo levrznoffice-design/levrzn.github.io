@@ -1423,6 +1423,103 @@ const FRAGRANCES = [
       summer: { day: 'forbidden', night: 'forbidden' },
       autumn: { day: 'full', night: 'full' }
     }
+  },
+  {
+    id: 'vintage-radio',
+    name: 'Lattafa Vintage Radio',
+    house: 'Lattafa',
+    family: 'Фруктовый · Древесный · Фужерный',
+    image: 'levs-scent/bottles/vintage-radio.png',
+    vibe: 'levs-scent/vibes/vintage-radio-vibe.png',
+    accent: '#DDA0DD',
+    gradient: 'linear-gradient(135deg, #1a0f2e 0%, #4b0082 55%, #9370db 100%)',
+    total: 5,
+    refreshHours: 7,
+    overspray: true,
+    maxCapped: false,
+    notes: {
+      top: ['Слива', 'Шалфей', 'Лаванда'],
+      heart: ['Пало Санто', 'Чёрный перец'],
+      base: ['Сандал', 'Уд']
+    },
+    seasons: { winter: 'day+night', spring: 'day+night', summer: 'night-only', autumn: 'day+night' },
+    vibeCaption: 'Сливовая сочность в облаке шалфея и благородного сандала. Аромат-спокойствие.',
+    variations: [
+      {
+        label: 'Медитация (3 пшика)',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'Базовый шлейф' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'Для собственного наслаждения' }
+        ]
+      },
+      {
+        label: 'Городской ритм (5 пшиков)',
+        points: [
+          { spot: 'spot-neck-front.png', n: 1, title: 'Шея спереди на кожу', detail: 'Яркость' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Стойкость сливы' },
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Шлейф' }
+        ]
+      },
+      {
+        label: 'Максимум (8 пшиков)',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Фруктовое облако' },
+          { spot: 'spot-shoulders-clothes.png', n: 4, title: 'Плечи на одежду', detail: 'Максимальная стойкость' },
+          { spot: 'spot-hair.png', n: 2, title: 'Волосы', detail: 'Слива на волосах весь день' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: {
+        total: 4,
+        note: 'Приятный, не кричащий.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Мягкий шлейф' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Стойкость без агрессии' }
+        ]
+      },
+      gym: {
+        total: 3,
+        note: 'Только если 1-2 пшика.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'Легкий фон' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Останется на ткани' }
+        ]
+      },
+      date: {
+        total: 5,
+        note: 'Очень необычный и притягательный.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Интригующий шлейф' },
+          { spot: 'spot-neck-front.png', n: 1, title: 'Шея спереди на кожу', detail: 'Яркость при близком контакте' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Стойкость сливы' }
+        ]
+      },
+      walk: {
+        total: 5,
+        note: 'Идеально раскрывается на ветру.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Шлейф на ветру' },
+          { spot: 'spot-shoulders-clothes.png', n: 3, title: 'Плечи на одежду', detail: 'Слива на куртке' }
+        ]
+      },
+      home: {
+        total: 5,
+        note: 'Уютный и расслабляющий.',
+        points: [
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'Наслаждение базой' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Личное облако' },
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'Фоновый шлейф' }
+        ]
+      }
+    },
+    masterWarning: 'Дай флакону отстояться (мацерация) 3-4 недели для глубины древесных нот.',
+    seasonTimeMatrix: {
+      winter: { day: 'full', night: 'full' },
+      spring: { day: 'full', night: 'full' },
+      summer: { day: 'caution', night: 'full' },
+      autumn: { day: 'full', night: 'full' }
+    }
   }
 ];
 
@@ -1446,7 +1543,8 @@ const NOTE_MAP = {
   'Кашмеран': 'cashmeran', 'Петитгрейн': 'petitgrain', 'Специи': 'spices',
   'Зеленое яблоко': 'apple', 'Мандарин': 'orange',
   'Черный чай': 'black_tea', 'Нероли': 'neroli', 'Тубероза': 'tuberose',
-  'Бурбон': 'bourbon'
+  'Бурбон': 'bourbon',
+  'Слива': 'plum', 'Пало Санто': 'palo-santo'
 };
 
 const NOTE_FILES = {
@@ -1465,7 +1563,8 @@ const NOTE_FILES = {
   'tobacco': 'png', 'ginger': 'png', 'cashmeran': 'png', 'petitgrain': 'png', 'spices': 'png',
   'vanilla': 'png', 'vetiver': 'webp', 'violet': 'png', 'wood_notes': 'webp',
   'black_tea': 'webp', 'neroli': 'webp', 'tuberose': 'png',
-  'bourbon': 'webp'
+  'bourbon': 'webp',
+  'plum': 'webp', 'palo-santo': 'webp'
 };
 
 function getNoteImage(noteName) {
@@ -2126,6 +2225,101 @@ const COMBINATIONS = [
       }
     ],
     effect: 'Абсолютно бескомпромиссный, тяжелый и дорогой шлейф, который заполнит собой любую комнату.'
+  },
+  {
+    id: 'vintage-pineapple',
+    name: 'Сливовый Ананас',
+    fragrances: ['vintage-radio', 'fursan'],
+    sub: 'Vintage Radio + Qaed Al Fursan',
+    season: 'Весь год',
+    seasonGroups: ['universal', 'summer', 'spring'],
+    totalSprays: 6,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Lattafa Vintage Radio',
+        fragId: 'vintage-radio',
+        instruction: 'Нанеси первым — сливовая фруктовая база с шалфеем.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Сливовый шлейф' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под одежду', detail: 'Пало санто как фундамент' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Qaed Al Fursan',
+        fragId: 'fursan',
+        instruction: 'Через 30 секунд — ананас поверх сливы.',
+        points: [
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Ананасовая диффузия' },
+          { spot: 'spot-neck-front.png', n: 1, title: 'Шея спереди на кожу', detail: 'Фруктовый контраст' }
+        ]
+      }
+    ],
+    effect: 'Мощный фруктовый коктейль. Ананас усиливает сливу, создавая эффект нишевого свежака.'
+  },
+  {
+    id: 'mystical-aether',
+    name: 'Эфирная Слива',
+    fragrances: ['vintage-radio', 'aether'],
+    sub: 'Vintage Radio + Aether',
+    season: 'Весна · Лето',
+    seasonGroups: ['spring', 'summer'],
+    totalSprays: 5,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Lattafa Vintage Radio',
+        fragId: 'vintage-radio',
+        instruction: 'Нанеси первым — сливовая древесная база.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'Мягкий сливовый фон' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястья на кожу', detail: 'Пало санто при движении' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'French Avenue Aether Extrait',
+        fragId: 'aether',
+        instruction: 'Через 30 секунд — молекулярная свежесть поверх.',
+        points: [
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Свежее яблоко на ткани' },
+          { spot: 'spot-neck-front.png', n: 1, title: 'Шея спереди на кожу', detail: 'Невесомая аура' }
+        ]
+      }
+    ],
+    effect: 'Aether добавляет молекулярный объем и свежесть яблока, делая Vintage Radio невесомым.'
+  },
+  {
+    id: 'boozy-plum',
+    name: 'Пьяная Слива',
+    fragrances: ['vintage-radio', 'asad-bourbon'],
+    sub: 'Vintage Radio + Asad Bourbon',
+    season: 'Зима · Осень',
+    seasonGroups: ['winter', 'autumn'],
+    totalSprays: 4,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Lattafa Vintage Radio',
+        fragId: 'vintage-radio',
+        instruction: 'Нанеси первым — сливовая база с пало санто.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'Фруктовый шлейф' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь под одежду', detail: 'Сандал и уд как фундамент' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Lattafa Asad Bourbon',
+        fragId: 'asad-bourbon',
+        instruction: 'Через 30 секунд — бурбон и специи поверх сливы.',
+        points: [
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Алкогольный пряный акцент' }
+        ]
+      }
+    ],
+    effect: 'Глубокий, тяжелый вечерний аромат. Бурбон и специи превращают сливу в дорогой ликер.'
   }
 ];
 
@@ -2337,6 +2531,16 @@ const REASONS = {
       'Слишком плотный и сладкий для тепла.',
       'Специи могут звучать тяжело и удушливо.'
     ]
+  },
+  'vintage-radio': {
+    cold: [
+      'Слива становится более густой и сладкой.',
+      'Древесные ноты пало санто согревают.'
+    ],
+    warm: [
+      'Аромат достаточно легок для летних вечеров.',
+      'Шалфей дает необходимую фужерную свежесть.'
+    ]
   }
 };
 
@@ -2487,13 +2691,13 @@ function getScentOfDay(weather) {
     // Экстремальный холод: только самые тяжёлые
     candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'blonde-amber', 'asad-bourbon'];
   } else if (score === -2) {
-    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'ninepm', 'opulent-dubai', 'blonde-amber', 'asad-bourbon'];
+    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'ninepm', 'opulent-dubai', 'blonde-amber', 'asad-bourbon', 'vintage-radio'];
   } else if (score === -1) {
-    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'fursan', 'blonde-amber', 'asad-bourbon'];
+    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'fursan', 'blonde-amber', 'asad-bourbon', 'vintage-radio'];
   } else if (score === 0) {
-    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue', 'marwa', 'asad-bourbon'];
+    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue', 'marwa', 'asad-bourbon', 'vintage-radio'];
   } else if (score === 1) {
-    candidateIds = ['fursan', 'fakhar', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue', 'marwa'];
+    candidateIds = ['fursan', 'fakhar', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue', 'marwa', 'vintage-radio'];
   } else if (score === 2) {
     candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue', 'fursan', 'marwa'];
   } else {
