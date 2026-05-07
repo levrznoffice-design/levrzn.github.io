@@ -1520,6 +1520,106 @@ const FRAGRANCES = [
       summer: { day: 'caution', night: 'full' },
       autumn: { day: 'full', night: 'full' }
     }
+  },
+  {
+    id: 'legacy',
+    name: 'MAISON ASRAR Legacy',
+    house: 'MAISON ASRAR',
+    family: 'Фруктовый · Свежий · Мускусный',
+    image: 'levs-scent/bottles/legacy.png',
+    vibe: 'levs-scent/vibes/legacy-vibe.png',
+    accent: '#4da6ff',
+    gradient: 'linear-gradient(135deg, #0f1c2e 0%, #2A5A8A 55%, #4da6ff 100%)',
+    total: 8,
+    refreshHours: 6,
+    overspray: true,
+    maxCapped: false,
+    notes: {
+      top: ['Груша', 'Имбирь', 'Бергамот'],
+      heart: ['Апельсин', 'Жасмин', 'Древесные ноты'],
+      base: ['Мускус', 'Амбра', 'Ваниль']
+    },
+    seasons: { winter: 'day', spring: 'day+night', summer: 'day+night', autumn: 'day+night' },
+    vibeCaption: 'Технологичный и чистый. Груша, которая не сластит, а освежает в паре с искристым имбирем.',
+    variations: [
+      {
+        label: 'Стандарт Legacy (8 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'База шлейфа' },
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'Свежесть для себя' },
+          { spot: 'spot-shoulders-clothes.png', n: 4, title: 'Плечи на одежду', detail: 'Для стойкости молекул' }
+        ]
+      },
+      {
+        label: 'Умеренный оверспрей (11 пшиков)',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок на кожу', detail: 'Усиленный шлейф' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'Интимная проекция' },
+          { spot: 'spot-shoulders-clothes.png', n: 4, title: 'Плечи на одежду', detail: 'Стойкость на ткани' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'Для собственного удовольствия' }
+        ]
+      },
+      {
+        label: 'Летний вечер (6 пшиков)',
+        points: [
+          { spot: 'spot-neck-back.png', n: 2, title: 'Задняя часть шеи на кожу', detail: 'Деликатный шлейф' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Свежесть груши' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь под одежду', detail: 'Мускусная база' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: {
+        total: 6,
+        note: 'Чисто, свежо, не душит.',
+        points: [
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'Свежесть' },
+          { spot: 'spot-shoulders-clothes.png', n: 4, title: 'Плечи на одежду', detail: 'Стойкость' }
+        ]
+      },
+      gym: {
+        total: 3,
+        note: 'Только если один пшик на затылок и два на одежду.',
+        points: [
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок на кожу', detail: 'Легкий фон' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Останется на ткани' }
+        ]
+      },
+      date: {
+        total: 8,
+        note: 'Оставит приятный дорогой след.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Шлейф' },
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'Свежесть при приближении' },
+          { spot: 'spot-shoulders-clothes.png', n: 4, title: 'Плечи на одежду', detail: 'Стойкость весь вечер' }
+        ]
+      },
+      walk: {
+        total: 10,
+        note: 'Ветерок будет отлично разносить грушу.',
+        points: [
+          { spot: 'spot-nape.png', n: 3, title: 'Затылок на кожу', detail: 'Максимальный шлейф' },
+          { spot: 'spot-shoulders-clothes.png', n: 4, title: 'Плечи на одежду', detail: 'Груша на ветру' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'Дополнительная проекция' },
+          { spot: 'spot-neck-front.png', n: 1, title: 'Шея спереди на кожу', detail: 'Для себя' }
+        ]
+      },
+      home: {
+        total: 4,
+        note: 'Уютный мускус в базе.',
+        points: [
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'Наслаждение базой' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Личное облако' }
+        ]
+      }
+    },
+    masterWarning: null,
+    seasonTimeMatrix: {
+      winter: { day: 'caution', night: 'forbidden' },
+      spring: { day: 'full', night: 'full' },
+      summer: { day: 'full', night: 'full' },
+      autumn: { day: 'full', night: 'caution' }
+    }
   }
 ];
 
@@ -1544,7 +1644,8 @@ const NOTE_MAP = {
   'Зеленое яблоко': 'apple', 'Мандарин': 'orange',
   'Черный чай': 'black_tea', 'Нероли': 'neroli', 'Тубероза': 'tuberose',
   'Бурбон': 'bourbon',
-  'Слива': 'plum', 'Пало Санто': 'palo-santo'
+  'Слива': 'plum', 'Пало Санто': 'palo-santo',
+  'Груша': 'pear'
 };
 
 const NOTE_FILES = {
@@ -1564,7 +1665,8 @@ const NOTE_FILES = {
   'vanilla': 'png', 'vetiver': 'webp', 'violet': 'png', 'wood_notes': 'webp',
   'black_tea': 'webp', 'neroli': 'webp', 'tuberose': 'png',
   'bourbon': 'webp',
-  'plum': 'webp', 'palo-santo': 'webp'
+  'plum': 'webp', 'palo-santo': 'webp',
+  'pear': 'png'
 };
 
 function getNoteImage(noteName) {
@@ -2320,6 +2422,38 @@ const COMBINATIONS = [
       }
     ],
     effect: 'Глубокий, тяжелый вечерний аромат. Бурбон и специи превращают сливу в дорогой ликер.'
+  },
+  {
+    id: 'ultimate-blue',
+    name: 'The Ultimate Blue',
+    fragrances: ['legacy', 'turathi-blue'],
+    sub: 'Legacy + Turathi Blue',
+    season: 'Лето · Жара',
+    seasonGroups: ['summer'],
+    totalSprays: 9,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Afnan Turathi Blue',
+        fragId: 'turathi-blue',
+        instruction: 'Нанеси цитрусовую базу.',
+        points: [
+          { spot: 'spot-nape.png', n: 2, title: 'Затылок на кожу', detail: 'Шлейф' },
+          { spot: 'spot-shoulders-clothes.png', n: 3, title: 'Плечи на одежду', detail: 'Основа' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'MAISON ASRAR Legacy',
+        fragId: 'legacy',
+        instruction: 'Добавь молекулярной чистоты сверху.',
+        points: [
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'Свежесть' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши на кожу', detail: 'Интимная зона' }
+        ]
+      }
+    ],
+    effect: 'Грейпфрут и груша на амброксане — комплиментарный монстр для жарких дней.'
   }
 ];
 
@@ -2541,6 +2675,16 @@ const REASONS = {
       'Аромат достаточно легок для летних вечеров.',
       'Шалфей дает необходимую фужерную свежесть.'
     ]
+  },
+  legacy: {
+    cold: [
+      'Legacy дает кристальную чистоту даже в мороз.',
+      'Имбирь круто колется на холодном воздухе.'
+    ],
+    warm: [
+      'Груша и бергамот идеально спасают в жару.',
+      'Мускусная база Legacy обожает теплую кожу.'
+    ]
   }
 };
 
@@ -2693,16 +2837,16 @@ function getScentOfDay(weather) {
   } else if (score === -2) {
     candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'ninepm', 'opulent-dubai', 'blonde-amber', 'asad-bourbon', 'vintage-radio'];
   } else if (score === -1) {
-    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'fursan', 'blonde-amber', 'asad-bourbon', 'vintage-radio'];
+    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'fursan', 'blonde-amber', 'asad-bourbon', 'vintage-radio', 'legacy'];
   } else if (score === 0) {
-    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue', 'marwa', 'asad-bourbon', 'vintage-radio'];
+    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue', 'marwa', 'asad-bourbon', 'vintage-radio', 'legacy'];
   } else if (score === 1) {
-    candidateIds = ['fursan', 'fakhar', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue', 'marwa', 'vintage-radio'];
+    candidateIds = ['fursan', 'fakhar', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue', 'marwa', 'vintage-radio', 'legacy'];
   } else if (score === 2) {
-    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue', 'fursan', 'marwa'];
+    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue', 'fursan', 'marwa', 'legacy'];
   } else {
     // score >= 3: экстремальная жара — только свежаки
-    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue', 'marwa'];
+    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue', 'marwa', 'legacy'];
   }
 
   /* --- Фильтр влажности: высокая + тепло → убрать тяжёлые --- */
@@ -2796,7 +2940,7 @@ function initHero() {
 
 function initNav() {
   const btns = $$('.nav-btn');
-  const views = ['mainView', 'diaryView', 'macerationView'];
+  const views = ['mainView', 'diaryView', 'macerationView', 'ritualView'];
 
   function hideAll() {
     views.forEach(id => {
@@ -2828,6 +2972,11 @@ function initNav() {
         macView.classList.add('visible');
         window.scrollTo({ top: 0, behavior: 'smooth' });
         renderMaceration();
+      } else if (view === 'ritual') {
+        const ritualView = $('#ritualView');
+        ritualView.classList.remove('hidden');
+        ritualView.classList.add('visible');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         $('#mainView').classList.remove('hidden');
         if (scroll) {

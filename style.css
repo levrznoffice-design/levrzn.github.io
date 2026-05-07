@@ -991,6 +991,110 @@ input, select, textarea { font-family: var(--sans); }
   }
 }
 
+/* ===== RITUAL VIEW ===== */
+.ritual-view { display: none; }
+.ritual-view.visible { display: block; }
+
+.ritual-steps { margin-top: 20px; }
+
+.ritual-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--glass-border);
+  position: relative;
+}
+
+.ritual-step:last-child { border-bottom: none; }
+
+.ritual-num {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text2);
+  line-height: 1;
+  min-width: 48px;
+  flex-shrink: 0;
+}
+
+.ritual-body { flex: 1; min-width: 0; }
+
+.ritual-heading {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text1);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.ritual-dose {
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.ritual-body p {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text2);
+  margin: 0;
+}
+
+.ritual-sub-italic {
+  font-style: italic;
+  color: var(--text2) !important;
+  margin-bottom: 12px !important;
+  font-size: 12px !important;
+}
+
+.ritual-point {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text2);
+  margin-bottom: 6px;
+}
+
+.ritual-point strong {
+  color: var(--text1);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+
+.ritual-note {
+  font-size: 11px !important;
+  font-style: italic;
+  color: var(--text3) !important;
+  margin-top: 10px !important;
+}
+
+.ritual-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-top: 4px;
+}
+
+.ritual-icon-label {
+  font-size: 10px;
+  color: var(--text3);
+  white-space: nowrap;
+}
+
+.ritual-footer {
+  text-align: center;
+  font-size: 11px;
+  font-style: italic;
+  color: var(--text3);
+  padding: 24px 0 8px;
+  letter-spacing: 0.02em;
+}
+
 /* ===== DESKTOP ===== */
 @media (min-width: 768px) {
   .hero-title { font-size: 64px; }
