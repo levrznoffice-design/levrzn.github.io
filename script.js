@@ -2923,6 +2923,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateScentOfDay();
   initRefreshTimers();
   initMaceration();
+  initRitualTimers();
 });
 
 /* ===== HERO ===== */
@@ -3992,4 +3993,105 @@ function deleteMacEntry(id) {
   const data = getMacerationData().filter(e => e.id !== id);
   saveMacerationData(data);
   renderMaceration();
+}
+
+/* ===== RITUAL TIMERS ===== */
+
+const RITUAL_TIMERS = [
+  { id: 'cerave',   key: 'levs-ritual-cerave',   duration: 240 },
+  { id: 'vaseline', key: 'levs-ritual-vaseline', duration: 120 },
+  { id: 'spray',    key: 'levs-ritual-spray',    duration: 300 }
+];
+const RITUAL_AUTO_CLEAR_MS = 10 * 60 * 1000; // 10 минут
+
+function initRitualTimers() {
+  RITUAL_TIMERS.forEach(cfg => {
+    const el = document.getElementById('ritualTimer-' + cfg.id);
+    if (!el) return;
+    renderRitualTimer(cfg, el);
+  });
+  // Автоочистка каждые 30 сек
+  setInterval(ritualAutoCleanup, 30000);
+  ritualAutoCleanup();
+}
+
+function renderRitualTimer(cfg, container) {
+  const stored = localStorage.getItem(cfg.key);
+  let endTs = stored ? parseInt(stored, 10) : null;
+  const now = Date.now();
+
+  // Автоочистка: если прошло >10 мин после завершения
+  if (endTs && endTs < now && (now - endTs) > RITUAL_AUTO_CLEAR_MS) {
+    localStorage.removeItem(cfg.key);
+    endTs = null;
+  }
+
+  if (!endTs) {
+    // Исходное состояние — кнопка Старт
+    container.innerHTML = `
+      <div class="rt-row">
+        <button class="rt-start-btn" data-timer="${cfg.id}">Запустить таймер · ${Math.floor(cfg.duration / 60)}:${String(cfg.duration % 60).padStart(2, '0')}</button>
+      </div>`;
+    container.querySelector('.rt-start-btn').addEventListener('click', () => {
+      const end = Date.now() + cfg.duration * 1000;
+      localStorage.setItem(cfg.key, String(end));
+      renderRitualTimer(cfg, container);
+    });
+    return;
+  }
+
+  const remaining = Math.max(0, Math.ceil((endTs - now) / 1000));
+  const done = remaining === 0;
+  const pct = done ? 100 : Math.min(100, ((cfg.duration - remaining) / cfg.duration) * 100);
+
+  container.innerHTML = `
+    <div class="rt-row">
+      <span class="rt-display">${done ? '' : formatRitualTime(remaining)}</span>
+      ${done ? '<span class="rt-done">Готово</span>' : ''}
+      <div class="rt-bar-wrap"><div class="rt-bar" style="width:${pct}%"></div></div>
+      <button class="rt-reset-btn" data-timer="${cfg.id}">Сброс</button>
+    </div>`;
+
+  container.querySelector('.rt-reset-btn').addEventListener('click', () => {
+    localStorage.removeItem(cfg.key);
+    renderRitualTimer(cfg, container);
+  });
+
+  if (!done) {
+    const tick = () => {
+      const r = Math.max(0, Math.ceil((endTs - Date.now()) / 1000));
+      const p = Math.min(100, ((cfg.duration - r) / cfg.duration) * 100);
+      const display = container.querySelector('.rt-display');
+      const bar = container.querySelector('.rt-bar');
+      if (!display || !bar) return;
+      if (r === 0) {
+        renderRitualTimer(cfg, container);
+        return;
+      }
+      display.textContent = formatRitualTime(r);
+      bar.style.width = p + '%';
+      requestAnimationFrame(() => setTimeout(tick, 1000));
+    };
+    setTimeout(tick, 1000);
+  }
+}
+
+function formatRitualTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return m + ':' + String(s).padStart(2, '0');
+}
+
+function ritualAutoCleanup() {
+  const now = Date.now();
+  RITUAL_TIMERS.forEach(cfg => {
+    const stored = localStorage.getItem(cfg.key);
+    if (!stored) return;
+    const endTs = parseInt(stored, 10);
+    if (endTs < now && (now - endTs) > RITUAL_AUTO_CLEAR_MS) {
+      localStorage.removeItem(cfg.key);
+      const el = document.getElementById('ritualTimer-' + cfg.id);
+      if (el) renderRitualTimer(cfg, el);
+    }
+  });
 }

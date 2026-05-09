@@ -1095,6 +1095,68 @@ input, select, textarea { font-family: var(--sans); }
   letter-spacing: 0.02em;
 }
 
+/* ===== RITUAL TIMERS ===== */
+.ritual-timer {
+  margin-top: 14px;
+}
+.rt-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rt-start-btn, .rt-reset-btn {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: none;
+}
+.rt-start-btn {
+  background: var(--text);
+  color: #fff;
+}
+.rt-start-btn:hover { background: #333; }
+.rt-start-btn:disabled {
+  background: #ccc;
+  cursor: default;
+}
+.rt-reset-btn {
+  background: none;
+  color: var(--text2);
+  padding: 8px 12px;
+  font-size: 11px;
+}
+.rt-reset-btn:hover { color: var(--text); }
+.rt-display {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  min-width: 62px;
+}
+.rt-bar-wrap {
+  flex: 1;
+  height: 4px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.rt-bar {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--text);
+  transition: width 1s linear;
+}
+.rt-done {
+  font-size: 12px;
+  font-weight: 600;
+  color: #22c55e;
+  letter-spacing: 0.04em;
+}
+
 /* ===== DESKTOP ===== */
 @media (min-width: 768px) {
   .hero-title { font-size: 64px; }
