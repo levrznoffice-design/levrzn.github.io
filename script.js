@@ -1620,6 +1620,110 @@ const FRAGRANCES = [
       summer: { day: 'full', night: 'full' },
       autumn: { day: 'full', night: 'caution' }
     }
+  },
+  {
+    id: 'myslf',
+    name: 'MYSLF Eau De Parfum',
+    house: 'Yves Saint Laurent',
+    family: 'Цитрусовый · Цветочный · Мускусный',
+    image: 'levs-scent/bottles/myslf.png',
+    vibe: 'levs-scent/vibes/myslf-vibe.jpg',
+    accent: '#2D2A3D',
+    gradient: 'linear-gradient(135deg, #0F0F1A 0%, #2D2A3D 55%, #8B6F4E 100%)',
+    total: 7,
+    refreshHours: 4,
+    overspray: true,
+    maxCapped: false,
+    notes: {
+      top: ['Калабрийский бергамот', 'Бергамот'],
+      heart: ['Тунисский флёрдоранж'],
+      base: ['Ambrofix™', 'Пачули']
+    },
+    seasons: { winter: 'night-only', spring: 'day+night', summer: 'day+night', autumn: 'day+night' },
+    vibeCaption: 'Калабрийский бергамот и тунисский флёрдоранж на чистой коже. Не свежак, а романтика — сладенько-морская, тёплая, цепкая. Тот самый «один пшик и не можешь перестать нюхать запястье».',
+    variations: [
+      {
+        label: 'Стандарт (7 пшиков)',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Тёплый сердечный центр, флёрдоранж раскрывается на коже' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь на одежду', detail: 'Шлейф для окружающих, дольше держится на ткани' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'Личное удовольствие, чувствуешь сам при жестах' },
+          { spot: 'spot-behind-ears.png', n: 1, title: 'За ушами на кожу', detail: 'Романтический поцелуй за ухом' }
+        ]
+      },
+      {
+        label: 'Лёгкий (4 пшика)',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Тёплое сердце аромата' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'Деликатный пульс соблазна' }
+        ]
+      },
+      {
+        label: 'Овершпрей для свидания (10 пшиков)',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Романтический центр' },
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'Открытая шея для шлейфа' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь на одежду', detail: 'Долгий след на ткани' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'Жесты выдают аромат' },
+          { spot: 'spot-behind-ears.png', n: 1, title: 'За ушами на кожу', detail: 'Когда обнимет — почувствует' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Сгиб локтя на кожу', detail: 'Тёплый пульс изнутри' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: {
+        total: 5,
+        note: 'Идеален. Чистый, не агрессивный, флёрдоранж не раздражает в классе.',
+        points: [
+          { spot: 'spot-collarbones-under-clothes.png', n: 1, title: 'Ключицы под одежду', detail: 'Скрытая база на день' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь на одежду', detail: 'Лёгкий шлейф в воздухе' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'Личное удовольствие весь урок' }
+        ]
+      },
+      gym: {
+        total: 3,
+        note: 'Очень умеренно. Свежий вкусный шлейф, но не вызов.',
+        points: [
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Аромат рядом с лицом во время кардио' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'Лёгкий пульс' }
+        ]
+      },
+      date: {
+        total: 8,
+        note: 'ТОП-СЦЕНАРИЙ. Романтика через флёрдоранж + ambrofix-мускус.',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Магнит для приближения' },
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'Открытая шея манит ближе' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь на одежду', detail: 'Долгий тёплый след' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'Жесты — оружие соблазна' }
+        ]
+      },
+      walk: {
+        total: 7,
+        note: 'Универсал. Шлейф 2-3 метра по фрагрантике.',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Центр романтики' },
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь на одежду', detail: 'Шлейф для прохожих' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'Личное удовольствие при движении' },
+          { spot: 'spot-behind-ears.png', n: 1, title: 'За ушами на кожу', detail: 'Тёплый поцелуй за ухом' }
+        ]
+      },
+      home: {
+        total: 4,
+        note: 'Уютный clean, для себя.',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Тёплое сердце' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'Просто чтобы понюхать руку и улыбнуться' }
+        ]
+      }
+    },
+    masterWarning: null,
+    seasonTimeMatrix: {
+      winter: { day: 'caution', night: 'forbidden' },
+      spring: { day: 'full', night: 'full' },
+      summer: { day: 'full', night: 'full' },
+      autumn: { day: 'full', night: 'caution' }
+    }
   }
 ];
 
@@ -1645,7 +1749,10 @@ const NOTE_MAP = {
   'Черный чай': 'black_tea', 'Нероли': 'neroli', 'Тубероза': 'tuberose',
   'Бурбон': 'bourbon',
   'Слива': 'plum', 'Пало Санто': 'palo-santo',
-  'Груша': 'pear'
+  'Груша': 'pear',
+  'Тунисский флёрдоранж': 'orange-blossom', 'Флёрдоранж': 'orange-blossom',
+  'Ambrofix': 'ambrofix', 'Ambrofix™': 'ambrofix',
+  'Калабрийский бергамот': 'bergamot'
 };
 
 const NOTE_FILES = {
@@ -1666,7 +1773,8 @@ const NOTE_FILES = {
   'black_tea': 'webp', 'neroli': 'webp', 'tuberose': 'png',
   'bourbon': 'webp',
   'plum': 'webp', 'palo-santo': 'webp',
-  'pear': 'png'
+  'pear': 'png',
+  'orange-blossom': 'webp', 'ambrofix': 'jpg'
 };
 
 function getNoteImage(noteName) {
@@ -2454,6 +2562,75 @@ const COMBINATIONS = [
       }
     ],
     effect: 'Грейпфрут и груша на амброксане — комплиментарный монстр для жарких дней.'
+  },
+  {
+    id: 'myslf-pacific-aura',
+    name: 'Морской романс',
+    fragrances: ['myslf', 'pacific-aura'],
+    sub: 'MYSLF + Pacific Aura',
+    season: 'Лето · Поздняя весна',
+    seasonGroups: ['summer', 'spring'],
+    totalSprays: 10,
+    layers: [
+      {
+        order: 1,
+        fragName: 'MYSLF Eau De Parfum',
+        fragId: 'myslf',
+        instruction: 'Нанеси первым — это романтическая база. Дай 30 секунд впитаться.',
+        points: [
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Тёплое сердце — флёрдоранж на коже становится твоим центром' },
+          { spot: 'spot-wrists.png', n: 2, title: 'Запястья на кожу', detail: 'Пульс соблазна — оранжевый цвет раскрывается при движении' },
+          { spot: 'spot-behind-ears.png', n: 1, title: 'За ушами на кожу', detail: 'Шлейф — для тех кто подойдёт ближе' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'Rayhaan Pacific Aura EDP',
+        fragId: 'pacific-aura',
+        instruction: 'Распыли сверху — морской бриз окутает романтику флёрдоранжа.',
+        points: [
+          { spot: 'spot-neck-front.png', n: 1, title: 'Шея спереди на кожу', detail: 'Морская верхушка — солёный воздух на шее' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи на одежду', detail: 'Бриз вокруг — двигается с тобой' },
+          { spot: 'spot-hair.png', n: 1, title: 'Волосы', detail: 'Финал — морской спрей в волосах (легонько)' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь на одежду', detail: 'Усиление — морской ветер впереди' }
+        ]
+      }
+    ],
+    effect: 'Тунисский флёрдоранж в обнимку с морской пеной — точное воплощение «сладенько-морского» ощущения от MYSLF. Летний день у воды, романтика без сладости.'
+  },
+  {
+    id: 'myslf-turathi-blue',
+    name: 'Янтарный закат',
+    fragrances: ['turathi-blue', 'myslf'],
+    sub: 'Turathi Blue + MYSLF',
+    season: 'Весна · Лето (вечер)',
+    seasonGroups: ['spring', 'summer'],
+    totalSprays: 10,
+    layers: [
+      {
+        order: 1,
+        fragName: 'Afnan Turathi Blue EDP',
+        fragId: 'turathi-blue',
+        instruction: 'Нанеси первым — амбровая база-фундамент. Дай 30 секунд.',
+        points: [
+          { spot: 'spot-chest.png', n: 2, title: 'Грудь на одежду', detail: 'Янтарная основа — amber + ambroxan тёплым облаком' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'Глубина — медленно раскрывается из-под одежды' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Сгиб локтя на кожу', detail: 'Тёплый импульс — амбер пульсирует изнутри' }
+        ]
+      },
+      {
+        order: 2,
+        fragName: 'MYSLF Eau De Parfum',
+        fragId: 'myslf',
+        instruction: 'Сверху — цитрусово-цветочная вуаль на амбровой подушке.',
+        points: [
+          { spot: 'spot-neck-front.png', n: 2, title: 'Шея спереди на кожу', detail: 'Бергамот вверх — открытая шея для цитрусовой яркости' },
+          { spot: 'spot-collarbones-skin.png', n: 2, title: 'Ключицы на кожу', detail: 'Флёрдоранж в центр — на коже над тёплой амбровой базой' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье на кожу', detail: 'Цитрусовый пульс — освежает каждый жест' }
+        ]
+      }
+    ],
+    effect: 'Бергамот удваивается, флёрдоранж танцует на амбровой подушке Turathi Blue. Романтика заката с восточным теплом — твой ход на весенний/летний вечер.'
   }
 ];
 
@@ -2685,6 +2862,16 @@ const REASONS = {
       'Груша и бергамот идеально спасают в жару.',
       'Мускусная база Legacy обожает теплую кожу.'
     ]
+  },
+  myslf: {
+    cold: [
+      'Бергамот гаснет на морозе за час.',
+      'Слишком воздушный и романтичный для зимы.'
+    ],
+    warm: [
+      'Тунисский флёрдоранж раскрывается только в тепле.',
+      'Калабрийский цитрус + ambrofix = идеальная весна и лето.'
+    ]
   }
 };
 
@@ -2839,14 +3026,14 @@ function getScentOfDay(weather) {
   } else if (score === -1) {
     candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'fursan', 'blonde-amber', 'asad-bourbon', 'vintage-radio', 'legacy'];
   } else if (score === 0) {
-    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue', 'marwa', 'asad-bourbon', 'vintage-radio', 'legacy'];
+    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue', 'marwa', 'asad-bourbon', 'vintage-radio', 'legacy', 'myslf'];
   } else if (score === 1) {
-    candidateIds = ['fursan', 'fakhar', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue', 'marwa', 'vintage-radio', 'legacy'];
+    candidateIds = ['fursan', 'fakhar', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue', 'marwa', 'vintage-radio', 'legacy', 'myslf'];
   } else if (score === 2) {
-    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue', 'fursan', 'marwa', 'legacy'];
+    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue', 'fursan', 'marwa', 'legacy', 'myslf'];
   } else {
     // score >= 3: экстремальная жара — только свежаки
-    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue', 'marwa', 'legacy'];
+    candidateIds = ['fakhar', 'pacific-aura', 'aether', 'turathi-blue', 'marwa', 'legacy', 'myslf'];
   }
 
   /* --- Фильтр влажности: высокая + тепло → убрать тяжёлые --- */
