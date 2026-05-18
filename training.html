@@ -9,20 +9,6 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; min-height: 100vh; overflow-x: hidden; }
 
-  /* ===== LOGIN SCREEN ===== */
-  .login-overlay { position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#0a0a0a;transition:opacity .5s,visibility .5s; }
-  .login-overlay.hidden { opacity:0;visibility:hidden;pointer-events:none; }
-  .login-box { background:rgba(17,17,17,.95);border:1px solid rgba(201,169,110,.2);border-radius:20px;padding:48px 36px 36px;max-width:380px;width:90%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.6),0 0 60px rgba(201,169,110,.04); }
-  .login-logo { width:56px;height:56px;margin:0 auto 20px;border-radius:14px;background:linear-gradient(135deg,rgba(201,169,110,.15),rgba(201,169,110,.05));border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#c9a96e; }
-  .login-title { font-size:.7rem;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:rgba(200,170,110,.5);margin-bottom:28px; }
-  .login-input { width:100%;padding:14px 18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;color:#fff;font-family:Inter,sans-serif;font-size:.95rem;text-align:center;outline:none;margin-bottom:12px;transition:border-color .3s; }
-  .login-input:focus { border-color:rgba(201,169,110,.35); }
-  .login-input::placeholder { color:rgba(255,255,255,.2); }
-  .login-btn { width:100%;padding:14px;margin-top:8px;border-radius:12px;border:1px solid rgba(201,169,110,.3);background:linear-gradient(135deg,rgba(201,169,110,.2),rgba(201,169,110,.08));color:#c9a96e;font-family:Inter,sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;letter-spacing:1px;transition:all .3s; }
-  .login-btn:hover { background:linear-gradient(135deg,rgba(201,169,110,.3),rgba(201,169,110,.15)); }
-  .login-error { color:#e74c3c;font-size:.75rem;margin-top:12px;opacity:0;transition:opacity .3s; }
-  .login-error.show { opacity:1; }
-
   .bg-img { position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; opacity: .12; filter: blur(2px) saturate(1.2); }
   .bg-overlay { position: fixed; inset: 0; z-index: 1; background: radial-gradient(ellipse at 30% 20%, rgba(200,170,110,.08) 0%, transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(80,130,200,.06) 0%, transparent 60%), linear-gradient(180deg, rgba(10,10,10,.6) 0%, rgba(10,10,10,.92) 100%); }
 
@@ -364,18 +350,6 @@
 </head>
 <body>
 
-<!-- Login Screen -->
-<div class="login-overlay" id="loginOverlay">
-    <div class="login-box">
-        <div class="login-logo">L</div>
-        <div class="login-title">LEV'S HUB</div>
-        <input class="login-input" id="loginUser" type="text" placeholder="Username" autocomplete="off">
-        <input class="login-input" id="loginPass" type="password" placeholder="Password">
-        <button class="login-btn" id="loginBtn">ENTER</button>
-        <div class="login-error" id="loginError">Invalid credentials</div>
-    </div>
-</div>
-
 <img class="bg-img" src="background5.jpg" alt="">
 <div class="bg-overlay"></div>
 
@@ -431,11 +405,10 @@
 
   <!-- Workout Diary -->
   <div class="card">
-    <h2>Workout Diary</h2>
+    <h2 style="display:flex;align-items:center;gap:10px;">Workout Diary <span style="font-size:.6rem;font-weight:600;letter-spacing:1.5px;padding:4px 10px;border-radius:8px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.15);color:#4ade80;text-transform:uppercase;">RIR 1-2</span></h2>
     <div class="toggle-btns" id="toggleBtns">
-      <button class="toggle-btn active" data-training="A">Training A</button>
-      <button class="toggle-btn" data-training="B">Training B</button>
-      <button class="toggle-btn" data-training="C">Training C</button>
+      <button class="toggle-btn active" data-training="A">Training A · Push</button>
+      <button class="toggle-btn" data-training="B">Training B · Pull</button>
     </div>
     <div class="next-label" id="nextLabel"></div>
     <div id="trainingContent"></div>
@@ -635,29 +608,27 @@
 /* ===== WORKOUT DIARY ===== */
 const trainingData = {
   A: [
-    { name: 'Leg Press', nameRu: 'Жим ногами', sets: '3×8-12', url: 'https://www.youtube.com/shorts/NuCWXAZLLgw?feature=share' },
-    { name: 'Leg Curl', nameRu: 'Сгибание ног сидя', sets: '2×10-12', url: 'https://www.youtube.com/shorts/IjUU0SkS8Vg?feature=share' },
-    { name: 'Chest Press', nameRu: 'Жим от груди в тренажере', sets: '3×8-12', url: 'https://youtu.be/Ri0fuHXblaA?si=d_K0m0_Pb_EKNHZ_' },
-    { name: 'Lat Pulldown', nameRu: 'Тяга верхнего блока', sets: '3×8-12', url: 'https://www.youtube.com/shorts/ViA3Ws4Ezak?feature=share' },
-    { name: 'Shoulder Press', nameRu: 'Жим плеч в тренажере', sets: '2×8-12', url: 'https://youtu.be/byvqqhwbD2s' },
-    { name: 'Triceps Pushdown', nameRu: 'Трицепс на блоке', sets: '2×10-12', url: 'https://www.youtube.com/shorts/NMY70SP-OHY?feature=share' },
-    { name: 'Abdominal Crunch', nameRu: 'Скручивание в тренажере', sets: '2×10-15', url: 'https://youtube.com/shorts/DVCmFYlNFRg?si=WsgWlr0ALb6nNZbJ' }
+    { name: 'Leg Press', nameRu: 'Жим ногами', sets: '4×8-12', url: 'https://youtube.com/shorts/NuCWXAZLLgw?is=3P9hO9n36mhOT1Wr' },
+    { name: 'Leg Extension', nameRu: 'Разгибание ног', sets: '3×12-15', url: 'https://youtube.com/shorts/P7tyoHwFRR4?is=w8Hu9xkMlNYdCXkF' },
+    { name: 'Chest Press', nameRu: 'Жим от груди', sets: '3×8-12', url: 'https://youtube.com/shorts/EC1Yf3M0im8?is=bdAV9DSniv4fxSXm' },
+    { name: 'Pectoral', nameRu: 'Сведение рук', sets: '3×10-12', url: 'https://youtube.com/shorts/tByJiJj9n0U?is=U_ARILKFH2tixe2S' },
+    { name: 'Shoulder Press', nameRu: 'Жим плеч', sets: '3×8-12', url: 'https://youtube.com/shorts/lC9uiTqYH84?is=_g4ItfNvBMRiUnXt' },
+    { name: 'Delts Machine', nameRu: 'Дельты в тренажёре', sets: '4×12-15', url: 'https://youtube.com/shorts/78hk4Fy_kDA?is=unzsenWO7tAKGqns' },
+    { name: 'Triceps Pushdown', nameRu: 'Трицепс на блоке', sets: '3×10-12', url: 'https://youtube.com/shorts/NMY70SP-OHY?si=4jPio5STfDrrKV8_' },
+    { name: 'Arm Extension Machine', nameRu: 'Разгибание рук в тренажёре (трицепс)', sets: '3×10-12', url: 'https://youtube.com/shorts/tVNSmck6hnE?is=wEnysnqCti6nnDQ3' },
+    { name: 'Calf Raise', nameRu: 'Подъёмы на икры', sets: '3×10-15', url: 'https://youtube.com/shorts/a-x_NR-ibos?is=jtz4OVz8qqmNaaO7' },
+    { name: 'Abdominal Crunch', nameRu: 'Скручивания в тренажёре', sets: '3×12-15', url: 'https://youtube.com/shorts/f0tJV1k5BNs?is=y9d34Gxtk1bWnlqt' }
   ],
   B: [
-    { name: 'Hack Squat', nameRu: 'Жим ногами', sets: '3×8-12', url: 'https://www.youtube.com/shorts/NuCWXAZLLgw?feature=share' },
-    { name: 'Leg Extension', nameRu: 'Разгибание ног', sets: '2×10-12', url: 'https://www.youtube.com/shorts/P7tyoHwFRR4?feature=share' },
-    { name: 'Seated Row', nameRu: 'Горизонтальная тяга сидя', sets: '3×8-12', url: 'https://www.youtube.com/shorts/j3k4DsTAgx8?feature=share' },
-    { name: 'Pec Deck', nameRu: 'Пек дек', sets: '2×10-12', url: 'https://www.youtube.com/shorts/5JYeo9hgIC8?feature=share' },
-    { name: 'Delts Machine', nameRu: 'Дельты в тренажере', sets: '2×10-12', url: 'https://www.youtube.com/shorts/U2ZwvEhnjjQ?feature=share' },
-    { name: 'Bicep Curl', nameRu: 'Подъём на бицепс на блоке', sets: '2×10-12', url: 'https://www.youtube.com/shorts/ctfcKdoCfxM?feature=share' },
-    { name: 'Calf Raise', nameRu: 'Подъёмы на икры', sets: '2×10-15', url: 'https://www.youtube.com/shorts/EOPs46hRnjw?feature=share' },
-    { name: 'Abdominal Crunch', nameRu: 'Скручивание в тренажере', sets: '2×10-15', url: 'https://youtube.com/shorts/DVCmFYlNFRg?si=WsgWlr0ALb6nNZbJ' }
-  ],
-  C: [
-    { name: 'Hammer Curl', nameRu: 'Молотки с гантелями', sets: '3×12-15', url: 'https://youtube.com/shorts/wqyVD1cMLh8?is=Xbsna4W_LjC4yieg' },
-    { name: 'Lateral Raise', nameRu: 'Махи гантелями в стороны', sets: '3×12-15', url: 'https://youtube.com/shorts/sRlyKOrvr7E?is=4qD1FMlXnMJNYQWN' },
-    { name: 'Pec Deck', nameRu: 'Бабочка / Пек Дек', sets: '3×12-15', url: 'https://youtube.com/shorts/d0xbXpJSF98?is=w-hTN2-KWv3pQIIv' },
-    { name: 'Wrist Curl', nameRu: 'Сгибание кистей со штангой / гантелями', sets: '3×12-15', url: 'https://youtube.com/shorts/KL3HEWC0ez8?is=Vd162CZ4EpzGKBTK' }
+    { name: 'Romanian Deadlift', nameRu: 'Румынская тяга', sets: '4×8-12', url: 'https://youtube.com/shorts/8XYftlnOD5w?is=hy4_qRM8bYfVcLVh' },
+    { name: 'Seated Leg Curl', nameRu: 'Сгибание ног сидя', sets: '3×10-12', url: 'https://youtube.com/shorts/09J9tcqEtj8?is=nLwJQQ3JxyZJxH' },
+    { name: 'Lat Pulldown', nameRu: 'Тяга верхнего блока', sets: '3×10-12', url: 'https://m.youtube.com/shorts/ViA3Ws4Ezak?feature=share' },
+    { name: 'Low Row', nameRu: 'Горизонтальная тяга сидя', sets: '3×10-12', url: 'https://www.youtube.com/shorts/j3k4DsTAgx8?feature=share' },
+    { name: 'Reverse Pec Deck', nameRu: 'Обратный Пек Дек (задние дельты)', sets: '4×12-15', url: 'https://www.youtube.com/shorts/5JYeo9hgIC8?feature=share' },
+    { name: 'Arm Curl Machine', nameRu: 'Сгибание рук в тренажёре (бицепс)', sets: '3×10-12', url: 'https://youtube.com/shorts/IWDHXA1ZcT8?is=9QgKqBX6kU9lXxLr' },
+    { name: 'Cable Bicep Curl', nameRu: 'Подъём на бицепс на блоке', sets: '3×10-12', url: 'https://www.youtube.com/shorts/ctfcKdoCfxM?feature=share' },
+    { name: 'Calf Raise', nameRu: 'Подъёмы на икры', sets: '3×10-15', url: 'https://youtube.com/shorts/a-x_NR-ibos?is=jtz4OVz8qqmNaaO7' },
+    { name: 'Abdominal Crunch', nameRu: 'Скручивания в тренажёре', sets: '3×12-15', url: 'https://youtube.com/shorts/f0tJV1k5BNs?is=y9d34Gxtk1bWnlqt' }
   ]
 };
 
@@ -667,9 +638,6 @@ function renderTrainingExercises(type) {
   const exercises = trainingData[type];
   const ytIcon = '<svg viewBox="0 0 24 24" width="18" height="18" fill="#FF0000" style="flex-shrink:0;"><path d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.5.6c-1 .3-1.7 1.1-2 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1 1 1.8 2 2.1 1.9.6 9.5.6 9.5.6s7.6 0 9.5-.6c1-.3 1.7-1.1 2-2.1.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>';
   let html = '';
-  if (type === 'C') {
-    html += '<div style="padding:10px 14px;margin-bottom:14px;border-radius:10px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.12);font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.5;"><span style="color:#f59e0b;font-weight:600;">⚠️ Разгрузочный день.</span> Эту тренировку не следует выполнять часто.</div>';
-  }
   html += '<div class="exercise-list">';
   exercises.forEach((ex, idx) => {
     const ytLink = ex.url ? `<a href="${ex.url}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;margin-left:8px;opacity:.7;transition:opacity .2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'">${ytIcon}</a>` : '';
@@ -775,31 +743,6 @@ function renderNextDot() {
 function setNextWorkout(type) {
   nextWorkout = type;
   localStorage.setItem('levhub_next_workout', type || '');
-  renderNextDot();
-  saveNextWorkoutToSupabase();
-}
-
-async function saveNextWorkoutToSupabase() {
-  if (!getToken()) return;
-  const existing = await supaFetch('profiles?name=eq.' + encodeURIComponent(currentProfile), 'GET');
-  let merged = {};
-  if (existing && existing.length > 0 && existing[0].data) merged = existing[0].data;
-  merged.levhub_next_workout = nextWorkout || '';
-  await supaFetch('profiles', 'POST', { name: currentProfile, data: merged, updated_at: new Date().toISOString() });
-}
-
-async function loadNextWorkoutFromSupabase() {
-  // Try Supabase first, fall back to localStorage
-  if (getToken()) {
-    const data = await supaFetch('profiles?name=eq.' + encodeURIComponent(currentProfile), 'GET');
-    if (data && data.length > 0 && data[0].data && data[0].data.levhub_next_workout) {
-      nextWorkout = data[0].data.levhub_next_workout;
-      localStorage.setItem('levhub_next_workout', nextWorkout);
-      renderNextDot();
-      return;
-    }
-  }
-  nextWorkout = localStorage.getItem('levhub_next_workout') || null;
   renderNextDot();
 }
 
@@ -1081,107 +1024,6 @@ function loadMealState() {
   if (water === 'true') document.getElementById('waterCheck').checked = true;
 }
 
-/* ===== SUPABASE AUTH + PROFILE SYNC ===== */
-const SUPABASE_URL = 'https://pvmdetoukuybxtfehgbx.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2bWRldG91a3V5Ynh0ZmVoZ2J4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5NTU3NzQsImV4cCI6MjA4ODUzMTc3NH0.9J4AadFYX4PnVMJS5nGSZfaYGX1s1E5yZvQPgpUsb08';
-const EMAIL_MAP = { 'Lev': 'lev.rzn.office@gmail.com' };
-const SYNC_KEYS_TRAINING = ['workoutInputs_A', 'workoutInputs_B', 'workoutInputs_C', 'dietCalc'];
-let currentProfile = 'Lev';
-
-function getToken() { return localStorage.getItem('levhub_token'); }
-
-async function supaAuth(email, password) {
-    const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=password', {
-        method: 'POST',
-        headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-    });
-    if (!res.ok) return null;
-    return await res.json();
-}
-
-async function refreshToken() {
-    const rt = localStorage.getItem('levhub_refresh');
-    if (!rt) return false;
-    const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=refresh_token', {
-        method: 'POST',
-        headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ refresh_token: rt })
-    });
-    if (!res.ok) { localStorage.removeItem('levhub_token'); localStorage.removeItem('levhub_refresh'); return false; }
-    const d = await res.json();
-    localStorage.setItem('levhub_token', d.access_token);
-    localStorage.setItem('levhub_refresh', d.refresh_token);
-    return true;
-}
-
-async function supaFetch(path, method, body, retry) {
-    const token = getToken();
-    if (!token) return null;
-    const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, {
-        method,
-        headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json',
-            'Prefer': method === 'POST' ? 'resolution=merge-duplicates' : 'return=representation'
-        },
-        body: body ? JSON.stringify(body) : undefined
-    });
-    if (res.status === 401 && !retry) {
-        const ok = await refreshToken();
-        if (ok) return supaFetch(path, method, body, true);
-        return null;
-    }
-    if (!res.ok) return null;
-    const text = await res.text();
-    return text ? JSON.parse(text) : null;
-}
-
-async function saveTrainingData() {
-    if (!getToken()) return;
-    const data = {};
-    SYNC_KEYS_TRAINING.forEach(key => {
-        const val = localStorage.getItem(key);
-        if (val) { try { data[key] = JSON.parse(val); } catch(e) { data[key] = val; } }
-    });
-    const existing = await supaFetch('profiles?name=eq.' + encodeURIComponent(currentProfile), 'GET');
-    let merged = {};
-    if (existing && existing.length > 0 && existing[0].data) merged = existing[0].data;
-    Object.assign(merged, data);
-    await supaFetch('profiles', 'POST', { name: currentProfile, data: merged, updated_at: new Date().toISOString() });
-}
-
-setInterval(() => { if (getToken()) saveTrainingData(); }, 30000);
-window.addEventListener('beforeunload', () => { if (getToken()) saveTrainingData(); });
-
-/* ===== LOGIN AUTH (Supabase Auth) ===== */
-async function checkAuth() {
-    const token = getToken();
-    if (!token) return false;
-    return await refreshToken();
-}
-
-async function doLogin() {
-    const u = document.getElementById('loginUser').value.trim();
-    const p = document.getElementById('loginPass').value;
-    const email = EMAIL_MAP[u];
-    if (!email) { showLoginError(); return; }
-    document.getElementById('loginBtn').textContent = '...';
-    const result = await supaAuth(email, p);
-    document.getElementById('loginBtn').textContent = 'ENTER';
-    if (!result || !result.access_token) { showLoginError(); return; }
-    localStorage.setItem('levhub_token', result.access_token);
-    localStorage.setItem('levhub_refresh', result.refresh_token);
-    localStorage.setItem('levhub_profile', 'Lev');
-    document.getElementById('loginOverlay').classList.add('hidden');
-    loadNextWorkoutFromSupabase();
-}
-
-function showLoginError() {
-    document.getElementById('loginError').classList.add('show');
-    setTimeout(() => document.getElementById('loginError').classList.remove('show'), 2000);
-}
 
 /* ===== SATIETY INDEX ===== */
 const siData = [
@@ -1312,16 +1154,8 @@ function initApp() {
 }
 
 // Initialize
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     initApp();
-    const authed = await checkAuth();
-    if (authed) {
-        document.getElementById('loginOverlay').classList.add('hidden');
-        loadNextWorkoutFromSupabase();
-    }
-    document.getElementById('loginBtn').addEventListener('click', doLogin);
-    document.getElementById('loginPass').addEventListener('keypress', e => { if(e.key==='Enter') doLogin(); });
-    document.getElementById('loginUser').addEventListener('keypress', e => { if(e.key==='Enter') document.getElementById('loginPass').focus(); });
 });
 </script>
 
