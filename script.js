@@ -1724,6 +1724,98 @@ const FRAGRANCES = [
       summer: { day: 'full', night: 'full' },
       autumn: { day: 'full', night: 'caution' }
     }
+  },
+  {
+    id: 'bianco-latte',
+    name: 'Bianco Latte',
+    house: 'Giardini Di Toscana',
+    family: 'Гурманский · Сладкий · Ванильный',
+    image: 'levs-scent/bottles/bianco-latte.png',
+    vibe: 'levs-scent/vibes/bianco-latte-vibe.png',
+    accent: '#C68642',
+    gradient: 'linear-gradient(135deg, #F5EBE1 0%, #E8D3C3 50%, #C68642 100%)',
+    total: 5,
+    refreshHours: 8,
+    overspray: true,
+    maxCapped: false,
+    notes: {
+      top: ['Карамель'],
+      heart: ['Кумарин', 'Мёд'],
+      base: ['Ваниль', 'Белый мускус']
+    },
+    seasons: { winter: 'day+night', spring: 'day+night', summer: 'night-only', autumn: 'day+night' },
+    vibeCaption: 'Уютная кофейня, горячая карамель и ванильное молоко. Невероятно притягательный и комплиментарный аромат, от которого сходят с ума. Сидит как родной.',
+    variations: [
+      {
+        label: 'Мягкое облако (4 пшика)',
+        points: [
+          { spot: 'spot-neck-front.png', n: 1, title: 'Спереди на шею', detail: 'На кожу — для шлейфа' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши', detail: 'На кожу — по одному за каждое ухо' },
+          { spot: 'spot-neck-back.png', n: 1, title: 'Задняя часть шеи', detail: 'На кожу — тёплый фон' }
+        ]
+      },
+      {
+        label: 'Комплиментарный магнит (5 пшиков)',
+        points: [
+          { spot: 'spot-neck-front.png', n: 1, title: 'Передняя часть шеи', detail: 'На кожу — центр притяжения' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши', detail: 'На кожу — для пульсации' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 2, title: 'Ключицы под одежду', detail: 'На одежду — для стойкости' }
+        ]
+      },
+      {
+        label: 'Caramel Overdose (6 пшиков)',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши', detail: 'На кожу — пульсация' },
+          { spot: 'spot-neck-back.png', n: 2, title: 'Задняя часть шеи', detail: 'На кожу — длинный шлейф' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи', detail: 'На одежду — объемный кокон' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: {
+        total: 3,
+        note: 'Очень сладкий, может отвлекать, наноси под одежду.',
+        caution: true,
+        points: [
+          { spot: 'spot-chest.png', n: 1, title: 'На грудь', detail: 'На кожу — под одежду' },
+          { spot: 'spot-neck-back.png', n: 2, title: 'Сзади на шею', detail: 'На кожу — тихий фон' }
+        ]
+      },
+      gym: { total: 0, forbidden: true, message: 'Слишком сладкий и гурманский, задушит при физических нагрузках.' },
+      date: {
+        total: 4,
+        note: 'Идеальное оружие соблазнения, абсолютный хит.',
+        points: [
+          { spot: 'spot-neck-front.png', n: 1, title: 'Шея спереди', detail: 'На кожу — ближе к лицу' },
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши', detail: 'На кожу — по одному за уши' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье', detail: 'На кожу — на одно, растереть со вторым' }
+        ]
+      },
+      walk: {
+        total: 5,
+        note: 'Шикарный шлейф на открытом прохладном воздухе.',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За уши', detail: 'На кожу — база шлейфа' },
+          { spot: 'spot-neck-back.png', n: 1, title: 'Сзади на шею', detail: 'На кожу — задний фон' },
+          { spot: 'spot-shoulders-clothes.png', n: 2, title: 'Плечи', detail: 'На одежду — на куртку или худи' }
+        ]
+      },
+      home: {
+        total: 2,
+        note: 'Уютный домашний релакс.',
+        points: [
+          { spot: 'spot-chest.png', n: 1, title: 'На грудь', detail: 'На кожу — тёплый кокон' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье', detail: 'На кожу — чтобы вдыхать самому' }
+        ]
+      }
+    },
+    masterWarning: 'Очень сладкий и невероятно стойкий. Осторожнее в сильную жару!',
+    seasonTimeMatrix: {
+      winter: { day: 'full', night: 'full' },
+      spring: { day: 'caution', night: 'full' },
+      summer: { day: 'forbidden', night: 'caution' },
+      autumn: { day: 'full', night: 'full' }
+    }
   }
 ];
 
@@ -1752,7 +1844,9 @@ const NOTE_MAP = {
   'Груша': 'pear',
   'Тунисский флёрдоранж': 'orange-blossom', 'Флёрдоранж': 'orange-blossom',
   'Ambrofix': 'ambrofix', 'Ambrofix™': 'ambrofix',
-  'Калабрийский бергамот': 'bergamot'
+  'Калабрийский бергамот': 'bergamot',
+  'Карамель': 'caramel', 'Кумарин': 'coumarin', 'Мёд': 'honey',
+  'Белый мускус': 'white_musk'
 };
 
 const NOTE_FILES = {
@@ -1774,7 +1868,8 @@ const NOTE_FILES = {
   'bourbon': 'webp',
   'plum': 'webp', 'palo-santo': 'webp',
   'pear': 'png',
-  'orange-blossom': 'webp', 'ambrofix': 'jpg'
+  'orange-blossom': 'webp', 'ambrofix': 'jpg',
+  'caramel': 'png', 'coumarin': 'png', 'honey': 'png', 'white_musk': 'jpg'
 };
 
 function getNoteImage(noteName) {
@@ -2872,6 +2967,16 @@ const REASONS = {
       'Тунисский флёрдоранж раскрывается только в тепле.',
       'Калабрийский цитрус + ambrofix = идеальная весна и лето.'
     ]
+  },
+  'bianco-latte': {
+    cold: [
+      'Согревает как горячий латте с карамелью.',
+      'Оставляет невероятно притягательный сладкий шлейф.'
+    ],
+    warm: [
+      'Красиво раскрывается сливочной базой прохладным вечером.',
+      'Привлекает внимание гурманской сладостью.'
+    ]
   }
 };
 
@@ -2987,7 +3092,7 @@ function computeWarmthScore(weather) {
  * Доминирующие ноты: ваниль, табак, тяжёлая сладость, гурманские.
  * При высокой влажности + score >= 1 эти ароматы принудительно исключаются.
  */
-const HUMIDITY_HEAVY_IDS = ['qahwa', 'brun', 'tobacco', 'ninepm', 'angels-share', 'blonde-amber', 'asad-bourbon'];
+const HUMIDITY_HEAVY_IDS = ['qahwa', 'brun', 'tobacco', 'ninepm', 'angels-share', 'blonde-amber', 'asad-bourbon', 'bianco-latte'];
 
 /*
  * Получить статус матрицы сезон/время для аромата.
@@ -3020,13 +3125,13 @@ function getScentOfDay(weather) {
   /* --- Подбор кандидатов по warmth score --- */
   if (score <= -3) {
     // Экстремальный холод: только самые тяжёлые
-    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'blonde-amber', 'asad-bourbon'];
+    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'blonde-amber', 'asad-bourbon', 'bianco-latte'];
   } else if (score === -2) {
-    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'ninepm', 'opulent-dubai', 'blonde-amber', 'asad-bourbon', 'vintage-radio'];
+    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'ninepm', 'opulent-dubai', 'blonde-amber', 'asad-bourbon', 'vintage-radio', 'bianco-latte'];
   } else if (score === -1) {
-    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'fursan', 'blonde-amber', 'asad-bourbon', 'vintage-radio', 'legacy'];
+    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'fursan', 'blonde-amber', 'asad-bourbon', 'vintage-radio', 'legacy', 'bianco-latte'];
   } else if (score === 0) {
-    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue', 'marwa', 'asad-bourbon', 'vintage-radio', 'legacy', 'myslf'];
+    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue', 'marwa', 'asad-bourbon', 'vintage-radio', 'legacy', 'myslf', 'bianco-latte'];
   } else if (score === 1) {
     candidateIds = ['fursan', 'fakhar', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue', 'marwa', 'vintage-radio', 'legacy', 'myslf'];
   } else if (score === 2) {
