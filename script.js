@@ -1816,6 +1816,120 @@ const FRAGRANCES = [
       summer: { day: 'forbidden', night: 'caution' },
       autumn: { day: 'full', night: 'full' }
     }
+  },
+  {
+    id: 'black-phantom',
+    name: 'Black Phantom "Memento Mori"',
+    house: 'Kilian',
+    family: 'Гурманский · Шоколадный · Алкогольный',
+    image: 'levs-scent/bottles/black-phantom.png',
+    vibe: 'levs-scent/vibes/black-phantom-vibe.png',
+    accent: '#4a2410',
+    gradient: 'linear-gradient(135deg, #050201 0%, #1a0a05 35%, #3a1f0f 70%, #6b3410 100%)',
+    total: 7,
+    refreshHours: 6,
+    overspray: true,
+    maxCapped: false,
+    notes: {
+      top: ['Ром'],
+      heart: ['Тёмный шоколад', 'Кофе', 'Миндаль', 'Гелиотроп'],
+      base: ['Карамель', 'Сахарный тростник', 'Сандал', 'Ваниль', 'Бобы тонка', 'Ветивер']
+    },
+    seasons: { winter: 'day+night', spring: 'night', summer: 'forbidden', autumn: 'day+night' },
+    vibeCaption: 'Декадентский гурман в стиле скрытого бара: ром, кофе, тёмный шоколад. Раскрывается от тепла тела — чем холоднее снаружи, тем мощнее изнутри.',
+    variations: [
+      {
+        label: 'Лёгкий день (5 пшиков)',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 1, title: 'За ухом', detail: 'На кожу — мягкий пульс' },
+          { spot: 'spot-neck-front.png', n: 1, title: 'Спереди шеи', detail: 'На кожу — низ под подбородком' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 1, title: 'Ключицы под одежду', detail: 'На кожу — под рубашкой, греется' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Внутренний сгиб', detail: 'На кожу — медленный релиз' },
+          { spot: 'spot-shoulders-clothes.png', n: 1, title: 'Воротник свитера', detail: 'На одежду — один пшик для шлейфа' }
+        ]
+      },
+      {
+        label: 'Стандарт холодный день (7 пшиков)',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 1, title: 'За ухом', detail: 'На кожу — классический пульс' },
+          { spot: 'spot-neck-front.png', n: 1, title: 'Спереди шеи', detail: 'На кожу' },
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок', detail: 'На кожу — под волосами' },
+          { spot: 'spot-collarbones-skin.png', n: 1, title: 'Ключицы', detail: 'На кожу — открытая часть' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь', detail: 'На кожу — под рубашку, тёплая зона' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Внутренний сгиб', detail: 'На кожу — сгиб локтя' },
+          { spot: 'spot-hair.png', n: 1, title: 'Волосы', detail: 'Лёгкий пшик — карамель цепляется хорошо' }
+        ]
+      },
+      {
+        label: 'Вечер / свидание (9 пшиков)',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За обоими ушами', detail: 'На кожу — основной пульс' },
+          { spot: 'spot-neck-front.png', n: 1, title: 'Спереди шеи', detail: 'На кожу' },
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок', detail: 'На кожу' },
+          { spot: 'spot-collarbones-skin.png', n: 1, title: 'Ключицы', detail: 'На кожу — открыто' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь', detail: 'На кожу — под рубашкой' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье', detail: 'На кожу — пульсация к лицу собеседника' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Внутренний сгиб', detail: 'На кожу' },
+          { spot: 'spot-hair.png', n: 1, title: 'Волосы', detail: 'Для долгого шлейфа' }
+        ]
+      }
+    ],
+    scenarios: {
+      school: {
+        total: 4,
+        note: 'Лёгкая дозировка, плотный гурман в классе — это слишком.',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 1, title: 'За ухом', detail: 'На кожу' },
+          { spot: 'spot-neck-front.png', n: 1, title: 'Спереди шеи', detail: 'На кожу' },
+          { spot: 'spot-collarbones-under-clothes.png', n: 1, title: 'Ключицы под одежду', detail: 'На кожу — под рубашкой' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Внутренний сгиб', detail: 'На кожу' }
+        ]
+      },
+      gym: { total: 0, forbidden: true, message: 'Тяжёлый сладкий гурман в спортзале = катастрофа.' },
+      date: {
+        total: 9,
+        note: 'Полная подача, аромат раскрывается от тепла, оставляет след.',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 2, title: 'За оба уха', detail: 'На кожу' },
+          { spot: 'spot-neck-front.png', n: 1, title: 'Спереди шеи', detail: 'На кожу' },
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок', detail: 'На кожу' },
+          { spot: 'spot-collarbones-skin.png', n: 1, title: 'Ключицы', detail: 'На кожу — открыто' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь', detail: 'На кожу' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье', detail: 'На кожу' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Сгиб локтя', detail: 'На кожу' },
+          { spot: 'spot-hair.png', n: 1, title: 'Волосы', detail: 'Для долгого шлейфа' }
+        ]
+      },
+      walk: {
+        total: 7,
+        note: 'Холодный день, нужна проекция от тёплой кожи под курткой.',
+        points: [
+          { spot: 'spot-behind-ears.png', n: 1, title: 'За ухом', detail: 'На кожу' },
+          { spot: 'spot-neck-front.png', n: 1, title: 'Спереди шеи', detail: 'На кожу' },
+          { spot: 'spot-nape.png', n: 1, title: 'Затылок', detail: 'На кожу — под шарфом' },
+          { spot: 'spot-collarbones-skin.png', n: 1, title: 'Ключицы', detail: 'На кожу' },
+          { spot: 'spot-chest.png', n: 1, title: 'Грудь', detail: 'На кожу' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Сгиб локтя', detail: 'На кожу' },
+          { spot: 'spot-hair.png', n: 1, title: 'Волосы', detail: 'Лёгкий пшик' }
+        ]
+      },
+      home: {
+        total: 3,
+        note: 'Для удовольствия, не для шлейфа.',
+        points: [
+          { spot: 'spot-neck-front.png', n: 1, title: 'Спереди шеи', detail: 'На кожу' },
+          { spot: 'spot-wrists.png', n: 1, title: 'Запястье', detail: 'На кожу' },
+          { spot: 'spot-inner-elbow.png', n: 1, title: 'Сгиб локтя', detail: 'На кожу' }
+        ]
+      }
+    },
+    masterWarning: 'Гурман с плотной сладкой базой. В зал и в жару — категорически нет, удушит и тебя, и окружающих.',
+    seasonTimeMatrix: {
+      winter: { day: 'full', night: 'full' },
+      spring: { day: 'caution', night: 'full' },
+      summer: { day: 'forbidden', night: 'caution' },
+      autumn: { day: 'full', night: 'full' }
+    }
   }
 ];
 
@@ -1846,7 +1960,9 @@ const NOTE_MAP = {
   'Ambrofix': 'ambrofix', 'Ambrofix™': 'ambrofix',
   'Калабрийский бергамот': 'bergamot',
   'Карамель': 'caramel', 'Кумарин': 'coumarin', 'Мёд': 'honey',
-  'Белый мускус': 'white_musk'
+  'Белый мускус': 'white_musk',
+  'Ром': 'rum', 'Тёмный шоколад': 'dark-chocolate', 'Кофе': 'coffee',
+  'Миндаль': 'almond', 'Гелиотроп': 'heliotrope', 'Сахарный тростник': 'sugar-cane'
 };
 
 const NOTE_FILES = {
@@ -1869,7 +1985,9 @@ const NOTE_FILES = {
   'plum': 'webp', 'palo-santo': 'webp',
   'pear': 'png',
   'orange-blossom': 'webp', 'ambrofix': 'jpg',
-  'caramel': 'png', 'coumarin': 'png', 'honey': 'png', 'white_musk': 'jpg'
+  'caramel': 'png', 'coumarin': 'png', 'honey': 'png', 'white_musk': 'jpg',
+  'rum': 'png', 'dark-chocolate': 'png', 'coffee': 'png',
+  'almond': 'png', 'heliotrope': 'png', 'sugar-cane': 'png'
 };
 
 function getNoteImage(noteName) {
@@ -2977,6 +3095,18 @@ const REASONS = {
       'Красиво раскрывается сливочной базой прохладным вечером.',
       'Привлекает внимание гурманской сладостью.'
     ]
+  },
+  'black-phantom': {
+    cold: [
+      'Холодная погода — его стихия: тепло кожи раскрывает ром и шоколад под слоями одежды.',
+      'Кофе и карамель в морозном воздухе работают как тёплое объятие.',
+      'В куртке аромат накапливается у груди и взрывается шлейфом при движении.'
+    ],
+    warm: [
+      'В тепло — только на прохладный вечер, и то с осторожностью.',
+      'Сладкая база душит при влажности — Kilian создавал его для зимы.',
+      'Если очень хочется — минимум пшиков и только на пульс.'
+    ]
   }
 };
 
@@ -3092,7 +3222,7 @@ function computeWarmthScore(weather) {
  * Доминирующие ноты: ваниль, табак, тяжёлая сладость, гурманские.
  * При высокой влажности + score >= 1 эти ароматы принудительно исключаются.
  */
-const HUMIDITY_HEAVY_IDS = ['qahwa', 'brun', 'tobacco', 'ninepm', 'angels-share', 'blonde-amber', 'asad-bourbon', 'bianco-latte'];
+const HUMIDITY_HEAVY_IDS = ['qahwa', 'brun', 'tobacco', 'ninepm', 'angels-share', 'blonde-amber', 'asad-bourbon', 'bianco-latte', 'black-phantom'];
 
 /*
  * Получить статус матрицы сезон/время для аромата.
@@ -3125,13 +3255,13 @@ function getScentOfDay(weather) {
   /* --- Подбор кандидатов по warmth score --- */
   if (score <= -3) {
     // Экстремальный холод: только самые тяжёлые
-    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'blonde-amber', 'asad-bourbon', 'bianco-latte'];
+    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'blonde-amber', 'asad-bourbon', 'bianco-latte', 'black-phantom'];
   } else if (score === -2) {
-    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'ninepm', 'opulent-dubai', 'blonde-amber', 'asad-bourbon', 'vintage-radio', 'bianco-latte'];
+    candidateIds = ['tobacco', 'brun', 'qahwa', 'angels-share', 'ninepm', 'opulent-dubai', 'blonde-amber', 'asad-bourbon', 'vintage-radio', 'bianco-latte', 'black-phantom'];
   } else if (score === -1) {
-    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'fursan', 'blonde-amber', 'asad-bourbon', 'vintage-radio', 'legacy', 'bianco-latte'];
+    candidateIds = ['qahwa', 'brun', 'angels-share', 'ninepm', 'opulent-dubai', 'fursan', 'blonde-amber', 'asad-bourbon', 'vintage-radio', 'legacy', 'bianco-latte', 'black-phantom'];
   } else if (score === 0) {
-    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue', 'marwa', 'asad-bourbon', 'vintage-radio', 'legacy', 'myslf', 'bianco-latte'];
+    candidateIds = ['encelade', 'ninepm', 'fursan', 'opulent-dubai', 'aether', 'turathi-blue', 'marwa', 'asad-bourbon', 'vintage-radio', 'legacy', 'myslf', 'bianco-latte', 'black-phantom'];
   } else if (score === 1) {
     candidateIds = ['fursan', 'fakhar', 'opulent-dubai', 'pacific-aura', 'aether', 'turathi-blue', 'marwa', 'vintage-radio', 'legacy', 'myslf'];
   } else if (score === 2) {
